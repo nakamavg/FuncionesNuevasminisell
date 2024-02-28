@@ -34,3 +34,34 @@ output
 *[nakama][~/FuncionesNuevasminisell]$ ./a.out
 /Users/dgomez-m/FuncionesNuevasminisell
 ```
+## `chdir()`
+ - Esta funcion es literalmente la llave maestra(junto ccon lla anterior) para el cd aqui un ejemplo:
+
+
+```c
+int main(void)
+{
+	char *pwd;
+	char *cdroute;
+	char *cdin;
+	int i;
+	i=0;
+ 	pwd =  getcwd(NULL,0);
+    printf("%s\n", pwd);
+	cdroute = ft_strrchr(pwd,'/');
+	cdin = ft_substr(pwd,0, ft_strlen(pwd) - ft_strlen(cdroute));
+    printf("%s\n",cdin);
+	chdir(cdin);
+	pwd =  getcwd(NULL,0);
+    printf("%s\n", pwd);
+	
+		
+    return (0);
+}
+```
+```bash
+*[cositas][~/FuncionesNuevasminisell]$ ./minishell
+/Users/dgomez-m/FuncionesNuevasminisell
+/Users/dgomez-m
+/Users/dgomez-m
+```
