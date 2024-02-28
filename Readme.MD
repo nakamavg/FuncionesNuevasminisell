@@ -16,3 +16,21 @@
 #include <readline/history.h>
 ```
 - lo que conseguimos con esta funcion es que nos peremite guardar un input a la vez que mostramos un mensaje por pantalla
+
+## `getcwd()`
+- Esto es literalmente un pwd
+
+```c
+int main(void)
+{
+	char *pwd;
+ 	pwd =  getcwd(NULL,0);
+    printf("%s\n", pwd);
+    return (0);
+}
+```
+output
+```bash
+*[nakama][~/FuncionesNuevasminisell]$ ./a.out
+/Users/dgomez-m/FuncionesNuevasminisell
+```
