@@ -65,3 +65,23 @@ int main(void)
 /Users/dgomez-m
 /Users/dgomez-m
 ```
+# Funciones para directorios que no a usado el cabron de lloquim xd
+## Libreria  include <dirent.h>
+### `DIR *opendir(const char *filename)`
+ - Esta funcion devuelve un puntero al directorio que podemos usar despues para manipularlo.
+
+### `struct dirent *readdir(DIR *dirp)`
+
+- El fichero previamente abierto por la interior funcion ahora nos devuelve un puntero al siguiente elemento del directorio cada vez que la llamas.
+
+	- el struct Dirent contiene cosas como:
+		-  d_ino : numero de serie(inode) del archivo que es unico en el sistema
+		- char d_name[]: nombre del archivo/carpeta
+	- dependiendo de la plataforma tendra mas cosas
+		- d_namelen longitud del nombre
+		- d_type tipo de archivo
+	
+### `int closedir(DIR *dirp)`
+	
+- cierra el directorio devuelve 0 o menos 1 en caso de error
+
