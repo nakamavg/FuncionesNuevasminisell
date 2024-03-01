@@ -1,0 +1,107 @@
+Error 0: Undefined error: 0
+Error 1: Operation not permitted
+Error 2: No such file or directory
+Error 3: No such process
+Error 4: Interrupted system call
+Error 5: Input/output error
+Error 6: Device not configured
+Error 7: Argument list too long
+Error 8: Exec format error
+Error 9: Bad file descriptor
+Error 10: No child processes
+Error 11: Resource deadlock avoided
+Error 12: Cannot allocate memory
+Error 13: Permission denied
+Error 14: Bad address
+Error 15: Block device required
+Error 16: Resource busy
+Error 17: File exists
+Error 18: Cross-device link
+Error 19: Operation not supported by device
+Error 20: Not a directory
+Error 21: Is a directory
+Error 22: Invalid argument
+Error 23: Too many open files in system
+Error 24: Too many open files
+Error 25: Inappropriate ioctl for device
+Error 26: Text file busy
+Error 27: File too large
+Error 28: No space left on device
+Error 29: Illegal seek
+Error 30: Read-only file system
+Error 31: Too many links
+Error 32: Broken pipe
+Error 33: Numerical argument out of domain
+Error 34: Result too large
+Error 35: Resource temporarily unavailable
+Error 36: Operation now in progress
+Error 37: Operation already in progress
+Error 38: Socket operation on non-socket
+Error 39: Destination address required
+Error 40: Message too long
+Error 41: Protocol wrong type for socket
+Error 42: Protocol not available
+Error 43: Protocol not supported
+Error 44: Socket type not supported
+Error 45: Operation not supported
+Error 46: Protocol family not supported
+Error 47: Address family not supported by protocol family
+Error 48: Address already in use
+Error 49: Can't assign requested address
+Error 50: Network is down
+Error 51: Network is unreachable
+Error 52: Network dropped connection on reset
+Error 53: Software caused connection abort
+Error 54: Connection reset by peer
+Error 55: No buffer space available
+Error 56: Socket is already connected
+Error 57: Socket is not connected
+Error 58: Can't send after socket shutdown
+Error 59: Too many references: can't splice
+Error 60: Operation timed out
+Error 61: Connection refused
+Error 62: Too many levels of symbolic links
+Error 63: File name too long
+Error 64: Host is down
+Error 65: No route to host
+Error 66: Directory not empty
+Error 67: Too many processes
+Error 68: Too many users
+Error 69: Disc quota exceeded
+Error 70: Stale NFS file handle
+Error 71: Too many levels of remote in path
+Error 72: RPC struct is bad
+Error 73: RPC version wrong
+Error 74: RPC prog. not avail
+Error 75: Program version wrong
+Error 76: Bad procedure for program
+Error 77: No locks available
+Error 78: Function not implemented
+Error 79: Inappropriate file type or format
+Error 80: Authentication error
+Error 81: Need authenticator
+Error 82: Device power is off
+Error 83: Device error
+Error 84: Value too large to be stored in data type
+Error 85: Bad executable (or shared library)
+Error 86: Bad CPU type in executable
+Error 87: Shared library version mismatch
+Error 88: Malformed Mach-o file
+Error 89: Operation canceled
+Error 90: Identifier removed
+Error 91: No message of desired type
+Error 92: Illegal byte sequence
+Error 93: Attribute not found
+Error 94: Bad message
+Error 95: EMULTIHOP (Reserved)
+Error 96: No message available on STREAM
+Error 97: ENOLINK (Reserved)
+Error 98: No STREAM resources
+Error 99: Not a STREAM
+Error 100: Protocol error
+Error 101: STREAM ioctl timeout
+Error 102: Operation not supported on socket
+Error 103: Policy not found
+Error 104: State not recoverable
+Error 105: Previous owner died
+Error 106: Interface output queue is full

@@ -84,4 +84,65 @@ int main(void)
 ### `int closedir(DIR *dirp)`
 	
 - cierra el directorio devuelve 0 o menos 1 en caso de error
+### Main de ejemplo
+```c
+#include <stdio.h>
+#include <dirent.h>
 
+int main() {
+    // Ruta del directorio a abrir
+    const char* directorio = ".";
+
+    // Abrir el directorio
+    DIR* dir = opendir(directorio);
+    if (dir == NULL) {
+        printf("No se pudo abrir el directorio.\n");
+        return 1;
+    }
+
+    // Leer y mostrar los nombres de los archivos en el directorio
+    struct dirent* entrada;
+    while ((entrada = readdir(dir)) != NULL) {
+        printf("%s\n", entrada->d_name);
+		//imprimir cada cosa de la estructura
+		printf("d_ino: %llu\n", entrada->d_ino);
+		printf("d_reclen: %d\n", entrada->d_reclen);
+		printf("d_type: %d\n", entrada->d_type);
+		printf("d_namlen: %d\n", entrada->d_namlen);
+		printf("\n");
+    }
+
+    // Cerrar el directorio
+    closedir(dir);
+
+    return 0;
+}
+
+```
+# Errores 
+
+## `char * strerror(int errnum)`
+
+- Le pasas el numero de error y te devuele un puntero a el string del error
+ 	- ver la relacion entero error [aqui](erroreslista.txt)
+## `void perror(const char *s)`
+- Le pasas el mensaje de error
+
+### Main de ejemplo con las diferencias  entre estas dos colegas
+```c
+int main() {
+	char *manolo = "no_existe.txt";
+	  FILE *file = fopen(manolo, "r");
+    if (file == NULL) {
+		printf("%s",strerror(errno));
+        perror("\nError al abrir el archivo");
+		return 1;
+    }
+    return 0;
+}
+
+```
+```bash
+Error al abrir el archivo: No such file or directory
+No such file or directory%  
+```
