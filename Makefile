@@ -18,6 +18,11 @@ $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
 
+fsanitize:
+	$(eval CFLAGS +=-fsanitize=address -g3)
+
+sanitize: fsanitize all
+
 clean:
 	rm -rf $(OBJS)
 	make clean -C $(LIBFT_DIR)
