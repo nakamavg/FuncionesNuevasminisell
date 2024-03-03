@@ -2,7 +2,7 @@ NAME	= minishell
 CC		= clang
 CFLAGS	= -Wall -Wextra -Werror
 SFLAGS	= -g3 -fsanitize=address
-
+READLINE = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 FILES	= srcs/main
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
@@ -16,7 +16,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) $(READLINE) -o $@ $^ -L $(LIBFT_DIR) -lft
 
 clean:
 	rm -rf $(OBJS)

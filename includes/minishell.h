@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/02/27 20:51:03 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:12:19 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,14 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include <stdio.h>
+# include <dirent.h>
+# include <errno.h>
+# include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+
+
 
 #endif
