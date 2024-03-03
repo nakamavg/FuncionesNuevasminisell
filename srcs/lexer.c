@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/03 05:30:22 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/03 05:43:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_token *init_token(const char *text, size_t text_length, int initial_idx
 
 static int ft_is_special_char(char c)
 {
-	return (c == '<' || c == '>' || c == '|' || c == ';' || c == '&' || c == '\\' || c == '$' || c == '\'' || c == '\"' || c == '(' || c == ')' || c == '*' || c == '?' || c == '!' || c == '=');
+	return (ft_strchr("<>|;&\\$'\"`()*?!=", c) != NULL);
 }
 
 static  size_t input_split(const char *input, t_input *input_struct, int initial_idx)
