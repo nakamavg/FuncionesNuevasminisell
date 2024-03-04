@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:39:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/04 00:46:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/04 05:25:08 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int main(void)
 {
-	lexer("   <\"       hola mundo  \"> 2>> (somewhere) `kek` /dev/null | cat -e");
+	lexer("   <\"       hola $USER son las `datetime`  \" 2>> (somewhere) << eof '`$PATH` /dev/null' | cat -e");
     return (0);
 }

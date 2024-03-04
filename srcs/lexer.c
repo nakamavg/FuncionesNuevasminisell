@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/04 00:51:57 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/04 05:35:57 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ static int ft_is_special_char(char c)
 	return (ft_strchr("<>|;&\\$'\"`()*?!=", c) != NULL);
 }
 
+int	ft_isspace(int c)
+{
+	return (ft_strchr(" \t\n\v\f\r", c) != NULL);
+}
+
 static  size_t input_split(const char *input, t_input *input_struct, int initial_idx)
 {
 	size_t     cursor;
@@ -81,6 +86,18 @@ static  size_t input_split(const char *input, t_input *input_struct, int initial
 	cursor = 0;
 	if (ft_is_special_char(input[cursor]))
 	{
+		if (input[cursor + 1] == input[cursor])
+		{
+			add_token(input_struct, init_token(&input[cursor], 2, initial_idx));
+			return (2);
+		}
+		if (!ft_strncmp(&input[cursor], "$", 1))
+		{
+			while (input[cursor] && !ft_isspace(input[cursor]))
+				cursor++;
+			add_token(input_struct, init_token(input, cursor, initial_idx));
+			return (cursor);
+		}
 		add_token(input_struct, init_token(&input[cursor], 1, initial_idx));
 		return (1);
 	}
@@ -91,6 +108,54 @@ static  size_t input_split(const char *input, t_input *input_struct, int initial
 	return (cursor);
 }
 
+void	tokenize_sentence(t_token *token)
+{
+	if (!ft_strncmp(token->text, "\"", 1))
+		token->type = TOKEN_TYPE_DOUBLE_QUOTE;
+	else if (!ft_strncmp(token->text, "`", 1))
+		token->type = TOKEN_TYPE_BACKTICK;
+	else if (!ft_strncmp(token->text, "$", 1))
+		token->type = TOKEN_TYPE_EXPAND;
+	else
+	{
+		if (token->prev_token->type == TOKEN_TYPE_BACKTICK)
+			token->type = TOKEN_TYPE_VAR;
+		else
+			token->type = TOKEN_TYPE_STRING;
+	}
+	printf("token in sentence: %s\n\ttype: %u\n", token->text, token->type);
+}
+
+void	build_sentence(t_input *input)
+{
+	int	closed_sentence;
+	// t_token *tmp;
+
+	closed_sentence = 0;
+	while (input->token)
+	{
+		if (!ft_strncmp(input->token->text, "\"", 1))
+		{
+			input->token = input->token->next_token;
+			// printf("token next is: %s\n", input->token->next_token->text);
+			while (input->token && ft_strncmp(input->token->text, "\"", 1))
+			{
+				tokenize_sentence(input->token);
+				input->token = input->token->next_token;
+			}
+			if (input->token)
+				closed_sentence = 1;
+			if (closed_sentence) 
+				closed_sentence = 0;
+			else 
+				printf("input format: pending to deal with it\n");
+		}
+
+
+		input->token = input->token->next_token;
+	}
+}
+
 
 void   lexer(const char *input)
 {
@@ -98,23 +163,25 @@ void   lexer(const char *input)
 	int     cursor;
 	int     input_length;
 
-	printf("input: %s\n", input);
+	printf("input: %s\n\n", input);
 	input_struct = init_input();
 	if (!input_struct)
 		return ;
 	input_length = ft_strlen(input);
 	input = ft_strtrim(input, " \t\n\v\f\r");
 	cursor = 0;
-	while (cursor <= input_length)
+	while (input[cursor])
 	{
-//		printf("\nCursor: %d\nPending str: %s\n\n", cursor, input + cursor);
+		// printf("\nCursor: %d\nPending str: %s\n\n", cursor, input + cursor);
 		cursor += input_split(input + cursor, input_struct, cursor);
 	}
-	while (input_struct->token)
-	{
-		printf("Token: %s\n", input_struct->token->text);
-		input_struct->token = input_struct->token->next_token;
-	}
+	build_sentence(input_struct);
+	// input_struct->token = input_struct->head;
+	// while (input_struct->token)
+	// {
+	// 	printf("Token: %s\n\ttext_len: %lu\n\ttype: %u\n", input_struct->token->text, input_struct->token->text_length, input_struct->token->type);
+	// 	input_struct->token = input_struct->token->next_token;
+	// }
 	// printf("Head: %s\n", input_struct->head->text);
 }
 

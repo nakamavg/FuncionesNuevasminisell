@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/03 04:43:13 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/04 05:23:34 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ typedef enum {
 	TOKEN_TYPE_SINGLE_QUOTE,
 	TOKEN_TYPE_DOUBLE_QUOTE,
 	TOKEN_TYPE_OPEN_PARENTHESIS,
-	TOKEN_TYPE_CLOSE_PARENTHESIS
+	TOKEN_TYPE_CLOSE_PARENTHESIS,
+	TOKEN_TYPE_STRING,
+	TOKEN_TYPE_VAR,
+	TOKEN_TYPE_EXPAND,
 } Token_Type;
 
 typedef struct s_token
