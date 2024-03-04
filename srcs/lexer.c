@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/03 05:43:18 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/04 00:51:57 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void add_token(t_input *input_struct, t_token *new_token)
 {
 	t_token *tmp;
 
-	if (ft_strlen(new_token->text) == 0)
+	if (!new_token)
 		return ;
 	if (!input_struct->head)
 	{
@@ -53,11 +53,14 @@ static t_token *init_token(const char *text, size_t text_length, int initial_idx
 {
 	t_token *token;
 
+	if (ft_strchr(" \t\n\v\f\r", *text) && text_length <= 1)
+		return (NULL);
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->type = TOKEN_TYPE_UNKNOWN;
-	token->text = ft_strtrim(ft_substr(text, 0, text_length), " \t\n\v\f\r");
+	token->text = ft_substr(text, 0, text_length);
+	token->text = ft_substr(text, 0, text_length);
 	token->text_length = text_length;
 	token->initial_idx = initial_idx;
 	token->exec_position = -1;
@@ -95,12 +98,13 @@ void   lexer(const char *input)
 	int     cursor;
 	int     input_length;
 
+	printf("input: %s\n", input);
 	input_struct = init_input();
 	if (!input_struct)
 		return ;
 	input_length = ft_strlen(input);
 	input = ft_strtrim(input, " \t\n\v\f\r");
-	cursor = -1;
+	cursor = 0;
 	while (cursor <= input_length)
 	{
 //		printf("\nCursor: %d\nPending str: %s\n\n", cursor, input + cursor);
@@ -111,7 +115,6 @@ void   lexer(const char *input)
 		printf("Token: %s\n", input_struct->token->text);
 		input_struct->token = input_struct->token->next_token;
 	}
-	printf("Head: %s\n", input_struct->head->text);
-
+	// printf("Head: %s\n", input_struct->head->text);
 }
 
