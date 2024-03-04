@@ -2,6 +2,12 @@
 	"files.associations": {
 		"history.h": "c",
 		"readline.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"libft.h": "c",
+		"string.h": "c",
+		"stdio.h": "c",
+		"errno.h": "c",
+		"signal.h": "c",
+		"config.h": "c"
 	}
 }

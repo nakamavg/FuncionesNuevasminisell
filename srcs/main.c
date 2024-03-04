@@ -3,24 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:39:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/03 18:36:56 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/04 04:32:14 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void disable_echo_ctrl_c() {
+    struct termios term;
+    tcgetattr(0, &term);
+    term.c_lflag &= ~ECHOCTL;
+    tcsetattr(0, TCSANOW, &term);
+}
+
 void handler_int(int sig)
 {
     if (sig == SIGINT)
-        {
-    printf("handler_int\n");
-            ft_printf("\n");
-            rl_on_new_line(); //regresa el cursor al inicio de la linea
-            rl_replace_line("", 0);//limpia la linea para que no se vea el ^C
-            rl_redisplay();//redibuja la linea
+		{
+			disable_echo_ctrl_c();
+			//nueva linea
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			ft_putstr_fd("\n", STDERR_FILENO);
+			ft_putstr_fd("  ", STDIN_FILENO);
+			//volver a la ejecucion del programa	
         }
     else if (sig == SIGQUIT)
         {
@@ -45,8 +54,8 @@ int main(int argc, char **argv)
 {
     (void)argc;
     (void)argv;
-    init_signals();
     
+    init_signals();
     
     
     char *rl;

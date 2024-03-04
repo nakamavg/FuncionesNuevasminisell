@@ -1,13 +1,14 @@
 NAME	= minishell
-CC		= clang
-CFLAGS	= -Wall -Wextra -Werror
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -ggdb3 #-fsanitize=address -g3 
 SFLAGS	= -g3 -fsanitize=address
-READLINE = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+
 FILES	= srcs/main
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/
 LIBFT_DIR	= srcs/libft
+LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
 
 all: $(NAME) 
 
@@ -16,7 +17,12 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(READLINE) -o $@ $^ -L $(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+
+fsanitize:
+	$(eval CFLAGS +=-fsanitize=address -g3)
+
+sanitize: fsanitize all
 
 clean:
 	rm -rf $(OBJS)
