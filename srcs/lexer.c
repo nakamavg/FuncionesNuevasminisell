@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/04 05:35:57 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/06 23:44:28 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,13 @@ void	build_sentence(t_input *input)
 			if (closed_sentence) 
 				closed_sentence = 0;
 			else 
-				printf("input format: pending to deal with it\n");
+			{
+				// printf("here it should be a dquote\n");
+				// TODO: Exit the program clean when there's an error
+				printf("Error: Not closed string used as input\n");
+				break ;
+			}
+				// printf("input format: pending to deal with it\n");
 		}
 
 
