@@ -3,7 +3,7 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -ggdb3 #-fsanitize=address -g3 
 SFLAGS	= -g3 -fsanitize=address
 
-FILES	= srcs/main
+FILES	= srcs/main srcs/gethings srcs/builtsin/builtsinhandler srcs/builtsin/cd srcs/builtsin/export
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/
@@ -17,7 +17,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft && ./minishell
 
 fsanitize:
 	$(eval CFLAGS +=-fsanitize=address -g3)
