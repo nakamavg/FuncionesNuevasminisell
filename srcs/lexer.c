@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/06 23:44:28 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/07 08:06:47 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,56 +108,52 @@ static  size_t input_split(const char *input, t_input *input_struct, int initial
 	return (cursor);
 }
 
-void	tokenize_sentence(t_token *token)
+void token_type(t_token *token, int type)
 {
-	if (!ft_strncmp(token->text, "\"", 1))
-		token->type = TOKEN_TYPE_DOUBLE_QUOTE;
-	else if (!ft_strncmp(token->text, "`", 1))
-		token->type = TOKEN_TYPE_BACKTICK;
-	else if (!ft_strncmp(token->text, "$", 1))
-		token->type = TOKEN_TYPE_EXPAND;
-	else
-	{
-		if (token->prev_token->type == TOKEN_TYPE_BACKTICK)
-			token->type = TOKEN_TYPE_VAR;
-		else
-			token->type = TOKEN_TYPE_STRING;
-	}
-	printf("token in sentence: %s\n\ttype: %u\n", token->text, token->type);
+	token->type = type;
 }
 
-void	build_sentence(t_input *input)
+static int process_sentence(t_input *input, const char *delimiter, int type)
 {
-	int	closed_sentence;
-	// t_token *tmp;
+	int closed_sentence;
 
 	closed_sentence = 0;
-	while (input->token)
+	token_type(input->token, type);
+	input->token = input->token->next_token;
+	while (input->token && ft_strncmp(input->token->text, delimiter, 1))
 	{
-		if (!ft_strncmp(input->token->text, "\"", 1))
+		if (!ft_strncmp(input->token->text, "$", 1) && type == TOKEN_TYPE_DOUBLE_QUOTE)
+			token_type(input->token, TOKEN_TYPE_EXPAND);
+		else
+			token_type(input->token, TOKEN_TYPE_STRING);
+		input->token = input->token->next_token;
+	}
+	if (input->token)
+		closed_sentence = !closed_sentence;
+	else
+	{
+		if (!closed_sentence)
 		{
-			input->token = input->token->next_token;
-			// printf("token next is: %s\n", input->token->next_token->text);
-			while (input->token && ft_strncmp(input->token->text, "\"", 1))
-			{
-				tokenize_sentence(input->token);
-				input->token = input->token->next_token;
-			}
-			if (input->token)
-				closed_sentence = 1;
-			if (closed_sentence) 
-				closed_sentence = 0;
-			else 
-			{
-				// printf("here it should be a dquote\n");
-				// TODO: Exit the program clean when there's an error
-				printf("Error: Not closed string used as input\n");
-				break ;
-			}
-				// printf("input format: pending to deal with it\n");
+			printf("Error: Not closed string used as input\n");
+			return (1);
 		}
+	}
+	return (0);
+}
 
+void build_sentence(t_input *input)
+{
+	int	end;
 
+	end = 0;
+	while (input->token->next_token)
+	{
+		if (input->token && !ft_strncmp(input->token->text, "\"", 1))
+			end = process_sentence(input, "\"", TOKEN_TYPE_DOUBLE_QUOTE);
+		else if (input->token && !ft_strncmp(input->token->text, "'", 1))
+			end = process_sentence(input, "'", TOKEN_TYPE_SINGLE_QUOTE);
+		if (end)
+			return ; // TODO: This is because of an error. Deal with it to exit properly the program (wrong input, str not enclosed)
 		input->token = input->token->next_token;
 	}
 }
