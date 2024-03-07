@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/04 05:23:34 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:45:47 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef enum {
 	TOKEN_TYPE_PIPE,
 	TOKEN_TYPE_EOF,
 	TOKEN_TYPE_COMMAND,
-	TOKEN_TYPE_FILE,
+	TOKEN_TYPE_IN_FILE,
+	TOKEN_TYPE_OUT_FILE,
 	TOKEN_TYPE_EQUALS,
 	TOKEN_TYPE_EXCLAMATION,
 	TOKEN_TYPE_AMPERSAND,
@@ -43,6 +44,7 @@ typedef enum {
 	TOKEN_TYPE_STRING,
 	TOKEN_TYPE_VAR,
 	TOKEN_TYPE_EXPAND,
+	TOKEN_TYPE_MAX
 } Token_Type;
 
 typedef struct s_token
@@ -63,7 +65,7 @@ typedef struct s_input
 } t_input;
 
 // lexer.c
-void   lexer(const char *input);
+int   lexer(const char *input);
 
 #endif
 
