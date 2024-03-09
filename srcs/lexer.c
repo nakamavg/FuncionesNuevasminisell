@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/07 12:49:00 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:01:28 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,9 +224,9 @@ int	check_pipes(t_token *token)
 
 int	build_metachars(t_input *input)
 {
-	int err;
-
-	err = 0;
+//	int err;
+//
+//	err = 0;
 	input->token = input->head;
 	while (input->token->next_token)
 	{
@@ -242,25 +242,46 @@ int	build_metachars(t_input *input)
 	return (0);
 }
 
-int   lexer(const char *input)
+
+int input_sanitize(const char *input)
+{
+	int cursor;
+	int next;
+
+	cursor = -1;
+	while (input[++cursor])
+	{
+		next = cursor + 1;
+		while (ft_isspace(input[next]))
+			next++;
+		if (input[cursor] == '|' && ft_strchr("|<>", input[next]))
+			return (printf("Error: | followed by %c\n", input[next]), 1);
+	}
+	return (0);
+}
+
+t_input   *lexer(const char *input)
 {
 	t_input *input_struct;
 	int     cursor;
-	int     input_length;
+//	int     input_length;
 	int		err;
 
 	printf("input: %s\n\n", input);
+	if (input_sanitize(input))
+		return (printf("non-valid input\n"), NULL);
+	printf("input sanitized\n");
 	input_struct = init_input();
 	if (!input_struct)
-		return (1);
-	input_length = ft_strlen(input);
+		return (NULL);
+//	input_length = ft_strlen(input);
 	input = ft_strtrim(input, " \t\n\v\f\r");
 	cursor = 0;
 	while (input[cursor])
 		cursor += input_split(input + cursor, input_struct, cursor);
 	err = build_sentence(input_struct);
 	if (err)
-		return (printf("string error"), 1);
+		return (printf("string error"), input_struct);
 	build_metachars(input_struct);
 
 
@@ -307,6 +328,6 @@ int   lexer(const char *input)
     // for (int i = 0; i < TOKEN_TYPE_MAX; i++) {
     //     printf("%s is %d\n", token_type_names[i], i);
     // }
-	return (0);
+	return (input_struct);
 }
 
