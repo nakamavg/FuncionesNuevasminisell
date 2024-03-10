@@ -8,6 +8,7 @@
 		"stdio.h": "c",
 		"errno.h": "c",
 		"signal.h": "c",
-		"config.h": "c"
+		"config.h": "c",
+		"sstream": "c"
 	}
 }

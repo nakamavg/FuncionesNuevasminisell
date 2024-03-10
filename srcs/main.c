@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:39:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/07 10:08:06 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/08 00:55:19 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void handler_int(int sig)
     if (sig == SIGINT)
 		{
 		disable_echo_ctrl_c();
-		printf("\n");
+		//printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		rl_replace_line("\n", 0);//cosas de duvan magia a mi no me iba kekw
 		rl_redisplay();
         }
     	else if (sig == SIGQUIT)

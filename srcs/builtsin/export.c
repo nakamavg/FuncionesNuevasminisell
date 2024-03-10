@@ -6,15 +6,38 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/07 17:55:48 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/08 03:47:03 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int check_input(char *input)
+{
+	int i;
+	i = -1;
+	while(input[++i])
+	{
+		if(input[i] == ' ')
+			return (1);
+	}
+	return (0);
+}
 
 void realloc_env(t_shell *shell, char *newvar)
 {
+	
+	newvar +=7;
+	newvar=ft_strtrim(newvar, "\t\n\v\f\r ");
+		if(check_input(newvar) == 1)
+				ft_error(ERR_SPACES_IN_VAR,&newvar[0]);
+	if(ft_isalpha(newvar[0]) == 0 && newvar[0] != 95){
+		if(ft_isdigit(newvar[0]))
+			return (ft_error(ERR_INVALID_CHAR,&newvar[0]));
+		else
+			return (ft_error(ERR_INVALID_CTXT,&newvar[0]));
+			
+	}
 	int y;
 	y = -1;
 	char **tmp;
@@ -24,7 +47,6 @@ void realloc_env(t_shell *shell, char *newvar)
 		tmp[y] = ft_strdup(shell->my_env[y]);
 		free(shell->my_env[y]);
 	}
-	printf("la nueva data es : %s\n", newvar);
 	free(shell->my_env);
 	tmp[y]=ft_strdup(newvar);
 	shell->my_env = tmp;
@@ -32,10 +54,8 @@ void realloc_env(t_shell *shell, char *newvar)
 }
 void export(t_shell *shell)
 {
-// export nos agrega variables de entorno para $variableentorno
-//o  nos la cambia
 int idx;
-idx = 5;//idx = 6 porque export tiene 6 letras
+idx = 5;
 char *temp;
 temp = ft_strtrim(shell->input, "\t\n\v\f\r ");
 if (ft_strncmp(temp,"export", ft_strlen(temp))== 0)

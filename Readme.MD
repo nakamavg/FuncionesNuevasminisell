@@ -7,3 +7,8 @@ gnu  y me lo he descargado de [aqui](https://git.savannah.gnu.org/cgit/readline.
 y make y ya obtendriamos  al .a
 
 - todo esto se hace en el makefile
+
+# Añadiendo el comando export
+	- Obtenemos env , mallocamos para todo el env y luego realocamos para 
+	añadir variables nuevas
+	
