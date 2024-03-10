@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/09 16:44:12 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/10 23:46:51 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef enum {
 typedef struct s_token
 {
 	Token_Type  type;
-	const char *text;
+	char        *text;
+//	char        *value;
 	size_t      text_length;
 	int         initial_idx;
 	int         exec_position;
@@ -67,5 +68,10 @@ typedef struct s_input
 // lexer.c
 t_input   *lexer(const char *input);
 
+// testers.c
+void    test_lexer(t_input *input_struct);
+
+// parser.c
+char    **parser(const char *input);
 #endif
 

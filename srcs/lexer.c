@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/10 01:41:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/11 00:04:51 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,16 @@ static  size_t input_split(const char *input, t_input *input_struct, int initial
 		if (!ft_strncmp(&input[cursor], "$", 1))
 		{
 			while (input[cursor] && !ft_isspace(input[cursor]))
+				cursor++;
+			add_token(input_struct, init_token(input, cursor, initial_idx));
+			return (cursor);
+		}
+		if (!ft_strncmp(&input[cursor], "<", 1)) // Check for '<'
+		{
+			cursor++; // Skip the '<'
+			while (input[cursor] && ft_isspace(input[cursor])) // Skip any whitespace or special character after the '<'
+				cursor++;
+			while (input[cursor] && !ft_isspace(input[cursor])) // advance till the end of the word
 				cursor++;
 			add_token(input_struct, init_token(input, cursor, initial_idx));
 			return (cursor);
@@ -201,7 +211,6 @@ int	out_redirections(t_token *token)
 	}
 	return (0);
 }
-// TODO: FIX
 int	check_pipes(t_token *token)
 {
 	token_type(token, TOKEN_TYPE_PIPE);
@@ -215,7 +224,7 @@ int	check_pipes(t_token *token)
 	if (!token->next_token)
 		return (printf("Missing program after the pipe\n"), 1);
 	if (token->next_token->type != TOKEN_TYPE_UNKNOWN) // TODO: Potentially I have to improve this logic to deal with echo and other commands that receive an input with " "
-		return (printf("The next is not an executable"));
+		return (printf("The next is not an executable"), 1);
 	// printf("++++++++\nPreview token: %s\nCurrent Token: %s\nNext token: %s\n=======\n", token->prev_token->text, token->text, token->next_token->text);
 	token_type(token->prev_token, TOKEN_TYPE_COMMAND);
 	token_type(token->next_token, TOKEN_TYPE_COMMAND);
@@ -224,25 +233,36 @@ int	check_pipes(t_token *token)
 
 int	build_metachars(t_input *input)
 {
-//	int err;
+	int err;
 //
-//	err = 0;
+	err = 0;
 	input->token = input->head;
-	while (input->token->next_token)
+	while (input->token->next_token && !err)
 	{
 		if	(input->token && !ft_strncmp(input->token->text, "<", 1))
-			in_redirections(input->token);
+			err = in_redirections(input->token);
 		else if	(input->token && !ft_strncmp(input->token->text, ">", 1))
-			out_redirections(input->token);
+			err = out_redirections(input->token);
 		else if	(input->token && !ft_strncmp(input->token->text, "|", 1))
-			check_pipes(input->token);
+			err = check_pipes(input->token);
 
 		input->token = input->token->next_token;
 	}
-	return (0);
+	return (err);
 }
 
-
+static void cleanup_input_struct(t_input *input_struct)
+{
+	input_struct->token = input_struct->head;
+	while (input_struct->token)
+	{
+		if (input_struct->token->text)
+			free(input_struct->token->text);
+		free(input_struct->token);
+		input_struct->token = input_struct->token->next_token;
+	}
+	free(input_struct);
+}
 int input_sanitize(const char *input)
 {
 	int cursor;
@@ -279,53 +299,10 @@ t_input   *lexer(const char *input)
 		cursor += input_split(input + cursor, input_struct, cursor);
 	err = build_sentence(input_struct);
 	if (err)
-		return (printf("string error"), input_struct);
-	build_metachars(input_struct);
-
-
-
-
-
-
-	    const char *token_type_names[] = {
-        "TOKEN_TYPE_UNKNOWN",
-        "TOKEN_TYPE_REDIR_IN",
-        "TOKEN_TYPE_REDIR_OUT",
-        "TOKEN_TYPE_REDIR_APPEND",
-        "TOKEN_TYPE_REDIR_HEREDOC",
-        "TOKEN_TYPE_PIPE",
-        "TOKEN_TYPE_EOF",
-        "TOKEN_TYPE_COMMAND",
-        "TOKEN_TYPE_IN_FILE",
-        "TOKEN_TYPE_OUT_FILE",
-        "TOKEN_TYPE_EQUALS",
-        "TOKEN_TYPE_EXCLAMATION",
-        "TOKEN_TYPE_AMPERSAND",
-        "TOKEN_TYPE_WILDCARD",
-        "TOKEN_TYPE_BACKTICK",
-        "TOKEN_TYPE_SEMICOLON",
-        "TOKEN_TYPE_BACKSLASH",
-        "TOKEN_TYPE_DOLLAR",
-        "TOKEN_TYPE_DOT",
-        "TOKEN_TYPE_QUESTION",
-        "TOKEN_TYPE_SINGLE_QUOTE",
-        "TOKEN_TYPE_DOUBLE_QUOTE",
-        "TOKEN_TYPE_OPEN_PARENTHESIS",
-        "TOKEN_TYPE_CLOSE_PARENTHESIS",
-        "TOKEN_TYPE_STRING",
-        "TOKEN_TYPE_VAR",
-        "TOKEN_TYPE_EXPAND"
-    };
-	input_struct->token = input_struct->head;
-	while (input_struct->token)
-	{
-		printf("Token: %s\n\ttext_len: %lu\n\ttype: %s\n", input_struct->token->text, input_struct->token->text_length, token_type_names[input_struct->token->type]);
-		input_struct->token = input_struct->token->next_token;
-	}
-	printf("Head: %s\n", input_struct->head->text);
-    // for (int i = 0; i < TOKEN_TYPE_MAX; i++) {
-    //     printf("%s is %d\n", token_type_names[i], i);
-    // }
+		return (printf("string error\n"), cleanup_input_struct(input_struct), NULL);
+	if (build_metachars(input_struct))
+		return (printf("metachars error\n"), cleanup_input_struct(input_struct), NULL);
+	test_lexer(input_struct);
 	return (input_struct);
 }
 
