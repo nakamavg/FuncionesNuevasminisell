@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/10 12:13:06 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/10 22:36:27 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,29 @@ void ft_getenv(t_shell *shell, char **env)
 	while(env[++y])
 		shell->my_env[y] = ft_strdup(env[y]);
 }
+
+void ft_env_split(t_shell *shell)
+{
+	int i;
+	char **tmp;
+
+	shell->env_list = NULL;
+	i = -1;
+	while (shell->my_env[++i])
+	{
+		tmp = ft_split(shell->my_env[i], '=');
+		add_env(&shell->env_list, ft_envnew(tmp[0], tmp[1], shell->env_list));
+		free(tmp);
+	}
+}
+void print_env(t_my_env *env)
+{
+	while(env)
+	{
+		if(env->name && env->value && ft_strlen(env->name) > 0 )
+				printf("%s=%s\n", env->name, env->value);
+		env = env->next;
+	}
+
+}
+	

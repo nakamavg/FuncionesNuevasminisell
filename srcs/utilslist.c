@@ -6,22 +6,22 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 01:42:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/10 06:35:43 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/10 22:50:44 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // inicializa la lista de variables de entorno
-t_my_env	*ft_envnew(void *name, void *value)
+t_my_env	*ft_envnew(void *name, void *value, t_my_env *new_l)
 {
-	t_my_env	*new_l;
 	new_l = malloc(sizeof(struct s_my_env));
 	if (!new_l)
 		return (NULL);
 	new_l->name = name;
 	new_l->value = value;
 	new_l->next = NULL;
+	new_l->prev = NULL;
 	return (new_l);
 	
 }
@@ -37,32 +37,32 @@ void add_env(t_my_env **env, t_my_env *new)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+	new->prev = tmp;
 }
-void delone_env(t_my_env **env, char *name)
+ void delone_env(t_shell *shell)
 {
-	t_my_env *tmp;
-	t_my_env *prev;
-	tmp = *env;
-	if (tmp && ft_strcmp(tmp->name, name) == 0)
+	t_my_env *pre = shell->env_list->prev;
+	t_my_env *next = shell->env_list->next;
+	if (pre && !next)
 	{
-		*env = tmp->next;
-		free(tmp->name);
-		free(tmp->value);
-		free(tmp);
-		return ;
+		pre->next = NULL;
 	}
-	while (tmp && ft_strcmp(tmp->name, name) != 0)
+	else if (!pre && next)
 	{
-		prev = tmp;
-		tmp = tmp->next;
+		next->prev = NULL;
 	}
-	if (!tmp)
-		return ;
-	prev->next = tmp->next;
-	free(tmp->name);
-	free(tmp->value);
-	free(tmp);
-}
+	else if (pre && next)
+	{
+		pre->next = next;
+		next->prev = pre;
+	}
+	
+	
+	free(shell->env_list->name);
+	free(shell->env_list->value);
+	free(shell->env_list);
+
+} 
 void add_env_back(t_my_env **env, t_my_env *new)
 {
 	t_my_env *tmp;

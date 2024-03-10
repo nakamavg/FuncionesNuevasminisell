@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/10 07:11:34 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/10 22:40:42 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@
 #define ERR_INVALID_CTXT "\nexport: not valid in this context: "
 #define ERR_SPACES_IN_VAR "\nexport: bad assignment "
 #define UNSET_NOT_ARG "\nunset: not enough arguments "
+#define SPLIT_QUOTE " \t\n\v\f\r"
 
 typedef struct s_my_env
 {
 	char	*name;
 	char	*value;
 	void	*next;
+	void 	*prev;
 }	t_my_env;
 
 
@@ -64,8 +66,11 @@ void unset(t_shell *shell);
 int ft_strlen_pp(char **container);
 //error
 void ft_error(char *str,char *aux);
-t_my_env	*ft_envnew(void *name, void *value);
+t_my_env	*ft_envnew(void *name, void *value, t_my_env *new_l);
 void add_env(t_my_env **env, t_my_env *new);
+void delone_env(t_shell *shell);
+void ft_env_split(t_shell *shell);
+void print_env(t_my_env *env);
 
 
 #endif

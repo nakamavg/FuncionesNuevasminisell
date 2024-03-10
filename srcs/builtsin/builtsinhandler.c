@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/10 04:42:37 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/10 14:12:55 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void command_handler(t_shell *shell)
 		return((void)printf("%s\n", getcwd(NULL, 0)));
 	else if (ft_strncmp(shell->input, "export", 6) == 0)
 		return(export(shell)); 
-	/* else if (ft_strncmp(shell->input, "unset ", 6) == 0)
-		return(unset(shell)); */
+	else if (ft_strncmp(shell->input, "unset ", 6) == 0)
+		return(unset(shell)); 
 	else if (ft_strncmp(shell->input, "env", 3) == 0)
 		ft_putstr_fd("env \n", STDOUT_FILENO);
 	else if (ft_strncmp(shell->input, "echo", 4) == 0)

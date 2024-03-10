@@ -6,46 +6,38 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:33:50 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/10 04:43:05 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/10 22:45:17 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/* static int check_input(char *input)
+void unset (t_shell *shell)
 {
 	int i;
-	i = -1;
-	while(input[++i])
+	i = 5;
+	t_my_env *tmp = shell->env_list;
+	char *temp;
+	temp = ft_strtrim(shell->input, SPLIT_QUOTE);
+	printf("temp: %s\n", temp);
+	if (ft_strncmp(temp,"unset", ft_strlen(temp))== 0)
+		return(ft_error(UNSET_NOT_ARG, NULL));
+	temp += 5;
+	temp = ft_strtrim(temp, SPLIT_QUOTE);
+	printf("temp: %s\n", temp);
+	while(shell->env_list)
 	{
-		if(input[i] == ' ')
-			return (1);
+		if(ft_strncmp(shell->env_list->name, temp, ft_strlen(temp)) == 0)
+		{
+			delone_env(shell);
+			
+			break;
+		}
+	if(shell->env_list->next)
+		shell->env_list = shell->env_list->next;
 	}
-	return (0);
-} */
+	shell->env_list = tmp;
+}
 
-/* static void realloc_env(t_shell *shell, char *newvar)
-{
-	printf("shell->my_env: %s\n", shell->my_env[0]);
-	printf("newvar:%s\n", newvar);
-	while(newvar)
-}	 */
-
-/* void unset(t_shell *shell)
-{
-int idx;
-idx = 5;
-char *temp;
-temp = ft_strtrim(shell->input, "\t\n\v\f\r ");
-if (ft_strncmp(temp,"unset", ft_strlen(temp))== 0)
-	{
-		if(ft_strlen(temp) == 5)
-			return (ft_error(UNSET_NOT_ARG, "unset"));
-		else if(ft_strchr(temp,'=')!= NULL)
-			return (ft_error(ERR_INVALID_CTXT, temp));
-	}
-temp += 5;
-	realloc_env(shell, temp);
-} */
 
  

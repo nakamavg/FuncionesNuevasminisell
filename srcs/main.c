@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:39:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/08 00:55:19 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/10 13:00:12 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,13 @@ void shell_loop(t_shell *shell)
     }
 }
 
-int main(int argc, char **argv, char **duvan)
+int main(int argc, char **argv, char **env)
 {
     (void)argc;
     (void)argv;
     t_shell shell;
-	ft_getenv(&shell, duvan);
+	ft_getenv(&shell, env);
+	ft_env_split(&shell);
     init_signals();
 	get_things(&shell);
 	printf("\033[34mMartes locos presentan: \n\033[0m");
