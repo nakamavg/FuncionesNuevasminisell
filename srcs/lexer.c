@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/09 17:01:28 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/10 01:41:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,6 @@ t_input   *lexer(const char *input)
 {
 	t_input *input_struct;
 	int     cursor;
-//	int     input_length;
 	int		err;
 
 	printf("input: %s\n\n", input);
@@ -274,7 +273,6 @@ t_input   *lexer(const char *input)
 	input_struct = init_input();
 	if (!input_struct)
 		return (NULL);
-//	input_length = ft_strlen(input);
 	input = ft_strtrim(input, " \t\n\v\f\r");
 	cursor = 0;
 	while (input[cursor])
