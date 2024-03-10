@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/11 00:15:38 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/11 00:30:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void add_token(t_input *input_struct, t_token *new_token)
 		new_token->prev_token = tmp;
 		new_token->prev_token->next_token = new_token;
 	}
-//	printf("Added token: %s\n", new_token->text);
+	printf("Added token: %s\n", new_token->text);
 }
 
 
@@ -86,11 +86,6 @@ static  size_t input_split(const char *input, t_input *input_struct, int initial
 	cursor = 0;
 	if (ft_is_special_char(input[cursor]))
 	{
-		if (input[cursor + 1] == input[cursor])
-		{
-			add_token(input_struct, init_token(&input[cursor], 2, initial_idx));
-			return (2);
-		}
 		if (!ft_strncmp(&input[cursor], "$", 1))
 		{
 			while (input[cursor] && !ft_isspace(input[cursor]))
@@ -100,12 +95,21 @@ static  size_t input_split(const char *input, t_input *input_struct, int initial
 		}
 		if (!ft_strncmp(&input[cursor], "<", 1)) // Check for '<'
 		{
-			cursor++; // Skip the '<'
-			while (input[cursor] && ft_isspace(input[cursor])) // Skip any whitespace or special character after the '<'
+			if (!ft_strncmp(&input[cursor + 1], "<", 1)) // Check for '<'
+			{
+				add_token(input_struct, init_token(&input[cursor], 2, initial_idx));
 				cursor++;
-			while (input[cursor] && !ft_isspace(input[cursor])) // advance till the end of the word
+			}
+			else
+				add_token(input_struct, init_token(&input[cursor], 1, initial_idx));
+
+			cursor++;
+			while (input[cursor] && ft_isspace(input[cursor])) // Skip any whitespace after the '<'
 				cursor++;
-			add_token(input_struct, init_token(input, cursor, initial_idx));
+			size_t start = cursor;
+			while (input[cursor] && !ft_isspace(input[cursor]) && !ft_is_special_char(input[cursor])) // advance till the end of the word
+				cursor++;
+			add_token(input_struct, init_token(&input[start], cursor - start, initial_idx + start));
 			return (cursor);
 		}
 		add_token(input_struct, init_token(&input[cursor], 1, initial_idx));
@@ -176,22 +180,20 @@ int build_sentence(t_input *input)
 
 int	in_redirections(t_token *token)
 {
-
 	if (ft_strlen(token->text) == 1)
-		return (1);
-//	{
-//		token_type(token, TOKEN_TYPE_REDIR_IN);
-//		if (!token->next_token)
-//			return (printf("no in file to redirect"), 1);
-//		token_type(token->next_token, TOKEN_TYPE_IN_FILE);
-//	}
-//	else if (ft_strlen(token->text) == 2)
-//	{
-//		token_type(token, TOKEN_TYPE_REDIR_HEREDOC);
-//		if (!token->next_token)
-//			return (printf("no EOF for the here_doc file"), 1);
-//		token_type(token->next_token, TOKEN_TYPE_EOF);
-//	}
+	{
+		token_type(token, TOKEN_TYPE_REDIR_IN);
+		if (!token->next_token)
+			return (printf("no in file to redirect"), 1);
+		token_type(token->next_token, TOKEN_TYPE_IN_FILE);
+	}
+	else if (ft_strlen(token->text) == 2)
+	{
+		token_type(token, TOKEN_TYPE_REDIR_HEREDOC);
+		if (!token->next_token)
+			return (printf("no EOF for the here_doc file"), 1);
+		token_type(token->next_token, TOKEN_TYPE_EOF);
+	}
 	return (0);
 }
 
