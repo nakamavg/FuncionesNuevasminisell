@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/11 00:04:51 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/11 00:15:38 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,20 +176,22 @@ int build_sentence(t_input *input)
 
 int	in_redirections(t_token *token)
 {
+
 	if (ft_strlen(token->text) == 1)
-	{
-		token_type(token, TOKEN_TYPE_REDIR_IN);
-		if (!token->next_token)
-			return (printf("no in file to redirect"), 1);
-		token_type(token->next_token, TOKEN_TYPE_IN_FILE);
-	}
-	else if (ft_strlen(token->text) == 2)
-	{
-		token_type(token, TOKEN_TYPE_REDIR_HEREDOC);
-		if (!token->next_token)
-			return (printf("no EOF for the here_doc file"), 1);
-		token_type(token->next_token, TOKEN_TYPE_EOF);
-	}
+		return (1);
+//	{
+//		token_type(token, TOKEN_TYPE_REDIR_IN);
+//		if (!token->next_token)
+//			return (printf("no in file to redirect"), 1);
+//		token_type(token->next_token, TOKEN_TYPE_IN_FILE);
+//	}
+//	else if (ft_strlen(token->text) == 2)
+//	{
+//		token_type(token, TOKEN_TYPE_REDIR_HEREDOC);
+//		if (!token->next_token)
+//			return (printf("no EOF for the here_doc file"), 1);
+//		token_type(token->next_token, TOKEN_TYPE_EOF);
+//	}
 	return (0);
 }
 
@@ -200,7 +202,7 @@ int	out_redirections(t_token *token)
 		token_type(token, TOKEN_TYPE_REDIR_OUT);
 		if (!token->next_token)
 			return (printf("no out file to redirect"), 1);
-		token_type(token->next_token, TOKEN_TYPE_IN_FILE);
+		token_type(token->next_token, TOKEN_TYPE_OUT_FILE);
 	}
 	else if (ft_strlen(token->text) == 2)
 	{

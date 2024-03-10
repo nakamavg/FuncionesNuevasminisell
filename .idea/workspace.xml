@@ -10,15 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecd17ee3-28cf-4edf-aa39-a87ec2ecbae8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/srcs/testers.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/lexer.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/lexer.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/lexer.o" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/lexer.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/libft/libft.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.o" afterDir="false" />
     </list>
@@ -79,7 +74,7 @@
       <workItem from="1709432229316" duration="9821000" />
       <workItem from="1709442925159" duration="29000" />
       <workItem from="1709998376067" duration="3065000" />
-      <workItem from="1710107997856" duration="3899000" />
+      <workItem from="1710107997856" duration="4542000" />
     </task>
     <servers />
   </component>
