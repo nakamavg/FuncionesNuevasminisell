@@ -3,11 +3,12 @@ CC		= clang
 CFLAGS	= -Wall -Wextra -Werror
 SFLAGS	= -g3 -fsanitize=address
 
-FILES	= srcs/main
+FILES	= srcs/main srcs/lexer srcs/testers srcs/parser
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/
 LIBFT_DIR	= srcs/libft
+LEXER_DIR	= srcs/lexer
 
 all: $(NAME) 
 
@@ -16,7 +17,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+	$(CC) $(SFLAGS) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
 
 fsanitize:
 	$(eval CFLAGS +=-fsanitize=address -g3)
