@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/11 00:30:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:03:27 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ int	out_redirections(t_token *token)
 	}
 	return (0);
 }
+
 int	check_pipes(t_token *token)
 {
 	token_type(token, TOKEN_TYPE_PIPE);
@@ -255,7 +256,7 @@ int	build_metachars(t_input *input)
 	return (err);
 }
 
-static void cleanup_input_struct(t_input *input_struct)
+void cleanup_input_struct(t_input *input_struct)
 {
 	input_struct->token = input_struct->head;
 	while (input_struct->token)

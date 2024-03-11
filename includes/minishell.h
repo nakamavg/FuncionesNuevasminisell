@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/10 23:46:51 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:09:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,23 @@ typedef struct s_input
 	t_token *token;
 } t_input;
 
+typedef struct s_command
+{
+	char    **cmds;
+	char    *infile;
+	char    *outfile;
+	int     infile_fd;
+	int     outfile_fd;
+} t_command;
+
 // lexer.c
 t_input   *lexer(const char *input);
+void cleanup_input_struct(t_input *input_struct);
 
 // testers.c
 void    test_lexer(t_input *input_struct);
 
 // parser.c
-char    **parser(const char *input);
+t_command   *parser(const char *input);
 #endif
 
