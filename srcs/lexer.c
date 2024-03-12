@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/12 03:00:40 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/12 03:12:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ int	out_redirections(t_token *token)
 		token_type(token, TOKEN_TYPE_REDIR_APPEND);
 		if (!token->next_token)
 			return (printf("no out file to append"), 1);
-		token_type(token->next_token, TOKEN_TYPE_REDIR_OUT);
+		token_type(token->next_token, TOKEN_TYPE_OUT_FILE);
 	}
 	return (0);
 }
