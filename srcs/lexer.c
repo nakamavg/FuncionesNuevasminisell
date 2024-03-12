@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/11 20:03:27 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/12 03:12:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,25 @@ static  size_t input_split(const char *input, t_input *input_struct, int initial
 		if (!ft_strncmp(&input[cursor], "<", 1)) // Check for '<'
 		{
 			if (!ft_strncmp(&input[cursor + 1], "<", 1)) // Check for '<'
+			{
+				add_token(input_struct, init_token(&input[cursor], 2, initial_idx));
+				cursor++;
+			}
+			else
+				add_token(input_struct, init_token(&input[cursor], 1, initial_idx));
+
+			cursor++;
+			while (input[cursor] && ft_isspace(input[cursor])) // Skip any whitespace after the '<'
+				cursor++;
+			size_t start = cursor;
+			while (input[cursor] && !ft_isspace(input[cursor]) && !ft_is_special_char(input[cursor])) // advance till the end of the word
+				cursor++;
+			add_token(input_struct, init_token(&input[start], cursor - start, initial_idx + start));
+			return (cursor);
+		}
+		if (!ft_strncmp(&input[cursor], ">", 1)) // Check for '>'
+		{
+			if (!ft_strncmp(&input[cursor + 1], ">", 1)) // Check for '>'
 			{
 				add_token(input_struct, init_token(&input[cursor], 2, initial_idx));
 				cursor++;
@@ -211,7 +230,7 @@ int	out_redirections(t_token *token)
 		token_type(token, TOKEN_TYPE_REDIR_APPEND);
 		if (!token->next_token)
 			return (printf("no out file to append"), 1);
-		token_type(token->next_token, TOKEN_TYPE_REDIR_OUT);
+		token_type(token->next_token, TOKEN_TYPE_OUT_FILE);
 	}
 	return (0);
 }
