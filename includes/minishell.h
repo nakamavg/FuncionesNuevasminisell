@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/11 20:09:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/12 03:05:36 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_command
 	char    *outfile;
 	int     infile_fd;
 	int     outfile_fd;
+	char	*eof; // if eof is NULL, it's a regular file. Else, here_doc required
+	int     write_mode;
 } t_command;
 
 // lexer.c
