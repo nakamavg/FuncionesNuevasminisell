@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/12 03:12:18 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:10:41 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static t_token *init_token(const char *text, size_t text_length, int initial_idx
 	if (!token)
 		return (NULL);
 	token->type = TOKEN_TYPE_UNKNOWN;
-	token->text = ft_substr(text, 0, text_length);
+//	token->text = ft_substr(text, 0, text_length);
 	token->text = ft_substr(text, 0, text_length);
 	token->text_length = text_length;
 	token->initial_idx = initial_idx;
@@ -242,8 +242,8 @@ int	check_pipes(t_token *token)
 		return (printf("Missing program before the pipe\n"), 1);
 	if (token->prev_token->type != TOKEN_TYPE_UNKNOWN && token->prev_token->type != TOKEN_TYPE_COMMAND)  // TODO: Potentially I have to improve this logic to deal with echo and other commands that receive an input with " "
 	{
-		if (token->prev_token->type != TOKEN_TYPE_DOUBLE_QUOTE && token->prev_token->type != TOKEN_TYPE_SINGLE_QUOTE)
-			return (printf("The previous is not an executable: %s\n", token->prev_token->text));
+//		if (token->prev_token->type != TOKEN_TYPE_DOUBLE_QUOTE && token->prev_token->type != TOKEN_TYPE_SINGLE_QUOTE)
+//			return (printf("The previous is not an executable: %s\n", token->prev_token->text));
 	}
 	if (!token->next_token)
 		return (printf("Missing program after the pipe\n"), 1);
@@ -298,8 +298,8 @@ int input_sanitize(const char *input)
 		next = cursor + 1;
 		while (ft_isspace(input[next]))
 			next++;
-		if (input[cursor] == '|' && ft_strchr("|<>", input[next]))
-			return (printf("Error: | followed by %c\n", input[next]), 1);
+//		if (input[cursor] == '|' && ft_strchr("|<>", input[next]))
+//			return (printf("Error: | followed by %c\n", input[next]), 1);
 	}
 	return (0);
 }
