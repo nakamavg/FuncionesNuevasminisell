@@ -6,15 +6,31 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:41:13 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/05 07:45:14 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/12 07:31:59 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 void cd (t_shell *shell)
 {
-if(shell->input[2] == '\0')
-		chdir(shell->home);
-else if (chdir(shell->input + 3) == -1)
-	ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	t_my_env *tmp = shell->env_list;
+	char *temp;
+	temp = ft_strtrim(shell->input, SPLIT_QUOTE);
+	if (ft_strncmp(temp,"cd", 2) == 0)
+	{
+		temp += 2;
+		temp = ft_strtrim(temp, SPLIT_QUOTE);
+		if (chdir(temp) == -1)
+			ft_error(ERR_DIR_NOT_FOUND, temp);
+		while(shell->env_list)
+		{
+			if(ft_strncmp(shell->env_list->name, "PWD", 3) == 0)
+			{
+				shell->env_list->value = getcwd(NULL, 0);
+				break;
+			}
+			shell->env_list = shell->env_list->next;
+		}
+		shell->env_list = tmp;
+	}
 }

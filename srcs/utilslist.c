@@ -6,13 +6,15 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 01:42:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/10 22:50:44 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/12 06:49:15 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // inicializa la lista de variables de entorno
+
+
 t_my_env	*ft_envnew(void *name, void *value, t_my_env *new_l)
 {
 	new_l = malloc(sizeof(struct s_my_env));
@@ -56,7 +58,6 @@ void add_env(t_my_env **env, t_my_env *new)
 		pre->next = next;
 		next->prev = pre;
 	}
-	
 	
 	free(shell->env_list->name);
 	free(shell->env_list->value);

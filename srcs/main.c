@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:39:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/10 13:00:12 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/12 07:54:35 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void init_signals(void)
     mshell.sa_handler = handler_int;
     sigaction(SIGINT, &mshell, NULL);
     sigaction(SIGQUIT, &mshell, NULL);
-	sigaction(SIGSTOP, &mshell, NULL);
 
 }
 void shell_loop(t_shell *shell)
@@ -66,7 +65,6 @@ void shell_loop(t_shell *shell)
 			exit(0);
 		}
         
-        printf("\n");
         free(shell->input); 
     }
 }

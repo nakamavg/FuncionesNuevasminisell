@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/10 22:40:42 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/12 07:43:55 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 #define ERR_INVALID_CHAR "\nexport not an identifier: "
 #define ERR_INVALID_CTXT "\nexport: not valid in this context: "
 #define ERR_SPACES_IN_VAR "\nexport: bad assignment "
 #define UNSET_NOT_ARG "\nunset: not enough arguments "
+#define ERR_DIR_NOT_FOUND "\ncd: no such file or directory: "
 #define SPLIT_QUOTE " \t\n\v\f\r"
+
 
 typedef struct s_my_env
 {
@@ -71,6 +74,7 @@ void add_env(t_my_env **env, t_my_env *new);
 void delone_env(t_shell *shell);
 void ft_env_split(t_shell *shell);
 void print_env(t_my_env *env);
+void echo(t_shell *shell);
 
 
 #endif

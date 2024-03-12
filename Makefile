@@ -4,7 +4,7 @@ CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -ggdb
 SFLAGS	= -g3 -fsanitize=address
 
 FILES	= srcs/main srcs/gethings srcs/builtsin/builtsinhandler srcs/builtsin/cd srcs/builtsin/export \
-		srcs/errors srcs/builtsin/unset srcs/utilslist
+		srcs/errors srcs/builtsin/unset srcs/utilslist srcs/builtsin/echo
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/
