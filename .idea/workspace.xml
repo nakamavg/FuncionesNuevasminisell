@@ -14,6 +14,7 @@
       <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/lexer.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/lexer.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/lexer.o" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/lexer.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/libft/libft.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.o" afterDir="false" />
     </list>
@@ -60,6 +61,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon&quot;: &quot;&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -76,7 +78,8 @@
       <workItem from="1709998376067" duration="3065000" />
       <workItem from="1710107997856" duration="13995000" />
       <workItem from="1710239954788" duration="161000" />
-      <workItem from="1710242171231" duration="3049000" />
+      <workItem from="1710242171231" duration="12188000" />
+      <workItem from="1710405250617" duration="164000" />
     </task>
     <servers />
   </component>
