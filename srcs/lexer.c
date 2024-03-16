@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/16 02:08:04 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/16 02:19:03y alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,6 +364,46 @@ static	char *ft_infile_content(const char *input)
 	
 }
 
+static	Token_Type ft_outfile_mode(const char *input)
+{
+	while (*input && *input != '>')
+		input++;
+	if (!input)
+		return (TOKEN_TYPE_UNKNOWN);
+	if (*input == '>')
+	{
+		if (*input++ == '>')
+			return (TOKEN_TYPE_REDIR_APPEND);
+		return (TOKEN_TYPE_REDIR_OUT);
+	}
+	return (TOKEN_TYPE_UNKNOWN);
+}
+
+static	char *ft_outfile_content(const char *input)
+{
+	size_t len;
+
+	while (*input && *input != '>')
+		input++;
+	if (!input)
+		return (NULL);
+	if (*input == '>')
+	{
+		input++;
+		if (*input == '>')
+			input++;
+	}
+	else
+		return (NULL);
+	while (*input && ft_isspace(*input))
+		input++;
+	len = 0;
+	while (input[len] && !ft_isspace(input[len]))
+		len++;
+	return (ft_substr(input, 0, len));
+	
+}
+
 static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 {
 	t_cmd *token;
@@ -375,8 +415,12 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 		return (NULL);
 	token->type = TOKEN_TYPE_UNKNOWN;
 	token->text = ft_substr(text, initial_idx, text_length);
-	token->infile = ft_infile_content(text + initial_idx);
-	token->infile_mode = ft_infile_mode(token->text + initial_idx);
+	token->infile = ft_infile_content(token->text);
+	if (token->infile)
+		token->infile_mode = ft_infile_mode(token->text);
+	token->outfile = ft_outfile_content(token->text);
+	if (token->outfile)
+		token->write_mode = ft_outfile_mode(token->text);
 	token->next_cmd = NULL;
 	token->prev_token = NULL;
 	return (token);
