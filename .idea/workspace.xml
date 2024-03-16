@@ -11,12 +11,15 @@
   <component name="ChangeListManager">
     <list default="true" id="ecd17ee3-28cf-4edf-aa39-a87ec2ecbae8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/lexer.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/lexer.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/lexer.o" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/lexer.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/libft/libft.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/old_lexer.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/old_lexer.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/parser.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/parser.o" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.o" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +83,8 @@
       <workItem from="1710239954788" duration="161000" />
       <workItem from="1710242171231" duration="12188000" />
       <workItem from="1710405250617" duration="164000" />
+      <workItem from="1710540886833" duration="5074000" />
+      <workItem from="1710548328814" duration="579000" />
     </task>
     <servers />
   </component>
