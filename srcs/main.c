@@ -32,5 +32,6 @@ int main(void)
 	parser("< ~/Desktop/in ls -la | ./echo \"hola mundo\" | wc -c | echo \"This is the $PATH \" | cat -e >> outfile");
 	// parser("echo \"hola\" > in3 | <in2 cat");
 //	 lexer("'hola ke ase ninio \"|'");
+	// lexer("'hola bobo\"|'");
     return (0);
 }
