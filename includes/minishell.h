@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/16 01:52:33 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/16 02:31:03 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef enum {
 
 typedef struct s_cmd
 {
-	Token_Type  type;
 	char        *text;
 	char		*infile;
 	Token_Type	infile_mode;

@@ -413,7 +413,6 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 	token = malloc(sizeof(t_cmd));
 	if (!token)
 		return (NULL);
-	token->type = TOKEN_TYPE_UNKNOWN;
 	token->text = ft_substr(text, initial_idx, text_length);
 	token->infile = ft_infile_content(token->text);
 	if (token->infile)
@@ -421,6 +420,14 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 	token->outfile = ft_outfile_content(token->text);
 	if (token->outfile)
 		token->write_mode = ft_outfile_mode(token->text);
+	// TODO: Build a splitter that takes care of the strings
+		// STEPS:
+		// when doing the split, the string is a whole block itself
+		// if the "" string contains $, replace the content if available or use NULL
+		// If $ is not within a string, still expand it
+		// Document about how to deal with the case $?
+	
+	// TODO: ASK: Do I have to deal with wrong flags? 
 	token->next_cmd = NULL;
 	token->prev_token = NULL;
 	return (token);
