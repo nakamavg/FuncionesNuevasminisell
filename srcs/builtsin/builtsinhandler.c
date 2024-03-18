@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/12 07:43:11 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/16 00:43:36 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void more_cmd_handler(t_shell *shell)
 	else if(ft_strncmp(shell->input,"$HOME", 5) == 0)
 	return((void)printf("%s", shell->home));
 	else
-		ft_putstr_fd("command not found \n", STDOUT_FILENO);
+		exec_cmd(shell);
+		
 }
 
 void command_handler(t_shell *shell)

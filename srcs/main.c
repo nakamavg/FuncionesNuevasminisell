@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:39:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/12 07:54:35 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/16 11:49:13 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void shell_loop(t_shell *shell)
 	while(1)
     {
         shell->input= readline(shell->prompt);
-        
+		//getcmdlist(&shell);
         if (shell->input && *shell->input) 
 		{
+			
             add_history(shell->input);
-			//check_input(shell);
 			command_handler(shell);
         }
 		else if (shell->input == NULL)
@@ -59,12 +59,7 @@ void shell_loop(t_shell *shell)
 			ft_putstr_fd("exit \n", STDOUT_FILENO);
 			exit(0);
 		}
-		if(strcmp(shell->input, "exit") == 0)
-		{
-			free(shell->input);
-			exit(0);
-		}
-        
+		
         free(shell->input); 
     }
 }

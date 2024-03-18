@@ -6,41 +6,37 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/10 22:36:27 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/18 04:56:29 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*  void check_input(t_shell *shell)
+char *search_things(t_shell *shell, char *search)
 {
-	int i;
+t_my_env *tmp;
+int i;
 
-	i = 0;
-	while(shell->input[i])
+tmp = shell->env_list;
+i = -1;
+
+while(shell->my_env[++i])
+{
+	if(ft_strncmp(shell->my_env[i], search, ft_strlen(search)) == 0)
 	{
-		if(shell->input[i] == "$" && shell->input[i+1])
-			initiate_export(shell, i);	 
+		return( ft_strdup(shell->my_env[i]+ft_strlen(search)+1));
+	
 	}
 }
+tmp = shell->env_list;
+return(NULL);
+}
 
-void initiate_export(t_shell *shell, int i)
-{
-	while(shell->input[i])
-	{
-		if(shell->input[i] == " ")
-			break;
-		if (shell->input[i] == "=")
-		{
-		}
-		
-		i++;
-	}
-}  */
 void get_things(t_shell *shell)
 {
-	shell->user = getenv("USER");
-	shell->env = getenv("PATH");
-	shell->home = getenv("HOME");
+	shell->user = search_things(shell, "USER");
+	shell->env = search_things(shell, "PWD");
+	shell->home = search_things(shell, "HOME");
+	shell->path = search_things(shell, "PATH");
 	shell->prompt = ft_strjoin(shell->user, " minishell$ ");
 }
 int ft_strlen_pp(char **container)
@@ -77,12 +73,13 @@ void ft_env_split(t_shell *shell)
 		free(tmp);
 	}
 }
+
 void print_env(t_my_env *env)
 {
 	while(env)
 	{
 		if(env->name && env->value && ft_strlen(env->name) > 0 )
-				printf("%s=%s\n", env->name, env->value);
+				printf("declare -x %s=%s\n", env->name, env->value);
 		env = env->next;
 	}
 
