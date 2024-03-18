@@ -3,7 +3,7 @@ CC		= clang
 CFLAGS	= -Wall -Wextra -Werror
 SFLAGS	= -g3 -fsanitize=address
 
-FILES	= srcs/main srcs/lexer srcs/testers srcs/parser
+FILES	= srcs/main srcs/lexer srcs/testers srcs/parser srcs/split_cmd
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/

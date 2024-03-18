@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+in
+in2
+in3
+inout
+minishell
+*.o
+*.out
+

@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
+/*   Updated: 2024/03/18 21:55:44 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/12 03:05:36 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:38:01 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +39,37 @@ typedef enum {
 	TOKEN_TYPE_COMMAND,
 	TOKEN_TYPE_IN_FILE,
 	TOKEN_TYPE_OUT_FILE,
-	TOKEN_TYPE_EQUALS,
-	TOKEN_TYPE_EXCLAMATION,
 	TOKEN_TYPE_AMPERSAND,
 	TOKEN_TYPE_WILDCARD,
-	TOKEN_TYPE_BACKTICK,
-	TOKEN_TYPE_SEMICOLON,
-	TOKEN_TYPE_BACKSLASH,
 	TOKEN_TYPE_DOLLAR,
 	TOKEN_TYPE_DOT,
 	TOKEN_TYPE_QUESTION,
 	TOKEN_TYPE_SINGLE_QUOTE,
 	TOKEN_TYPE_DOUBLE_QUOTE,
-	TOKEN_TYPE_OPEN_PARENTHESIS,
-	TOKEN_TYPE_CLOSE_PARENTHESIS,
 	TOKEN_TYPE_STRING,
 	TOKEN_TYPE_VAR,
 	TOKEN_TYPE_EXPAND,
 	TOKEN_TYPE_MAX
 } Token_Type;
 
-typedef struct s_token
+
+
+typedef struct s_cmd
 {
-	Token_Type  type;
 	char        *text;
-//	char        *value;
-	size_t      text_length;
-	int         initial_idx;
-	int         exec_position;
-	struct s_token *next_token;
-	struct s_token *prev_token;
-} t_token;
+	char		*infile;
+	Token_Type	infile_mode;
+	char		*outfile;
+	int			write_mode;
+	char		**cmd_list;
+	struct s_cmd *next_cmd;
+	struct s_cmd *prev_token;
+} t_cmd;
 
 typedef struct s_input
 {
-	t_token *head;
-	t_token *token;
+	t_cmd *head;
+	t_cmd *token;
 } t_input;
 
 typedef struct s_command
@@ -77,13 +84,17 @@ typedef struct s_command
 } t_command;
 
 // lexer.c
-t_input   *lexer(const char *input);
-void cleanup_input_struct(t_input *input_struct);
+t_input   lexer(const char *input);
+void cleanup_cmd_list(t_input *cmd_list);
 
 // testers.c
-void    test_lexer(t_input *input_struct);
+void    test_lexer(t_input *cmd_list);
 
 // parser.c
 t_command   *parser(const char *input);
+
+// split_cmd.c
+char	**ft_split_cmd(char const *s);
+
 #endif
 
