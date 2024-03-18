@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/16 02:31:03 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:38:01 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,13 @@ typedef enum {
 	TOKEN_TYPE_COMMAND,
 	TOKEN_TYPE_IN_FILE,
 	TOKEN_TYPE_OUT_FILE,
-	TOKEN_TYPE_EQUALS,
-	TOKEN_TYPE_EXCLAMATION,
 	TOKEN_TYPE_AMPERSAND,
 	TOKEN_TYPE_WILDCARD,
-	TOKEN_TYPE_BACKTICK,
-	TOKEN_TYPE_SEMICOLON,
-	TOKEN_TYPE_BACKSLASH,
 	TOKEN_TYPE_DOLLAR,
 	TOKEN_TYPE_DOT,
 	TOKEN_TYPE_QUESTION,
 	TOKEN_TYPE_SINGLE_QUOTE,
 	TOKEN_TYPE_DOUBLE_QUOTE,
-	TOKEN_TYPE_OPEN_PARENTHESIS,
-	TOKEN_TYPE_CLOSE_PARENTHESIS,
 	TOKEN_TYPE_STRING,
 	TOKEN_TYPE_VAR,
 	TOKEN_TYPE_EXPAND,
