@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:54:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/18 22:00:09 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/18 23:00:37 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
