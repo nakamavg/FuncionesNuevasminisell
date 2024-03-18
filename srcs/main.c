@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:31:55 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/16 02:14:46 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:44:55 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int main(void)
 	parser("< ~/Desktop/in ls -la | ./echo \"hola mundo\" | wc -c | echo \"This is the $PATH \" | cat -e >> outfile");
 	// parser("echo \"hola\" > in3 | <in2 cat");
 //	 lexer("'hola ke ase ninio \"|'");
-	// lexer("'hola bobo\"|'");
     return (0);
 }
