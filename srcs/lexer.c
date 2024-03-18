@@ -6,43 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/18 21:18:46 by alberrod         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/16 02:19:03y alberrod         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/16 00:52:45by alberrod         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 03:18:17 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/14 11:22:38 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/18 22:07:08 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,19 +387,16 @@ char **cmd_split(const char *text, char *in, char *out)
 	int i;
 	int j;
 
-//	(void)in;
-//	(void)out;
 	i = 0;
 	j = 0;
-	cmd_list = ft_split(text, ' ');
+	cmd_list = ft_split_cmd(text);
 	while (cmd_list[i])
 	{
 		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
 		if (ft_strncmp(tmp, in, ft_strlen(tmp)) && ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
 		{
 			free(cmd_list[j]);
-			cmd_list[j] = ft_strdup(tmp);
-			j++;
+			cmd_list[j++] = ft_strdup(tmp);
 		}
 		free(tmp);
 	}
@@ -464,15 +425,10 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 	token->outfile = ft_outfile_content(token->text);
 	if (token->outfile)
 		token->write_mode = ft_outfile_mode(token->text);
-	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
-	while (*token->cmd_list)
-	{
-//		printf("cmd_list!: %s\n", *token->cmd_list);
-		token->cmd_list++;
-	}
 	// TODO: Build a splitter that takes care of the strings
 		// STEPS:
-		// when doing the split, the string is a whole block itself
+		//DONE  when doing the split, the string is a whole block itself
+	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
 		// if the "" string contains $, replace the content if available or use NULL
 		// If $ is not within a string, still expand it
 		// Document about how to deal with the case $?

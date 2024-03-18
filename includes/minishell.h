@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/18 20:59:48 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:55:44 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ void    test_lexer(t_input *cmd_list);
 
 // parser.c
 t_command   *parser(const char *input);
+
+// split_cmd.c
+char	**ft_split_cmd(char const *s);
 
 #endif
 
