@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
+/*   Updated: 2024/03/18 21:18:46 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
@@ -404,6 +416,38 @@ static	char *ft_outfile_content(const char *input)
 	
 }
 
+char **cmd_split(const char *text, char *in, char *out)
+{
+	char **cmd_list;
+	char *tmp;
+	int i;
+	int j;
+
+//	(void)in;
+//	(void)out;
+	i = 0;
+	j = 0;
+	cmd_list = ft_split(text, ' ');
+	while (cmd_list[i])
+	{
+		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
+		if (ft_strncmp(tmp, in, ft_strlen(tmp)) && ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
+		{
+			free(cmd_list[j]);
+			cmd_list[j] = ft_strdup(tmp);
+			j++;
+		}
+		free(tmp);
+	}
+	cmd_list[j] = NULL;
+	while (j < i)
+	{
+		free(cmd_list[j]);
+		j++;
+	}
+	return (cmd_list);
+}
+
 static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 {
 	t_cmd *token;
@@ -420,6 +464,12 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 	token->outfile = ft_outfile_content(token->text);
 	if (token->outfile)
 		token->write_mode = ft_outfile_mode(token->text);
+	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
+	while (*token->cmd_list)
+	{
+//		printf("cmd_list!: %s\n", *token->cmd_list);
+		token->cmd_list++;
+	}
 	// TODO: Build a splitter that takes care of the strings
 		// STEPS:
 		// when doing the split, the string is a whole block itself
