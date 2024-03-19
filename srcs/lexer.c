@@ -3,260 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 16:41:40 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/18 22:07:08 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/18 22:59:20by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//static  size_t input_split(const char *input, t_input *cmd_list, int initial_idx)
-//{
-//	size_t     cursor;
-//
-//	cursor = 0;
-//	if (ft_is_special_char(input[cursor]))
-//	{
-//		if (!ft_strncmp(&input[cursor], "$", 1))
-//		{
-//			while (input[cursor] && !ft_isspace(input[cursor]))
-//				cursor++;
-//			add_pipe(cmd_list, init_pipe(input, cursor, initial_idx));
-//			return (cursor);
-//		}
-//		if (!ft_strncmp(&input[cursor], "<", 1)) // Check for '<'
-//		{
-//			if (!ft_strncmp(&input[cursor + 1], "<", 1)) // Check for '<'
-//			{
-//				add_pipe(cmd_list, init_pipe(&input[cursor], 2, initial_idx));
-//				cursor++;
-//			}
-//			else
-//				add_pipe(cmd_list, init_pipe(&input[cursor], 1, initial_idx));
-//
-//			cursor++;
-//			while (input[cursor] && ft_isspace(input[cursor])) // Skip any whitespace after the '<'
-//				cursor++;
-//			size_t start = cursor;
-//			while (input[cursor] && !ft_isspace(input[cursor]) && !ft_is_special_char(input[cursor])) // advance till the end of the word
-//				cursor++;
-//			add_pipe(cmd_list, init_pipe(&input[start], cursor - start, initial_idx + start));
-//			return (cursor);
-//		}
-//		if (!ft_strncmp(&input[cursor], ">", 1)) // Check for '>'
-//		{
-//			if (!ft_strncmp(&input[cursor + 1], ">", 1)) // Check for '>'
-//			{
-//				add_pipe(cmd_list, init_pipe(&input[cursor], 2, initial_idx));
-//				cursor++;
-//			}
-//			else
-//				add_pipe(cmd_list, init_pipe(&input[cursor], 1, initial_idx));
-//
-//			cursor++;
-//			while (input[cursor] && ft_isspace(input[cursor])) // Skip any whitespace after the '<'
-//				cursor++;
-//			size_t start = cursor;
-//			while (input[cursor] && !ft_isspace(input[cursor]) && !ft_is_special_char(input[cursor])) // advance till the end of the word
-//				cursor++;
-//			add_pipe(cmd_list, init_pipe(&input[start], cursor - start, initial_idx + start));
-//			return (cursor);
-//		}
-//		add_pipe(cmd_list, init_pipe(&input[cursor], 1, initial_idx));
-//		return (1);
-//	}
-//	cursor = -1;
-//	while ((++cursor <= ft_strlen(input)) && (!ft_is_special_char(input[cursor])))
-//		;
-//	add_pipe(cmd_list, init_pipe(input, cursor, initial_idx));
-//	return (cursor);
-//}
-
-
-//static int process_sentence(t_input *input, const char *delimiter, int type)
-//{
-//	int closed_sentence;
-//
-//	closed_sentence = 0;
-//	token_type(input->token, type);
-//	input->token = input->token->next_cmd;
-//	while (input->token && ft_strncmp(input->token->text, delimiter, 1))
-//	{
-//		if (!ft_strncmp(input->token->text, "$", 1) && type == TOKEN_TYPE_DOUBLE_QUOTE)
-//			token_type(input->token, TOKEN_TYPE_EXPAND);
-//		else
-//			token_type(input->token, TOKEN_TYPE_STRING);
-//		input->token = input->token->next_cmd;
-//	}
-//	if (input->token && !ft_strncmp(input->token->text, delimiter, 1))
-//	{
-//		closed_sentence = !closed_sentence;
-//		token_type(input->token, type);
-//	}
-//	else
-//	{
-//		if (!closed_sentence)
-//		{
-//			printf("Error: Not closed string used as input\n");
-//			return (1);
-//		}
-//	}
-//	return (0);
-//}
-
-//int build_sentence(t_input *input)
-//{
-//	int	end;
-//
-//	end = 0;
-//	input->token = input->head;
-//	while (input->token->next_cmd)
-//	{
-//		if (input->token && !ft_strncmp(input->token->text, "\"", 1))
-//			end = process_sentence(input, "\"", TOKEN_TYPE_DOUBLE_QUOTE);
-//		else if (input->token && !ft_strncmp(input->token->text, "'", 1))
-//			end = process_sentence(input, "'", TOKEN_TYPE_SINGLE_QUOTE);
-//		if (end)
-//			return (1); // TODO: This is because of an error. Deal with it to exit properly the program (wrong input, str not enclosed)
-//		input->token = input->token->next_cmd;
-//	}
-//	return (0);
-//}
-//
-//int	in_redirections(t_cmd *token)
-//{
-//	if (ft_strlen(token->text) == 1)
-//	{
-//		token_type(token, TOKEN_TYPE_REDIR_IN);
-//		if (!token->next_cmd)
-//			return (printf("no in file to redirect"), 1);
-//		token_type(token->next_cmd, TOKEN_TYPE_IN_FILE);
-//	}
-//	else if (ft_strlen(token->text) == 2)
-//	{
-//		token_type(token, TOKEN_TYPE_REDIR_HEREDOC);
-//		if (!token->next_cmd)
-//			return (printf("no EOF for the here_doc file"), 1);
-//		token_type(token->next_cmd, TOKEN_TYPE_EOF);
-//	}
-//	return (0);
-//}
-//
-//int	out_redirections(t_cmd *token)
-//{
-//	if (ft_strlen(token->text) == 1)
-//	{
-//		token_type(token, TOKEN_TYPE_REDIR_OUT);
-//		if (!token->next_cmd)
-//			return (printf("no out file to redirect"), 1);
-//		token_type(token->next_cmd, TOKEN_TYPE_OUT_FILE);
-//	}
-//	else if (ft_strlen(token->text) == 2)
-//	{
-//		token_type(token, TOKEN_TYPE_REDIR_APPEND);
-//		if (!token->next_cmd)
-//			return (printf("no out file to append"), 1);
-//		token_type(token->next_cmd, TOKEN_TYPE_OUT_FILE);
-//	}
-//	return (0);
-//}
-//
-//int	check_pipes(t_cmd *token)
-//{
-//	token_type(token, TOKEN_TYPE_PIPE);
-//	if (!token->prev_token)
-//		return (printf("Missing program before the pipe\n"), 1);
-////	if (token->prev_token->type != TOKEN_TYPE_UNKNOWN && token->prev_token->type != TOKEN_TYPE_COMMAND)
-////	{
-////		if (token->prev_token->type != TOKEN_TYPE_DOUBLE_QUOTE && token->prev_token->type != TOKEN_TYPE_SINGLE_QUOTE)
-////			return (printf("The previous is not an executable: %s\n", token->prev_token->text));
-////	}
-//	if (!token->next_cmd)
-//		return (printf("Missing program after the pipe\n"), 1);
-//	if (token->next_cmd->type != TOKEN_TYPE_UNKNOWN)
-//		return (printf("The next is not an executable"), 1);
-//	// printf("++++++++\nPreview token: %s\nCurrent Token: %s\nNext token: %s\n=======\n", token->prev_token->text, token->text, token->next_cmd->text);
-//	token_type(token->prev_token, TOKEN_TYPE_COMMAND);
-//	token_type(token->next_cmd, TOKEN_TYPE_COMMAND);
-//	return (0);
-//}
-//
-//int	build_metachars(t_input *input)
-//{
-//	int err;
-////
-//	err = 0;
-//	input->token = input->head;
-//	while (input->token->next_cmd && !err)
-//	{
-//		if	(input->token && !ft_strncmp(input->token->text, "<", 1))
-//			err = in_redirections(input->token);
-//		else if	(input->token && !ft_strncmp(input->token->text, ">", 1))
-//			err = out_redirections(input->token);
-//		else if	(input->token && !ft_strncmp(input->token->text, "|", 1))
-//			err = check_pipes(input->token);
-//
-//		input->token = input->token->next_cmd;
-//	}
-//	return (err);
-//}
-
-
-//int input_sanitize(const char *input)
-//{
-//	int cursor;
-//	int next;
-//
-//	cursor = -1;
-//	while (input[++cursor])
-//	{
-//		next = cursor + 1;
-//		while (ft_isspace(input[next]))
-//			next++;
-////		if (input[cursor] == '|' && ft_strchr("|<>", input[next]))
-////			return (printf("Error: | followed by %c\n", input[next]), 1);
-//	}
-//	return (0);
-//}
-
-//t_input   *lexer(const char *input)
-//{
-//	t_input *cmd_list;
-//	int     cursor;
-//	int		err;
-//
-//	printf("input: %s\n\n", input);
-//	if (input_sanitize(input))
-//		return (printf("non-valid input\n"), NULL);
-//	printf("input sanitized\n");
-//	cmd_list = init_input();
-//	if (!cmd_list)
-//		return (NULL);
-//	input = ft_strtrim(input, " \t\n\v\f\r");
-//	cursor = 0;
-//	while (input[cursor])
-//		cursor += input_split(input + cursor, cmd_list, cursor);
-//	err = build_sentence(cmd_list);
-//	if (err)
-//		return (printf("string error\n"), cleanup_cmd_list(cmd_list), NULL);
-//	if (build_metachars(cmd_list))
-//		return (printf("metachars error\n"), cleanup_cmd_list(cmd_list), NULL);
-//	test_lexer(cmd_list);
-//	return (cmd_list);
-//}
-
-
-
-
-//++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++
 
 int	ft_isspace(int c)
 {
@@ -393,20 +147,86 @@ char **cmd_split(const char *text, char *in, char *out)
 	while (cmd_list[i])
 	{
 		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
+		free(cmd_list[i - 1]);
 		if (ft_strncmp(tmp, in, ft_strlen(tmp)) && ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
-		{
-			free(cmd_list[j]);
 			cmd_list[j++] = ft_strdup(tmp);
-		}
 		free(tmp);
 	}
 	cmd_list[j] = NULL;
-	while (j < i)
-	{
-		free(cmd_list[j]);
-		j++;
-	}
 	return (cmd_list);
+}
+
+char	*get_the_variable(char *cmd)
+{
+	int idx = 0;
+	int jdx;
+	char *variable;
+	char *begin;
+	char *end;
+	char *out;
+
+	while (cmd[idx])
+	{
+		if (cmd[idx] == '$')
+		{
+			begin = ft_substr(cmd, 0, idx);
+			jdx = 0;
+			while (cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx] && cmd[idx + jdx] != '\"'))
+				jdx++;
+			variable = ft_substr(cmd, idx + 1, jdx - 1);
+			end = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
+		}
+		idx++;
+	}
+	// TODO: USE OUR OWN VERSION OF GETENV
+	// out = ft_sprintf("%s%s%s", begin, getenv(variable), end);
+	printf("variable: %s\n", variable);
+	out = ft_sprintf("%s%s%s", begin, "HERE GOES A VARIABLE", end);
+	free(begin);
+	free(variable);
+	free(end);
+	return (out);
+}
+
+char	**expand_variable(char **cmd)
+{
+	int idx = -1;
+	int jdx;
+	char *tmp;
+	int quote;
+
+	quote = 0;
+	while (cmd[++idx])
+	{
+		jdx = -1;
+		while (cmd[idx][++jdx])
+		{
+			if (cmd[idx][jdx] == '\'')
+			{
+				if (!quote)
+					quote = cmd[idx][jdx];
+				else
+					quote = 0;
+				printf("quote: %c\n", quote);
+			}
+			if (cmd[idx][jdx] == '$' && !quote)
+			{
+				if (cmd[idx][jdx + 1] == '?')
+				{
+					// free(cmd[idx]);
+					// TODO: FIND A WAY TO GET THE EXIT STATUS
+					// cmd[idx] = ft_sprintf("%d", EXIT_STATUS_CODE);
+					break ;
+				}
+				tmp = get_the_variable(cmd[idx]);
+				free(cmd[idx]);
+				cmd[idx] = ft_strdup(tmp);
+				free(tmp);
+				tmp = NULL;
+			}
+		}
+	}
+	return (cmd);
 }
 
 static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
@@ -428,8 +248,15 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 	// TODO: Build a splitter that takes care of the strings
 		// STEPS:
 		//DONE  when doing the split, the string is a whole block itself
-	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
-		// if the "" string contains $, replace the content if available or use NULL
+		//DONE if the "" string contains $, replace the content if available or use NULL
+		token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
+		// token->cmd_list = expand_variable(cmd_split(token->text, token->infile, token->outfile));
+		// char **tmp = token->cmd_list;
+		// free(token->cmd_list);
+		token->cmd_list = expand_variable(token->cmd_list);
+		// token->cmd_list = expand_variable(token->cmd_list);
+		// free(tmp);
+
 		// If $ is not within a string, still expand it
 		// Document about how to deal with the case $?
 	
@@ -441,15 +268,31 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 
 void cleanup_cmd_list(t_input *cmd_list)
 {
-	cmd_list->token = cmd_list->head;
-	while (cmd_list->token)
-	{
-		if (cmd_list->token->text)
-			free(cmd_list->token->text);
-		free(cmd_list->token);
-		cmd_list->token = cmd_list->token->next_cmd;
-	}
-	// free(cmd_list);
+    t_cmd *current_token = cmd_list->head;
+    t_cmd *next_token;
+	char **original_cmd_list;
+
+    while (current_token)
+    {
+        next_token = current_token->next_cmd;
+        if (current_token->text)
+            free(current_token->text);
+        if (current_token->infile)
+            free(current_token->infile);
+        if (current_token->outfile)
+            free(current_token->outfile);
+        original_cmd_list = current_token->cmd_list; 
+        while (*current_token->cmd_list)
+        {
+            if (*current_token->cmd_list)
+                free(*current_token->cmd_list);
+            current_token->cmd_list++;
+        }
+        free(original_cmd_list); 
+        free(current_token);
+        current_token = next_token;
+    }
+	free(current_token);
 }
 
 int sanitize_input(const char *input)
