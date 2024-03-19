@@ -193,13 +193,23 @@ char	**expand_variable(char **cmd)
 	int idx = -1;
 	int jdx;
 	char *tmp;
+	int quote;
 
+	quote = 0;
 	while (cmd[++idx])
 	{
-		jdx = 0;
+		jdx = -1;
 		while (cmd[idx][++jdx])
 		{
-			if (cmd[idx][jdx] == '$')
+			if (cmd[idx][jdx] == '\'')
+			{
+				if (!quote)
+					quote = cmd[idx][jdx];
+				else
+					quote = 0;
+				printf("quote: %c\n", quote);
+			}
+			if (cmd[idx][jdx] == '$' && !quote)
 			{
 				if (cmd[idx][jdx + 1] == '?')
 				{
