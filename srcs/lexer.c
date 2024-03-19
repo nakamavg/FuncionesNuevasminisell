@@ -153,7 +153,8 @@ char **cmd_split(const char *text, char *in, char *out)
 			cmd_list[j++] = ft_strdup(tmp);
 			free(tmp);
 		}
-		free(tmp);
+		else
+			free(tmp);
 	}
 	cmd_list[j] = NULL;
 	while (j < i)
@@ -163,6 +164,7 @@ char **cmd_split(const char *text, char *in, char *out)
 	}
 	return (cmd_list);
 }
+
 
 static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 {
