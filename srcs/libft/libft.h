@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 22:17:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/01/28 00:05:49 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:23:19 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,7 @@ int					ft_fd_print_addr(int fd, unsigned long nbr,
 
 // Get next line 
 char				*get_next_line(int fd);
+//new fuctions nakama style
+int ft_strlencmp(const char *s1, const char *s2);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/13 18:30:09 by alberrod          #+#    #+#              #
-#    Updated: 2024/01/28 00:00:58 by alberrod         ###   ########.fr        #
+#    Updated: 2024/03/19 16:24:06 by dgomez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CFILES = ft_calloc.c ft_isdigit.c ft_memcmp.c ft_putchar_fd.c ft_split.c \
 	   ft_sprintf.c sprintf_utils.c \
 	   ft_printf.c printers.c \
 	   ft_fd_printf.c fd_printers.c \
-	   get_next_line.c
+	   get_next_line.c ft_strlencmp.c
 
 OFILES = $(CFILES:.c=.o)
 

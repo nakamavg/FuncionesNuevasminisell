@@ -6,13 +6,20 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/18 10:25:45 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:46:00 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/minishell.h"
-/* char *search_things(t_shell *shell, char *search)
+int check_names(char *name, char *search)
+{
+	if(ft_strnlencmp(name,search) == 0)
+		if(ft_strncmp(name, search, ft_strlen(search)) == 0)
+			return(1);
+	return(0);
+}
+char *search_echo(t_shell *shell, char *search)
 {
 	t_my_env *tmp;
 	int i;
@@ -20,14 +27,15 @@
 	i = -1;
 	while(shell->my_env[++i])
 	{
-		if(ft_strncmp(shell->my_env[i], search, ft_strlen(search)) == 0)
+		
+		if(check_names(shell->my_env[i], search) == 1)
 		{
 			return( ft_strdup(shell->my_env[i]+ft_strlen(search)+1));
 		}
 	}
 	tmp = shell->env_list;
 	return(NULL);
-} */
+}
 
 void echo(t_shell *shell)
 {
@@ -35,18 +43,22 @@ void echo(t_shell *shell)
 	//size_t echo_len;
 	char **echo;
 	save = shell->env_list;
-	int i = 1;	
 	echo = ft_split(shell->input, ' ');
 	if (echo[1])
 	{
-		while (echo[1])
+		if (echo[1][0] == '$')
 		{
-			if (echo[i][0] == '$')
+			char *tmp;
+			tmp = search_echo(shell, echo[1]+1);
+			if (tmp)
 			{
+				ft_putstr_fd(tmp, STDOUT_FILENO);
+				free(tmp);
 			}
-			else
-			printf("%s ", echo[i]);
-			i++;
+		}
+		else
+		{
+			ft_putstr_fd(echo[1], STDOUT_FILENO);
 		}
 		printf("\n");
 	}
