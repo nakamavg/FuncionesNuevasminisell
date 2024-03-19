@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/19 17:46:00 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:07:29 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/minishell.h"
 int check_names(char *name, char *search)
 {
-	if(ft_strnlencmp(name,search) == 0)
+	if(ft_strlen(search) == ft_strlen(name))
 		if(ft_strncmp(name, search, ft_strlen(search)) == 0)
 			return(1);
 	return(0);
@@ -49,7 +49,7 @@ void echo(t_shell *shell)
 		if (echo[1][0] == '$')
 		{
 			char *tmp;
-			tmp = search_echo(shell, echo[1]+1);
+			tmp = search_echo(shell, &echo[1][1]);
 			if (tmp)
 			{
 				ft_putstr_fd(tmp, STDOUT_FILENO);
