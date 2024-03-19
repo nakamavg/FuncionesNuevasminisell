@@ -165,6 +165,68 @@ char **cmd_split(const char *text, char *in, char *out)
 	return (cmd_list);
 }
 
+char	*get_the_variable(char *cmd)
+{
+	int idx = 0;
+	int jdx;
+	char *variable;
+	char *begin;
+	char *end;
+	char *out;
+
+	while (cmd[idx])
+	{
+		if (cmd[idx] == '$')
+		{
+			begin = ft_substr(cmd, 0, idx);
+			jdx = 0;
+			while (cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx]))
+				jdx++;
+			variable = ft_substr(cmd, idx + 1, jdx - 1);
+			end = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
+		}
+		idx++;
+	}
+	// TODO: USE OUR OWN VERSION OF GETENV
+	// out = ft_sprintf("%s%s%s", begin, getenv(variable), end);
+	// printf("variable: %s\n", variable);
+	out = ft_sprintf("%s%s%s", begin, "HERE GOES A VARIABLE", end);
+	free(begin);
+	free(variable);
+	free(end);
+	return (out);
+}
+
+char	**expand_variable(char **cmd)
+{
+	int idx = -1;
+	int jdx;
+	char *tmp;
+
+	while (cmd[++idx])
+	{
+		jdx = 0;
+		while (cmd[idx][++jdx])
+		{
+			if (cmd[idx][jdx] == '$')
+			{
+				if (cmd[idx][jdx + 1] == '?')
+				{
+					// free(cmd[idx]);
+					// TODO: FIND A WAY TO GET THE EXIT STATUS
+					// cmd[idx] = ft_sprintf("%d", EXIT_STATUS_CODE);
+					break ;
+				}
+				tmp = get_the_variable(cmd[idx]);
+				free(cmd[idx]);
+				cmd[idx] = ft_strdup(tmp);
+				free(tmp);
+				tmp = NULL;
+			}
+		}
+	}
+	return (cmd);
+}
 
 static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 {
@@ -185,8 +247,15 @@ static t_cmd *init_pipe(const char *text, size_t text_length, int initial_idx)
 	// TODO: Build a splitter that takes care of the strings
 		// STEPS:
 		//DONE  when doing the split, the string is a whole block itself
-	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
-		// if the "" string contains $, replace the content if available or use NULL
+		//DONE if the "" string contains $, replace the content if available or use NULL
+		token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
+		// token->cmd_list = expand_variable(cmd_split(token->text, token->infile, token->outfile));
+		// char **tmp = token->cmd_list;
+		// free(token->cmd_list);
+		token->cmd_list = expand_variable(token->cmd_list);
+		// token->cmd_list = expand_variable(token->cmd_list);
+		// free(tmp);
+
 		// If $ is not within a string, still expand it
 		// Document about how to deal with the case $?
 	
@@ -200,7 +269,7 @@ void cleanup_cmd_list(t_input *cmd_list)
 {
     t_cmd *current_token = cmd_list->head;
     t_cmd *next_token;
-	char	*tmp_cmd;
+	char	**tmp_cmd = NULL;
 
     while (current_token)
     {
@@ -211,11 +280,12 @@ void cleanup_cmd_list(t_input *cmd_list)
 			free(current_token->infile);
 		if (current_token->outfile)
 			free(current_token->outfile);
-		while (*current_token->cmd_list)
+		tmp_cmd = current_token->cmd_list;
+		while (*tmp_cmd)
 		{
-			tmp_cmd = *(current_token->cmd_list++);	
-			free(current_token->cmd_list);
-			current_token->cmd_list = &tmp_cmd;
+			if (*tmp_cmd)
+				free(*tmp_cmd);
+			tmp_cmd++;
 		}
         free(current_token);
         current_token = next_token;

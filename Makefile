@@ -17,7 +17,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(SFLAGS) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
 	# $(CC) $(SFLAGS) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
 
 fsanitize:
