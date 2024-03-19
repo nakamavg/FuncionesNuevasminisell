@@ -147,21 +147,12 @@ char **cmd_split(const char *text, char *in, char *out)
 	while (cmd_list[i])
 	{
 		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
+		free(cmd_list[i - 1]);
 		if (ft_strncmp(tmp, in, ft_strlen(tmp)) && ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
-		{
-			free(cmd_list[j]);
 			cmd_list[j++] = ft_strdup(tmp);
-			free(tmp);
-		}
-		else
-			free(tmp);
+		free(tmp);
 	}
 	cmd_list[j] = NULL;
-	while (j < i)
-	{
-		free(cmd_list[j]);
-		j++;
-	}
 	return (cmd_list);
 }
 
@@ -269,24 +260,25 @@ void cleanup_cmd_list(t_input *cmd_list)
 {
     t_cmd *current_token = cmd_list->head;
     t_cmd *next_token;
-	char	**tmp_cmd = NULL;
+	char **original_cmd_list;
 
     while (current_token)
     {
         next_token = current_token->next_cmd;
         if (current_token->text)
             free(current_token->text);
-		if (current_token->infile)
-			free(current_token->infile);
-		if (current_token->outfile)
-			free(current_token->outfile);
-		tmp_cmd = current_token->cmd_list;
-		while (*tmp_cmd)
-		{
-			if (*tmp_cmd)
-				free(*tmp_cmd);
-			tmp_cmd++;
-		}
+        if (current_token->infile)
+            free(current_token->infile);
+        if (current_token->outfile)
+            free(current_token->outfile);
+        original_cmd_list = current_token->cmd_list; 
+        while (*current_token->cmd_list)
+        {
+            if (*current_token->cmd_list)
+                free(*current_token->cmd_list);
+            current_token->cmd_list++;
+        }
+        free(original_cmd_list); 
         free(current_token);
         current_token = next_token;
     }
