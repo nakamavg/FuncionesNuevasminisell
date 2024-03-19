@@ -171,7 +171,7 @@ char	*get_the_variable(char *cmd)
 		{
 			begin = ft_substr(cmd, 0, idx);
 			jdx = 0;
-			while (cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx]))
+			while (cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx] && cmd[idx + jdx] != '\"'))
 				jdx++;
 			variable = ft_substr(cmd, idx + 1, jdx - 1);
 			end = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
@@ -180,7 +180,7 @@ char	*get_the_variable(char *cmd)
 	}
 	// TODO: USE OUR OWN VERSION OF GETENV
 	// out = ft_sprintf("%s%s%s", begin, getenv(variable), end);
-	// printf("variable: %s\n", variable);
+	printf("variable: %s\n", variable);
 	out = ft_sprintf("%s%s%s", begin, "HERE GOES A VARIABLE", end);
 	free(begin);
 	free(variable);
