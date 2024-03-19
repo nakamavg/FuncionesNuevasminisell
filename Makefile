@@ -1,10 +1,12 @@
 NAME	= minishell
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -ggdb3 #-fsanitize=address -g3 
+CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include  #-fsanitize=address -g3 
 SFLAGS	= -g3 -fsanitize=address
 
 FILES	= srcs/main srcs/gethings srcs/builtsin/builtsinhandler srcs/builtsin/cd srcs/builtsin/export \
-		srcs/errors srcs/builtsin/unset srcs/utilslist srcs/builtsin/echo srcs/exec/exec
+		srcs/errors srcs/builtsin/unset srcs/utilslist srcs/builtsin/echo srcs/exec/exec \
+		srcs/parser/lexer srcs/parser/parser srcs/parser/split_cmd \
+		srcs/parser/testers 
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
 HEADERS	= includes/

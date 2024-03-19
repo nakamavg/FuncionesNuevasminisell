@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/18 14:41:26 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:37:17 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void equal_handler(t_shell *shell, char *name, char *value)
 {
 	if(check_if_exist(shell, name, value))
 		return ;
-	add_e	q nv(&shell->env_list, ft_envnew(name, value, shell->env_list));
+	add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
 
 }
 
