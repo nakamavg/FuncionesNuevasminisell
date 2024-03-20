@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 18:18:17 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:22:03 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	sanitize_input(const char *input)
 
 	within_dq_sent = 0;
 	within_sq_sent = 0;
-	cursor = 0;
 	while (*input)
 	{
+		cursor = 0;
 		if (*input == '\"' && !within_sq_sent)
 			within_dq_sent = !within_dq_sent;
 		if (*input == '\'' && !within_dq_sent)
@@ -37,7 +37,6 @@ int	sanitize_input(const char *input)
 				;
 			if (input[cursor] == '|')
 				return (printf("Error: two pipes, no cmds in between\n"), 1);
-			cursor = 0;
 		}
 		input++;
 	}
