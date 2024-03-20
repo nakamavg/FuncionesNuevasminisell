@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:52:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:31:33 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ t_input	init_input(void)
 void	build_cmdlst(const char *input, t_input *cmd_list)
 {
 	int	idx;
-	int	len;
 	int	pipe_idx;
 
-	idx = 0;
-	len = ft_strlen(input);
-	while (input[idx])
+	idx = -1;
+	while (input[++idx])
 	{
 		while (ft_isspace(input[idx]))
 			idx++;
@@ -50,7 +48,8 @@ void	build_cmdlst(const char *input, t_input *cmd_list)
 		if (input[idx] == '\'')
 			while (input[idx] && input[++idx] != '\'')
 				;
-		if (input[idx] && (input[idx] == '|' || idx == len - 1))
+		if (input[idx] && (input[idx] == '|'
+				|| idx == (int)ft_strlen(input) - 1))
 		{
 			if (input[idx] != '|')
 				idx++;
@@ -59,7 +58,6 @@ void	build_cmdlst(const char *input, t_input *cmd_list)
 				;
 			pipe_idx = idx;
 		}
-		idx++;
 	}
 }
 
@@ -87,11 +85,7 @@ void	cleanup_cmd_list(t_input *cmd_list)
 			free(current_token->outfile);
 		original_cmd_list = current_token->cmd_list;
 		while (*current_token->cmd_list)
-		{
-			if (*current_token->cmd_list)
-				free(*current_token->cmd_list);
-			current_token->cmd_list++;
-		}
+			free(*current_token->cmd_list++);
 		free(original_cmd_list);
 		free(current_token);
 		current_token = next_token;
