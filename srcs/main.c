@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:39:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/19 14:16:09 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:17:52 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void shell_loop(t_shell *shell)
 		{
 			
             add_history(shell->input);
-	//		cmd_list = lexer("hola que tal");
+			//cmd_list = lexer(shell->input);
 			command_handler(shell);
-	//		cleanup_cmd_list(&cmd_list);
+	//cleanup_cmd_list(&cmd_list);
         }
 		else if (shell->input == NULL)
 		{

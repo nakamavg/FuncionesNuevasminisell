@@ -6,7 +6,7 @@
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/19 18:07:29 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:29:49 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,12 @@ int check_names(char *name, char *search)
 char *search_echo(t_shell *shell, char *search)
 {
 	t_my_env *tmp;
-	int i;
 	tmp = shell->env_list;
-	i = -1;
-	while(shell->my_env[++i])
+	while(tmp)
 	{
-		
-		if(check_names(shell->my_env[i], search) == 1)
-		{
-			return( ft_strdup(shell->my_env[i]+ft_strlen(search)+1));
-		}
+		if(check_names(tmp->name, search))
+			return(ft_strdup(tmp->value));
+		tmp = tmp->next;
 	}
 	tmp = shell->env_list;
 	return(NULL);
