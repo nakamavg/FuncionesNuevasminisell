@@ -6,51 +6,60 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:22:11 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:14:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static	void	free_sent(char *sent[3])
+{
+	int	idx;
+
+	idx = 3;
+	while (idx)
+		free(sent[--idx]);
+}
+
+// TODO: USE OUR OWN VERSION OF GETENV
+// out = ft_sprintf("%s%s%s", begin, getenv(sent[1]), end);
+// The sent (sentence) is structured: 0 - begin, 1 - variable, 2 - end
+
 char	*get_the_variable(char *cmd)
 {
-	int idx = 0;
-	int jdx;
-	char *variable;
-	char *begin;
-	char *end;
-	char *out;
+	int		idx;
+	int		jdx;
+	char	*sent[3];
+	char	*out;
 
-	while (cmd[idx])
+	idx = -1;
+	while (cmd[++idx])
 	{
 		if (cmd[idx] == '$')
 		{
-			begin = ft_substr(cmd, 0, idx);
+			sent[0] = ft_substr(cmd, 0, idx);
 			jdx = 0;
-			while (cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx] && cmd[idx + jdx] != '\"'))
+			while (cmd[idx + jdx]
+				&& !ft_isspace(cmd[idx + jdx]
+					&& cmd[idx + jdx] != '\"'))
 				jdx++;
-			variable = ft_substr(cmd, idx + 1, jdx - 1);
-			end = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
+			sent[1] = ft_substr(cmd, idx + 1, jdx - 1);
+			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
 		}
-		idx++;
 	}
-	// TODO: USE OUR OWN VERSION OF GETENV
-	// out = ft_sprintf("%s%s%s", begin, getenv(variable), end);
-	printf("variable: %s\n", variable);
-	out = ft_sprintf("%s%s%s", begin, "HERE GOES A VARIABLE", end);
-	free(begin);
-	free(variable);
-	free(end);
+	out = ft_sprintf("%s%s%s", sent[0], "our_getenv(sent[1])", sent[2]);
+	free_sent(sent);
 	return (out);
 }
 
 char	**expand_variable(char **cmd)
 {
-	int idx = -1;
-	int jdx;
-	char *tmp;
-	int quote;
+	int		idx;
+	int		jdx;
+	char	*tmp;
+	int		quote;
 
+	idx = -1;
 	quote = 0;
 	while (cmd[++idx])
 	{

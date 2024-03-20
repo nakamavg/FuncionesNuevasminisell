@@ -6,15 +6,17 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:11:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:24:35 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:54:38 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// TODO: ASK: Do I have to deal with wrong flags? 
+// TODO: Document about how to deal with the case $?
 t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx)
 {
-	t_cmd *token;
+	t_cmd	*token;
 
 	if (ft_strchr(" \t\n\v\f\r", *text) && text_length <= 1)
 		return (NULL);
@@ -28,22 +30,8 @@ t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx)
 	token->outfile = ft_outfile_content(token->text);
 	if (token->outfile)
 		token->write_mode = ft_outfile_mode(token->text);
-	// TODO: Build a splitter that takes care of the strings
-		// STEPS:
-		//DONE  when doing the split, the string is a whole block itself
-		//DONE if the "" string contains $, replace the content if available or use NULL
-		token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
-		// token->cmd_list = expand_variable(cmd_split(token->text, token->infile, token->outfile));
-		// char **tmp = token->cmd_list;
-		// free(token->cmd_list);
-		token->cmd_list = expand_variable(token->cmd_list);
-		// token->cmd_list = expand_variable(token->cmd_list);
-		// free(tmp);
-
-		// If $ is not within a string, still expand it
-		// Document about how to deal with the case $?
-	
-	// TODO: ASK: Do I have to deal with wrong flags? 
+	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
+	token->cmd_list = expand_variable(token->cmd_list);
 	token->next_cmd = NULL;
 	token->prev_token = NULL;
 	return (token);
@@ -51,7 +39,7 @@ t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx)
 
 void	add_pipe(t_input *cmd_list, t_cmd *new_token)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	if (!new_token)
 		return ;

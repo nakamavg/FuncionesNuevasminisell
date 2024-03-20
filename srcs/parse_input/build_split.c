@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmd.c                                        :+:      :+:    :+:   */
+/*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:54:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:24:49 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:56:15 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static ssize_t	break_content(char const *s, char c, char **out)
 {
 	ssize_t	idx;
-	int 	quote;
+	int		quote;
 
 	idx = 0;
 	while (s[idx])
@@ -44,7 +44,7 @@ static ssize_t	break_content(char const *s, char c, char **out)
 static size_t	count_words(char const *s, char c)
 {
 	size_t	counter;
-	int 	quote;
+	int		quote;
 
 	counter = 0;
 	while (*s)
@@ -98,17 +98,17 @@ static char	**ft_split_cmd(char const *s)
 			s += idx;
 		}
 		else
-		s++;
+			s++;
 	}
 	return (out);
 }
 
 char	**cmd_split(const char *text, char *in, char *out)
 {
-	char **cmd_list;
-	char *tmp;
-	int i;
-	int j;
+	char	**cmd_list;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -117,7 +117,9 @@ char	**cmd_split(const char *text, char *in, char *out)
 	{
 		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
 		free(cmd_list[i - 1]);
-		if (ft_strncmp(tmp, in, ft_strlen(tmp)) && ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
+		if (ft_strncmp(tmp, in, ft_strlen(tmp))
+			&& ft_strncmp(tmp, out, ft_strlen(tmp))
+			&& *tmp != '<' && *tmp != '>')
 			cmd_list[j++] = ft_strdup(tmp);
 		free(tmp);
 	}

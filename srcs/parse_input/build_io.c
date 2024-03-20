@@ -6,15 +6,15 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:17:37 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:18:45 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:22:50 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-Token_Type	ft_infile_mode(const char *input)
+t_Token_Type	ft_infile_mode(const char *input)
 {
-	while(ft_isspace(*input))
+	while (ft_isspace(*input))
 		input++;
 	if (!input)
 		return (TOKEN_TYPE_UNKNOWN);
@@ -29,7 +29,7 @@ Token_Type	ft_infile_mode(const char *input)
 
 char	*ft_infile_content(const char *input)
 {
-	size_t len;
+	size_t	len;
 
 	while (*input && ft_isspace(*input))
 		input++;
@@ -49,10 +49,9 @@ char	*ft_infile_content(const char *input)
 	while (input[len] && !ft_isspace(input[len]))
 		len++;
 	return (ft_substr(input, 0, len));
-	
 }
 
-Token_Type	ft_outfile_mode(const char *input)
+t_Token_Type	ft_outfile_mode(const char *input)
 {
 	while (*input && *input != '>')
 		input++;
@@ -69,7 +68,7 @@ Token_Type	ft_outfile_mode(const char *input)
 
 char	*ft_outfile_content(const char *input)
 {
-	size_t len;
+	size_t	len;
 
 	while (*input && *input != '>')
 		input++;
@@ -89,5 +88,4 @@ char	*ft_outfile_content(const char *input)
 	while (input[len] && !ft_isspace(input[len]))
 		len++;
 	return (ft_substr(input, 0, len));
-	
 }

@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:10:01 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:52:25 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
  * 
  * @return The initialized input structure.
  */
-t_input	init_input()
+t_input	init_input(void)
 {
-	t_input cmd_list;
+	t_input	cmd_list;
 
 	cmd_list.head = NULL;
 	cmd_list.token = NULL;
@@ -34,9 +34,9 @@ t_input	init_input()
  */
 void	build_cmdlst(const char *input, t_input *cmd_list)
 {
-	int idx;
-	int len;
-	int pipe_idx;
+	int	idx;
+	int	len;
+	int	pipe_idx;
 
 	idx = 0;
 	len = ft_strlen(input);
@@ -66,14 +66,16 @@ void	build_cmdlst(const char *input, t_input *cmd_list)
 /**
  * Cleans up the allocated space in the command list.
  * 
- * @param cmd_list The pointer to the input structure containing the command list.
+ * @param cmd_list The pointer to the input structure containing
+ * the command list.
  */
-void cleanup_cmd_list(t_input *cmd_list)
+void	cleanup_cmd_list(t_input *cmd_list)
 {
-	t_cmd *current_token = cmd_list->head;
-	t_cmd *next_token;
-	char **original_cmd_list;
+	t_cmd	*current_token;
+	t_cmd	*next_token;
+	char	**original_cmd_list;
 
+	current_token = cmd_list->head;
 	while (current_token)
 	{
 		next_token = current_token->next_cmd;
