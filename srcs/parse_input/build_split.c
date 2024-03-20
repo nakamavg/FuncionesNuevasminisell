@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:54:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/19 08:41:00 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:24:49 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ static void	free_output(char **output, size_t counter)
 	free(output);
 }
 
-// count = number of subarrays in out
-// Default fail return: -1
-char	**ft_split_cmd(char const *s)
+static char	**ft_split_cmd(char const *s)
 {
 	char	**out;
 	ssize_t	idx;
@@ -103,4 +101,26 @@ char	**ft_split_cmd(char const *s)
 		s++;
 	}
 	return (out);
+}
+
+char	**cmd_split(const char *text, char *in, char *out)
+{
+	char **cmd_list;
+	char *tmp;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	cmd_list = ft_split_cmd(text);
+	while (cmd_list[i])
+	{
+		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
+		free(cmd_list[i - 1]);
+		if (ft_strncmp(tmp, in, ft_strlen(tmp)) && ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
+			cmd_list[j++] = ft_strdup(tmp);
+		free(tmp);
+	}
+	cmd_list[j] = NULL;
+	return (cmd_list);
 }

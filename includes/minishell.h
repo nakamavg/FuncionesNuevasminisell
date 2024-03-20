@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/18 22:41:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:32:22 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,38 @@ typedef struct s_command
 	int     write_mode;
 } t_command;
 
-// lexer.c
-t_input   lexer(const char *input);
-void cleanup_cmd_list(t_input *cmd_list);
-
 // testers.c
-void    test_lexer(t_input *cmd_list);
+void		test_lexer(t_input *cmd_list);
 
-// parser.c
-t_command   *parser(const char *input);
+// /parse_input/parser.c
+int			ft_isspace(int c);
+int			sanitize_input(const char *input);
+t_input		parse_input(const char *input);
+
+// /parse/input/build_cmd.c
+t_input		init_input();
+void		build_cmdlst(const char *input, t_input *cmd_list);
+void		cleanup_cmd_list(t_input *cmd_list);
+
+// /parse/input/build_split.c
+char		**cmd_split(const char *text, char *in, char *out);
+
+// /parse/input/build_pipe.c
+t_cmd		*init_pipe(const char *text, size_t text_length, int initial_idx);
+void		add_pipe(t_input *cmd_list, t_cmd *new_token);
+
+// /parse/input/build_io.c
+Token_Type	ft_infile_mode(const char *input);
+char		*ft_infile_content(const char *input);
+Token_Type	ft_outfile_mode(const char *input);
+char		*ft_outfile_content(const char *input);
+
+// /parse/input/build_variable.c
+char		*get_the_variable(char *cmd);
+char		**expand_variable(char **cmd);
 
 // split_cmd.c
-char	**ft_split_cmd(char const *s);
+char		**cmd_split(const char *text, char *in, char *out);
 
 #endif
 
