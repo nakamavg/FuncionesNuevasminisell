@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:32:22 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:36:17 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct s_command
 void		test_lexer(t_input *cmd_list);
 
 // /parse_input/parser.c
-int			ft_isspace(int c);
 int			sanitize_input(const char *input);
 t_input		parse_input(const char *input);
 

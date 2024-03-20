@@ -6,16 +6,11 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:31:01 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:36:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_isspace(int c)
-{
-	return (ft_strchr(" \t\n\v\f\r", c) != NULL);
-}
 
 int	sanitize_input(const char *input)
 {

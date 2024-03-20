@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 22:17:45 by alberrod          #+#    #+#             */
-/*   Updated: 2024/01/28 00:05:49 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:40:14 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+int					ft_isspace(int c);
 int					ft_isalnum(int c);
 int					ft_tolower(int c);
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
