@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 18:14:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:38:04 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,14 @@ char	*get_the_variable(char *cmd)
 		{
 			sent[0] = ft_substr(cmd, 0, idx);
 			jdx = 0;
-			while (cmd[idx + jdx]
-				&& !ft_isspace(cmd[idx + jdx]
-					&& cmd[idx + jdx] != '\"'))
-				jdx++;
+			while ((cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx]))
+					&& cmd[idx + jdx] != '\"')
+						jdx++;
 			sent[1] = ft_substr(cmd, idx + 1, jdx - 1);
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
 		}
 	}
-	out = ft_sprintf("%s%s%s", sent[0], "our_getenv(sent[1])", sent[2]);
+	out = ft_sprintf("%sOUR_GETENV(%s)%s", sent[0], sent[1], sent[2]);
 	free_sent(sent);
 	return (out);
 }
@@ -88,6 +87,8 @@ char	**expand_variable(char **cmd)
 				cmd[idx] = ft_strdup(tmp);
 				free(tmp);
 				tmp = NULL;
+				printf("cmd idx is: %s\n", cmd[idx]);
+				jdx = -1;
 			}
 		}
 	}
