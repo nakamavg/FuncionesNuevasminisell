@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/18 22:41:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:24:58 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include "libft.h"
 
-typedef enum {
-
+typedef enum s_Token_Type {
 	TOKEN_TYPE_UNKNOWN,
 	TOKEN_TYPE_REDIR_IN,
 	TOKEN_TYPE_REDIR_OUT,
@@ -38,51 +37,68 @@ typedef enum {
 	TOKEN_TYPE_VAR,
 	TOKEN_TYPE_EXPAND,
 	TOKEN_TYPE_MAX
-} Token_Type;
-
-
+}	t_Token_Type;
 
 typedef struct s_cmd
 {
-	char        *text;
-	char		*infile;
-	Token_Type	infile_mode;
-	char		*outfile;
-	int			write_mode;
-	char		**cmd_list;
-	struct s_cmd *next_cmd;
-	struct s_cmd *prev_token;
-} t_cmd;
+	char			*text;
+	char			*infile;
+	t_Token_Type	infile_mode;
+	char			*outfile;
+	int				write_mode;
+	char			**cmd_list;
+	struct s_cmd	*next_cmd;
+	struct s_cmd	*prev_token;
+}	t_cmd;
 
 typedef struct s_input
 {
-	t_cmd *head;
-	t_cmd *token;
-} t_input;
+	t_cmd	*head;
+	t_cmd	*token;
+}	t_input;
 
 typedef struct s_command
 {
-	char    **cmds;
-	char    *infile;
-	char    *outfile;
-	int     infile_fd;
-	int     outfile_fd;
-	char	*eof; // if eof is NULL, it's a regular file. Else, here_doc required
-	int     write_mode;
-} t_command;
-
-// lexer.c
-t_input   lexer(const char *input);
-void cleanup_cmd_list(t_input *cmd_list);
+	char	**cmds;
+	char	*infile;
+	char	*outfile;
+	int		infile_fd;
+	int		outfile_fd;
+	char	*eof;
+	int		write_mode;
+}	t_command;
 
 // testers.c
-void    test_lexer(t_input *cmd_list);
+void			test_lexer(t_input *cmd_list);
 
-// parser.c
-t_command   *parser(const char *input);
+// /parse_input/parser.c
+int				sanitize_input(const char *input);
+t_input			parse_input(const char *input);
+
+// /parse/input/build_cmd.c
+t_input			init_input(void);
+void			build_cmdlst(const char *input, t_input *cmd_list);
+void			cleanup_cmd_list(t_input *cmd_list);
+
+// /parse/input/build_split.c
+char			**cmd_split(const char *text, char *in, char *out);
+
+// /parse/input/build_pipe.c
+t_cmd			*init_pipe(const char *text,
+					size_t text_length, int initial_idx);
+void			add_pipe(t_input *cmd_list, t_cmd *new_token);
+
+// /parse/input/build_io.c
+t_Token_Type	ft_infile_mode(const char *input);
+char			*ft_infile_content(const char *input);
+t_Token_Type	ft_outfile_mode(const char *input);
+char			*ft_outfile_content(const char *input);
+
+// /parse/input/build_variable.c
+char			*get_the_variable(char *cmd);
+char			**expand_variable(char **cmd);
 
 // split_cmd.c
-char	**ft_split_cmd(char const *s);
+char			**cmd_split(const char *text, char *in, char *out);
 
 #endif
-
