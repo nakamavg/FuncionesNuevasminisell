@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 18:14:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:39:59 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,17 @@ static	void	free_sent(char *sent[3])
 {
 	int	idx;
 
+	if (!*sent)
+		return ;
 	idx = 3;
 	while (idx)
-		free(sent[--idx]);
+	{
+		if (sent[--idx])
+		{
+			free(sent[idx]);
+			sent[idx] = NULL;
+		}
+	}
 }
 
 // TODO: USE OUR OWN VERSION OF GETENV
@@ -37,26 +45,38 @@ char	*get_the_variable(char *cmd)
 	{
 		if (cmd[idx] == '$')
 		{
+			free_sent(sent);
 			sent[0] = ft_substr(cmd, 0, idx);
 			jdx = 0;
-			while (cmd[idx + jdx]
-				&& !ft_isspace(cmd[idx + jdx]
-					&& cmd[idx + jdx] != '\"'))
+			while ((cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx]))
+				&& cmd[idx + jdx] != '\"')
 				jdx++;
 			sent[1] = ft_substr(cmd, idx + 1, jdx - 1);
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
 		}
 	}
-	out = ft_sprintf("%s%s%s", sent[0], "our_getenv(sent[1])", sent[2]);
+	out = ft_sprintf("%sOUR_GETENV(%s)%s", sent[0], sent[1], sent[2]);
 	free_sent(sent);
+	free(cmd);
 	return (out);
 }
 
+int	handle_quote(char c, int quote)
+{
+	if (c == '\'' && !quote)
+		return (c);
+	else if (c == '\'' && quote)
+		return (0);
+	return (quote);
+}
+
+// TODO: FIND A WAY TO GET THE EXIT STATUS
+// Build a function similar to get_the_variable but with
+// get_the_exit_status
 char	**expand_variable(char **cmd)
 {
 	int		idx;
 	int		jdx;
-	char	*tmp;
 	int		quote;
 
 	idx = -1;
@@ -66,28 +86,13 @@ char	**expand_variable(char **cmd)
 		jdx = -1;
 		while (cmd[idx][++jdx])
 		{
-			if (cmd[idx][jdx] == '\'')
-			{
-				if (!quote)
-					quote = cmd[idx][jdx];
-				else
-					quote = 0;
-				printf("quote: %c\n", quote);
-			}
+			quote = handle_quote(cmd[idx][jdx], quote);
 			if (cmd[idx][jdx] == '$' && !quote)
 			{
 				if (cmd[idx][jdx + 1] == '?')
-				{
-					// free(cmd[idx]);
-					// TODO: FIND A WAY TO GET THE EXIT STATUS
-					// cmd[idx] = ft_sprintf("%d", EXIT_STATUS_CODE);
-					break ;
-				}
-				tmp = get_the_variable(cmd[idx]);
-				free(cmd[idx]);
-				cmd[idx] = ft_strdup(tmp);
-				free(tmp);
-				tmp = NULL;
+					printf("I should print the exit status: $?");
+				cmd[idx] = get_the_variable(cmd[idx]);
+				jdx = -1;
 			}
 		}
 	}
