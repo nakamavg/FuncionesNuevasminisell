@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/21 17:18:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:39:59 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static	void	free_sent(char *sent[3])
 {
 	int	idx;
 
+	if (!*sent)
+		return ;
 	idx = 3;
 	while (idx)
 	{
@@ -38,9 +40,6 @@ char	*get_the_variable(char *cmd)
 	char	*sent[3];
 	char	*out;
 
-	idx = 0;
-	while (idx < 3)
-		sent[idx++] = NULL;
 	idx = -1;
 	while (cmd[++idx])
 	{
@@ -57,11 +56,23 @@ char	*get_the_variable(char *cmd)
 		}
 	}
 	out = ft_sprintf("%sOUR_GETENV(%s)%s", sent[0], sent[1], sent[2]);
-	free(cmd);
 	free_sent(sent);
+	free(cmd);
 	return (out);
 }
 
+int	handle_quote(char c, int quote)
+{
+	if (c == '\'' && !quote)
+		return (c);
+	else if (c == '\'' && quote)
+		return (0);
+	return (quote);
+}
+
+// TODO: FIND A WAY TO GET THE EXIT STATUS
+// Build a function similar to get_the_variable but with
+// get_the_exit_status
 char	**expand_variable(char **cmd)
 {
 	int		idx;
@@ -75,19 +86,11 @@ char	**expand_variable(char **cmd)
 		jdx = -1;
 		while (cmd[idx][++jdx])
 		{
-			if (cmd[idx][jdx] == '\'' && !quote)
-				quote = cmd[idx][jdx];
-			else if (cmd[idx][jdx] == '\'' && quote)
-				quote = 0;
+			quote = handle_quote(cmd[idx][jdx], quote);
 			if (cmd[idx][jdx] == '$' && !quote)
 			{
 				if (cmd[idx][jdx + 1] == '?')
-				{
-					// free(cmd[idx]);
-					// TODO: FIND A WAY TO GET THE EXIT STATUS
-					// cmd[idx] = ft_sprintf("%d", EXIT_STATUS_CODE);
-					break ;
-				}
+					printf("I should print the exit status: $?");
 				cmd[idx] = get_the_variable(cmd[idx]);
 				jdx = -1;
 			}
