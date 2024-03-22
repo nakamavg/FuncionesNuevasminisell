@@ -151,14 +151,17 @@ void	run_process(char **cmd, char **envp, int pipe_in[2], int pipe_out[2])
 	if (pid == 0)
 	{
 		dup2(pipe_in[STDIN_FILENO], STDIN_FILENO);
-		close(pipe_in[STDOUT_FILENO]);
+		// close(pipe_in[STDOUT_FILENO]);
 		dup2(pipe_out[STDOUT_FILENO], STDOUT_FILENO);
 		close(pipe_out[STDIN_FILENO]);
 		ft_fd_printf(STDERR_FILENO, "in run\n");
 		exec_cmd(cmd, envp);
 	}
 	if (pipe_in)
+	{
 		close(pipe_in[STDIN_FILENO]);
+		close(pipe_in[STDOUT_FILENO]);
+	}
 }
 
 void	close_pipes(int pipe[2], int next_pipe[2])
@@ -191,9 +194,10 @@ void	run_pipes(t_input cmd_input, char **envp)
 		out_file_create(pipe->outfile);
 		create_pipes(pipe->next_pipe);
 		// printf("pipe in list from child: %s\n", pipe->cmd_list[0]);
-		if (!pipe->next_cmd)
+		if (pipe->outfile || !pipe->next_cmd)
 			pipe->next_pipe[STDOUT_FILENO] = out_file_open(pipe->outfile, pipe->write_mode);
-		if (pipe == cmd_input.head)
+		// if (pipe == cmd_input.head)
+		if (pipe->infile)
 			pipe->pipe_fd[STDIN_FILENO] = in_file_open(pipe->infile);
 		ft_fd_printf(STDERR_FILENO, "pre run\n");
 		run_process(pipe->cmd_list, envp, pipe->pipe_fd, pipe->next_pipe);
@@ -209,15 +213,10 @@ int main(int argc, char **argv, char **envp)
 	t_input	cmd_list;
 	(void)argc;
 	(void)argv;
-//	 parse_input("   <\"       'hola $USER son las `datetime`\" 2>> (somewhere) << eof '$PATH | /dev/null' | cat -e");
-	// parse_input("ls -la | echo \"hola mundo\" | wc -c | echo multiple pipes done | cat -e >>outfile");
 	// cmd_list = parse_input("< in ls -la | echo \"hola mundo\" | ls | echo sup '$USER' | wc -c | echo \"This is the $PATH and this is additional $ENV\" | cat -e >>outfile");
-	// parse_input("< in ls -la | echo \"hola mundo\" | wc -c | echo \"This is the $PATH and this is additional text\" | cat -e >>outfile");
-	// parse_input("< ~/Desktop/in ls -la | ./echo \"hola mundo\" | wc -c | echo \"This is the $PATH \" | cat -e >> outfile");
-//	 parse_input("/bin/bash/echo \"hola mundo mundial\" > in3 | <in2 cat");
-	//  cmd_list = parse_input("'hola ke ase $NINIO \"|' | echo $PATH | echo \"$ENV\"");
 	// cmd_list = parse_input("<in cat -e | cat -e");
-	cmd_list = parse_input("ls -la");
+	cmd_list = parse_input("<in cat -e >outfile");
+	// cmd_list = parse_input("ls -la | ls -la");
 	test_lexer(&cmd_list);
 
 	int	pid;

@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:17:37 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 18:22:50 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:59:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_Token_Type	ft_outfile_mode(const char *input)
 		return (TOKEN_TYPE_UNKNOWN);
 	if (*input == '>')
 	{
-		if (*input++ == '>')
+		if (*++input == '>')
 			return (TOKEN_TYPE_REDIR_APPEND);
 		return (TOKEN_TYPE_REDIR_OUT);
 	}
