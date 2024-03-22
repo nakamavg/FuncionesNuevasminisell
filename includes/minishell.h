@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 18:24:58 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:02:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include <stdio.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <errno.h>
+# include <sys/wait.h>
 
 typedef enum s_Token_Type {
 	TOKEN_TYPE_UNKNOWN,
@@ -46,6 +52,8 @@ typedef struct s_cmd
 	t_Token_Type	infile_mode;
 	char			*outfile;
 	int				write_mode;
+	int				pipe_fd[2];
+	int				next_pipe[2];
 	char			**cmd_list;
 	struct s_cmd	*next_cmd;
 	struct s_cmd	*prev_token;

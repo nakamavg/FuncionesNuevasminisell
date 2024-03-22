@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 19:22:03 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:00:54 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ t_input	parse_input(const char *input)
 	if (sanitize_input(input))
 		return (printf("non-valid input\n"), cmd_list);
 	build_cmdlst(input, &cmd_list);
-	test_lexer(&cmd_list);
+	// test_lexer(&cmd_list);
 	return (cmd_list);
 }
