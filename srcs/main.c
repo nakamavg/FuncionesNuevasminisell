@@ -12,217 +12,67 @@
 
 #include "minishell.h"
 
-
-void	unix_error(char *mssg, char *str)
-{
-	if (!str)
-		ft_fd_printf(STDERR_FILENO, "%s: %s\n", mssg, strerror(errno));
-	else
-		ft_fd_printf(STDERR_FILENO, "<%s> %s: %s\n",
-			str, mssg, strerror(errno));
-	exit (127);
+void disable_echo_ctrl_c() {
+    struct termios term;
+    tcgetattr(0, &term);
+    term.c_lflag &= ~ECHOCTL;
+    tcsetattr(0, TCSANOW, &term);
 }
 
-pid_t	fork_process(void)
+void handler_int(int sig)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid < 0)
-		unix_error("fork error", NULL);
-	return (pid);
-}
-void	create_pipes(int pipe_fd[2])
-{
-	if (pipe(pipe_fd) == -1)
-		unix_error("pipe error", NULL);
-}
-
-int	out_file_open(char *file_write, t_Token_Type write_type)
-{
-	int	file_out;
-	int	write_mode;
-
-	if (!file_write)
-		return (STDOUT_FILENO);
-	if (write_type == TOKEN_TYPE_REDIR_APPEND)	
-		write_mode = O_APPEND;
-	else
-		write_mode = O_TRUNC;
-	file_out = open(file_write, O_WRONLY | write_mode, 0644);
-	if (file_out == -1)
-		unix_error("write error", file_write);
-	return (file_out);
-}
-
-void	out_file_create(char *file_write)
-{
-	int	file_out;
-
-	if (!file_write)
-		return ;
-	if (access(file_write, F_OK) != 0)
-	{
-		file_out = open(file_write, O_CREAT, 0644);
-		close (file_out);
-	}
-}
-
-int	in_file_open(char *file_read)
-{
-	int	file_in;
-
-	if (!file_read)
-		return (STDIN_FILENO);
-	if (access(file_read, F_OK) != 0)
-		unix_error("file error", file_read);
-	if (access(file_read, R_OK) != 0)
-		unix_error("read error", file_read);
-	file_in = open(file_read, O_RDONLY, 0444);
-	if (file_in == -1)
-		unix_error("error when reading the file", file_read);
-	return (file_in);
-}
-
-static char	**get_path_array(char **envp)
-{
-	char	**path_env;
-	char	**path_array;
-
-	path_array = NULL;
-	path_env = NULL;
-	while (*envp)
-	{
-		if (ft_strncmp(*envp, "PATH=", 5) == 0)
+    if (sig == SIGINT)
 		{
-			path_env = ft_split(*envp, '=');
-			path_array = ft_split(path_env[1], ':');
-			break ;
-		}
-		envp++;
-	}
-	// free_array(path_env);
-	return (path_array);
-}
-
-char	*extract_path(char **envp, char *cmd)
-{
-	char	**path_array;
-	char	*exec_path;
-	int		idx;
-
-	path_array = get_path_array(envp);
-	if (!path_array)
-		return (NULL);
-	idx = 0;
-	while (path_array[idx])
-	{
-		exec_path = ft_sprintf("%s/%s", path_array[idx], cmd);
-		if (access(exec_path, X_OK) == 0)
-			return (exec_path);
-		free(path_array[idx++]);
-		free(exec_path);
-	}
-	free(path_array);
-	return (NULL);
-}
-
-static void	exec_cmd(char **cmd, char **envp)
-{
-	char	*path;
-
-	path = extract_path(envp, cmd[0]);
-	if (!path)
-		unix_error("command error", cmd[0]);
-	if (execve(path, cmd, envp) == -1)
-	{
-		// cleanup(cmd);
-		free(path);
-		unix_error("execve error", NULL);
-	}
-}
-
-
-void	close_pipes(int pipe[2], int next_pipe[2])
-{
-	if (pipe && pipe[STDIN_FILENO])
-		close(pipe[STDIN_FILENO]);
-	if (pipe && pipe[STDOUT_FILENO])
-		close(pipe[STDOUT_FILENO]);
-	if (next_pipe && next_pipe[STDIN_FILENO])
-		close(next_pipe[STDIN_FILENO]);
-	if (next_pipe && next_pipe[STDOUT_FILENO])
-		close(next_pipe[STDOUT_FILENO]);
-}
-void	advance_pipe(int prev_pipe[2], int next_pipe[2])
-{
-	// close_pipes(prev_pipe, NULL);
-	prev_pipe[STDIN_FILENO] = next_pipe[STDIN_FILENO];
-	prev_pipe[STDOUT_FILENO] = next_pipe[STDOUT_FILENO];
-}
-
-
-void run_process(char **cmd, char **envp, int pipe_in[2], int pipe_out[2]) {
-    int pid;
-
-    pid = fork_process();
-    if (pid == 0) {
-		printf("\n\tfirst cmd: %s\n\tpipe_fd[in]: %d\n\tpipe_out[out]: %d\n\n", cmd[0], pipe_in[0], pipe_out[1]);
-        if (pipe_in[0] != STDIN_FILENO) {
-            dup2(pipe_in[0], STDIN_FILENO);
-            close(pipe_in[0]);
+		disable_echo_ctrl_c();
+		//printf("\n");
+		rl_on_new_line();
+		rl_replace_line("\n", 0);//cosas de duvan magia a mi no me iba kekw
+		rl_redisplay();
         }
-        if (pipe_out[1] != STDOUT_FILENO) {
-            dup2(pipe_out[1], STDOUT_FILENO);
-            close(pipe_out[1]);
-        }
-        exec_cmd(cmd, envp);
-    }
-    if (pipe_in[0] != STDIN_FILENO) {
-        close(pipe_in[0]);
-    }
-    if (pipe_out[1] != STDOUT_FILENO) {
-        close(pipe_out[1]);
-    }
+    	else if (sig == SIGQUIT)
+			printf("exit 3 \n");
+    
+    return ;
 }
-
-void run_pipes(t_input cmd_input, char **envp)
+void init_signals(void)
 {
-    t_cmd *pipe;
-    int prev_pipe[2] = {-1, -1};
-    pipe = cmd_input.head;
+    struct sigaction mshell;
+    mshell.sa_handler = handler_int;
+    sigaction(SIGINT, &mshell, NULL);
+    sigaction(SIGQUIT, &mshell, NULL);
 
-    while (pipe)
+}
+void shell_loop(t_shell *shell)
+{
+	// t_input	cmd_list;
+	while(1)
     {
-        int next_pipe[2] = {-1, -1};
+        shell->input= readline(shell->prompt);
+		shell->parsed_input = parse_input(shell->input);
+        if (shell->input && *shell->input) 
+		{
+			
+			test_lexer(&shell->parsed_input);
+            add_history(shell->input);
+			command_handler(shell);
+			cleanup_cmd_list(&shell->parsed_input);
+        }
+		else if (shell->input == NULL)
+		{
+			ft_putstr_fd("exit \n", STDOUT_FILENO);
+			exit(0);
+		}
 
-        if (pipe->outfile)
-            out_file_create(pipe->outfile);
-
-        if (pipe->next_cmd)
-            create_pipes(next_pipe);
-
-        if (pipe->outfile)
-            next_pipe[STDOUT_FILENO] = out_file_open(pipe->outfile, pipe->write_mode);
-        else if (!pipe->next_cmd)
-            next_pipe[STDOUT_FILENO] = STDOUT_FILENO;
-
-        if (pipe->infile)
-            prev_pipe[STDIN_FILENO] = in_file_open(pipe->infile);
-        else if (pipe == cmd_input.head)
-            prev_pipe[STDIN_FILENO] = STDIN_FILENO;
-
-        run_process(pipe->cmd_list, envp, prev_pipe, next_pipe);
-        advance_pipe(prev_pipe, next_pipe);
-        pipe = pipe->next_cmd;
+        free(shell->input); 
     }
-	if (prev_pipe[STDIN_FILENO] != STDIN_FILENO)
-		close(prev_pipe[STDIN_FILENO]);
+	
 }
+
 
 int main(int argc, char **argv, char **envp)
 {
-	t_input	cmd_list;
+	// t_input	cmd_list;
+	t_shell shell;
 	(void)argc;
 	(void)argv;
 	// cmd_list = parse_input("< in ls -la | echo \"hola mundo\" | ls | echo sup '$USER' | wc -c | echo \"This is the $PATH and this is additional $ENV\" | cat -e >>outfile");
@@ -230,20 +80,24 @@ int main(int argc, char **argv, char **envp)
 	// cmd_list = parse_input("<in cat -e >outfile");
 	// cmd_list = parse_input("ls -la | ls -la");
 	// cmd_list = parse_input("ls -l | wc -l");
-	cmd_list = parse_input("<in cat -e | cat -e | cat -e >outfile | <in cat -e");
-	test_lexer(&cmd_list);
+	// cmd_list = parse_input("<in cat -e | cat -e | cat -e >outfile | <in cat -e");
+	// cmd_list = parse_input("<in cat -e | cat -e | cat -e  | cat -e");
+	ft_getenv(&shell, envp);
+	ft_env_split(&shell);
+	init_signals();
+	get_things(&shell);
+	// test_lexer(&cmd_list);
+	printf("\033[34mMartes locos presentan: \n\033[0m");
+	
+    shell_loop(&shell);	
+	// int	pid;
+	// int	status;
 
-	int	pid;
-	int	status;
+	// pid = fork_process();
+	// if (pid == 0)
+	// 	run_pipes(cmd_list, envp);
+	// waitpid(pid, &status, 0);
 
-	pid = fork_process();
-	if (pid == 0)
-	{
-		run_pipes(cmd_list, envp);
-		exit (0);
-	}
-	waitpid(pid, &status, 0);
-
-	cleanup_cmd_list(&cmd_list);
+	// cleanup_cmd_list(&cmd_list);
     return (0);
 }
