@@ -142,27 +142,6 @@ static void	exec_cmd(char **cmd, char **envp)
 	}
 }
 
-void	run_process(char **cmd, char **envp, int pipe_in[2], int pipe_out[2])
-{
-	int	pid;
-
-	printf("\n\tfirst cmd: %s\n\tpipe_fd[in]: %d\n\tpipe_out[out]: %d\n\n", cmd[0], pipe_in[0], pipe_out[1]);
-	pid = fork_process();
-	if (pid == 0)
-	{
-		dup2(pipe_in[STDIN_FILENO], STDIN_FILENO);
-		// close(pipe_in[STDOUT_FILENO]);
-		dup2(pipe_out[STDOUT_FILENO], STDOUT_FILENO);
-		close(pipe_out[STDIN_FILENO]);
-		ft_fd_printf(STDERR_FILENO, "in run\n");
-		exec_cmd(cmd, envp);
-	}
-	if (pipe_in)
-	{
-		close(pipe_in[STDIN_FILENO]);
-		close(pipe_in[STDOUT_FILENO]);
-	}
-}
 
 void	close_pipes(int pipe[2], int next_pipe[2])
 {
@@ -177,36 +156,69 @@ void	close_pipes(int pipe[2], int next_pipe[2])
 }
 void	advance_pipe(int prev_pipe[2], int next_pipe[2])
 {
-	close_pipes(prev_pipe, NULL);
+	// close_pipes(prev_pipe, NULL);
 	prev_pipe[STDIN_FILENO] = next_pipe[STDIN_FILENO];
 	prev_pipe[STDOUT_FILENO] = next_pipe[STDOUT_FILENO];
 }
 
 
-void	run_pipes(t_input cmd_input, char **envp)
-{
-	t_cmd	*pipe;
+void run_process(char **cmd, char **envp, int pipe_in[2], int pipe_out[2]) {
+    int pid;
 
-	(void)envp;
-	pipe = cmd_input.head;
-	while (pipe)
-	{
-		out_file_create(pipe->outfile);
-		create_pipes(pipe->next_pipe);
-		// printf("pipe in list from child: %s\n", pipe->cmd_list[0]);
-		if (pipe->outfile || !pipe->next_cmd)
-			pipe->next_pipe[STDOUT_FILENO] = out_file_open(pipe->outfile, pipe->write_mode);
-		// if (pipe == cmd_input.head)
-		if (pipe->infile)
-			pipe->pipe_fd[STDIN_FILENO] = in_file_open(pipe->infile);
-		ft_fd_printf(STDERR_FILENO, "pre run\n");
-		run_process(pipe->cmd_list, envp, pipe->pipe_fd, pipe->next_pipe);
-		ft_fd_printf(STDERR_FILENO, "post run\n");
-		advance_pipe(pipe->pipe_fd, pipe->next_pipe);
-		pipe = pipe->next_cmd;
-	}
+    pid = fork_process();
+    if (pid == 0) {
+		printf("\n\tfirst cmd: %s\n\tpipe_fd[in]: %d\n\tpipe_out[out]: %d\n\n", cmd[0], pipe_in[0], pipe_out[1]);
+        if (pipe_in[0] != STDIN_FILENO) {
+            dup2(pipe_in[0], STDIN_FILENO);
+            close(pipe_in[0]);
+        }
+        if (pipe_out[1] != STDOUT_FILENO) {
+            dup2(pipe_out[1], STDOUT_FILENO);
+            close(pipe_out[1]);
+        }
+        exec_cmd(cmd, envp);
+    }
+    if (pipe_in[0] != STDIN_FILENO) {
+        close(pipe_in[0]);
+    }
+    if (pipe_out[1] != STDOUT_FILENO) {
+        close(pipe_out[1]);
+    }
 }
 
+void run_pipes(t_input cmd_input, char **envp)
+{
+    t_cmd *pipe;
+    int prev_pipe[2] = {-1, -1};
+    pipe = cmd_input.head;
+
+    while (pipe)
+    {
+        int next_pipe[2] = {-1, -1};
+
+        if (pipe->outfile)
+            out_file_create(pipe->outfile);
+
+        if (pipe->next_cmd)
+            create_pipes(next_pipe);
+
+        if (pipe->outfile)
+            next_pipe[STDOUT_FILENO] = out_file_open(pipe->outfile, pipe->write_mode);
+        else if (!pipe->next_cmd)
+            next_pipe[STDOUT_FILENO] = STDOUT_FILENO;
+
+        if (pipe->infile)
+            prev_pipe[STDIN_FILENO] = in_file_open(pipe->infile);
+        else if (pipe == cmd_input.head)
+            prev_pipe[STDIN_FILENO] = STDIN_FILENO;
+
+        run_process(pipe->cmd_list, envp, prev_pipe, next_pipe);
+        advance_pipe(prev_pipe, next_pipe);
+        pipe = pipe->next_cmd;
+    }
+	if (prev_pipe[STDIN_FILENO] != STDIN_FILENO)
+		close(prev_pipe[STDIN_FILENO]);
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -214,9 +226,11 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	// cmd_list = parse_input("< in ls -la | echo \"hola mundo\" | ls | echo sup '$USER' | wc -c | echo \"This is the $PATH and this is additional $ENV\" | cat -e >>outfile");
-	// cmd_list = parse_input("<in cat -e | cat -e");
-	cmd_list = parse_input("<in cat -e >outfile");
+	// cmd_list = parse_input("<in cat -e | cat -e | cat -e >outfile | <in cat -e");
+	// cmd_list = parse_input("<in cat -e >outfile");
 	// cmd_list = parse_input("ls -la | ls -la");
+	// cmd_list = parse_input("ls -l | wc -l");
+	cmd_list = parse_input("<in cat -e | cat -e | cat -e >outfile | <in cat -e");
 	test_lexer(&cmd_list);
 
 	int	pid;
