@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/25 05:01:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:37:38 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ void more_cmd_handler(t_shell *shell)
 
 void command_handler(t_shell *shell)
 {
-	int pid;
+	// int pid;
 
-	pid = fork_process();
-	if (pid == 0)
-		run_pipes(shell->parsed_input, shell->my_env);
-	waitpid(pid, &global_status, 0);
+	// pid = fork_process();
+	// if (pid == 0)
+	run_pipes(shell->parsed_input, shell->my_env);
+	// waitpid(pid, &global_status, 0);
 	// return (status);
 
 	// if (ft_strncmp(shell->input, "exit", 4) == 0)

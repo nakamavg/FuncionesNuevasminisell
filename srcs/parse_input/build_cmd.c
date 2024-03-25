@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/25 01:48:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:43:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ t_input	init_input(void)
 // 		}
 // 	}
 // }
-void	build_cmdlst(const char *input, t_shell *shell)
+void	build_cmdlst(const char *in, t_shell *shell)
 {
 	int	idx;
 	int	pipe_idx;
 
 	idx = -1;
+	char *input = ft_strtrim(in, " \t\n\v\f\r");
 	while (input[++idx])
 	{
-		while (ft_isspace(input[idx]))
+		while (input[idx] && ft_isspace(input[idx]))
 			idx++;
 		if (input[idx] == '"')
 			while (input[idx] && input[++idx] != '"')
@@ -82,6 +83,8 @@ void	build_cmdlst(const char *input, t_shell *shell)
 			if (input[idx] != '|')
 				idx++;
 			add_pipe(&shell->parsed_input, init_pipe(input, idx - pipe_idx, pipe_idx, shell));
+			if (!input[idx])
+				break ;
 			while (ft_isspace(input[++idx]))
 				;
 			pipe_idx = idx;
