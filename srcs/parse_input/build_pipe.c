@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:11:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:54:38 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 01:46:05 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // TODO: ASK: Do I have to deal with wrong flags? 
 // TODO: Document about how to deal with the case $?
-t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx)
+t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx, t_shell *shell)
 {
 	t_cmd	*token;
 
@@ -31,7 +31,7 @@ t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx)
 	if (token->outfile)
 		token->write_mode = ft_outfile_mode(token->text);
 	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
-	token->cmd_list = expand_variable(token->cmd_list);
+	token->cmd_list = expand_variable(token->cmd_list, shell);
 	token->next_cmd = NULL;
 	token->prev_token = NULL;
 	return (token);

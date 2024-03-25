@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/21 20:39:59 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 01:36:22 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	void	free_sent(char *sent[3])
 // out = ft_sprintf("%s%s%s", begin, getenv(sent[1]), end);
 // The sent (sentence) is structured: 0 - begin, 1 - variable, 2 - end
 
-char	*get_the_variable(char *cmd)
+char	*get_the_variable(char *cmd, t_shell *shell)
 {
 	int		idx;
 	int		jdx;
@@ -55,7 +55,7 @@ char	*get_the_variable(char *cmd)
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
 		}
 	}
-	out = ft_sprintf("%sOUR_GETENV(%s)%s", sent[0], sent[1], sent[2]);
+	out = ft_sprintf("%s%s%s", sent[0], search_things(shell, sent[1]), sent[2]);
 	free_sent(sent);
 	free(cmd);
 	return (out);
@@ -73,7 +73,7 @@ int	handle_quote(char c, int quote)
 // TODO: FIND A WAY TO GET THE EXIT STATUS
 // Build a function similar to get_the_variable but with
 // get_the_exit_status
-char	**expand_variable(char **cmd)
+char	**expand_variable(char **cmd, t_shell *shell)
 {
 	int		idx;
 	int		jdx;
@@ -91,7 +91,7 @@ char	**expand_variable(char **cmd)
 			{
 				if (cmd[idx][jdx + 1] == '?')
 					printf("I should print the exit status: $?");
-				cmd[idx] = get_the_variable(cmd[idx]);
+				cmd[idx] = get_the_variable(cmd[idx], shell);
 				jdx = -1;
 			}
 		}

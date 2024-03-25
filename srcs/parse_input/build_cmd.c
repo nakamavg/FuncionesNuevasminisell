@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 19:31:33 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 01:48:05 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,35 @@ t_input	init_input(void)
  * @param input The input string to parse.
  * @param cmd_list The pointer to the input structure to store the command list.
  */
-void	build_cmdlst(const char *input, t_input *cmd_list)
+// void	build_cmdlst(const char *input, t_input *cmd_list)
+// {
+// 	int	idx;
+// 	int	pipe_idx;
+
+// 	idx = -1;
+// 	while (input[++idx])
+// 	{
+// 		while (ft_isspace(input[idx]))
+// 			idx++;
+// 		if (input[idx] == '"')
+// 			while (input[idx] && input[++idx] != '"')
+// 				;
+// 		if (input[idx] == '\'')
+// 			while (input[idx] && input[++idx] != '\'')
+// 				;
+// 		if (input[idx] && (input[idx] == '|'
+// 				|| idx == (int)ft_strlen(input) - 1))
+// 		{
+// 			if (input[idx] != '|')
+// 				idx++;
+// 			add_pipe(cmd_list, init_pipe(input, idx - pipe_idx, pipe_idx));
+// 			while (ft_isspace(input[++idx]))
+// 				;
+// 			pipe_idx = idx;
+// 		}
+// 	}
+// }
+void	build_cmdlst(const char *input, t_shell *shell)
 {
 	int	idx;
 	int	pipe_idx;
@@ -53,12 +81,13 @@ void	build_cmdlst(const char *input, t_input *cmd_list)
 		{
 			if (input[idx] != '|')
 				idx++;
-			add_pipe(cmd_list, init_pipe(input, idx - pipe_idx, pipe_idx));
+			add_pipe(&shell->parsed_input, init_pipe(input, idx - pipe_idx, pipe_idx, shell));
 			while (ft_isspace(input[++idx]))
 				;
 			pipe_idx = idx;
 		}
 	}
+	// free(input);
 }
 
 /**
