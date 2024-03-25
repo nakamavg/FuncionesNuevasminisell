@@ -6,27 +6,28 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/25 01:36:22 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:36:56 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	void	free_sent(char *sent[3])
+static	void	free_sent(char **sent)
 {
 	int	idx;
 
-	if (!*sent)
+	if (!sent)
 		return ;
-	idx = 3;
-	while (idx)
+	idx = 0;
+	while (sent[idx])
 	{
-		if (sent[--idx])
+		if (sent[idx])
 		{
 			free(sent[idx]);
-			sent[idx] = NULL;
+			idx++;
 		}
 	}
+	sent[idx] = NULL;
 }
 
 // TODO: USE OUR OWN VERSION OF GETENV
@@ -37,10 +38,11 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 {
 	int		idx;
 	int		jdx;
-	char	*sent[3];
+	char	**sent;
 	char	*out;
 
 	idx = -1;
+	sent = ft_calloc(4, sizeof(char *));
 	while (cmd[++idx])
 	{
 		if (cmd[idx] == '$')
