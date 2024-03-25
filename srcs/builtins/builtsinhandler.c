@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/24 21:08:38 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 05:01:30 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,28 @@ void more_cmd_handler(t_shell *shell)
 
 void command_handler(t_shell *shell)
 {
-	if (ft_strncmp(shell->input, "exit", 4) == 0)
-		return(exit(0));
-	else if (ft_strncmp(shell->input, "cd", 2) == 0)
-			return(cd(shell));
-	else if (ft_strncmp(shell->input, "pwd", 3) == 0)
-		return((void)printf("%s\n", getcwd(NULL, 0)));
-	else if (ft_strncmp(shell->input, "export", 6) == 0)
-		return(export(shell)); 
-	else if (ft_strncmp(shell->input, "unset", 5) == 0)
-		return(unset(shell)); 
-	else if (ft_strncmp(shell->input, "env", 3) == 0)
-		return(print_env(shell->env_list));
-	else if (ft_strncmp(shell->input, "echo", 4) == 0)
-		return(echo(shell->parsed_input.head->cmd_list));
-	more_cmd_handler(shell);
+	int pid;
+
+	pid = fork_process();
+	if (pid == 0)
+		run_pipes(shell->parsed_input, shell->my_env);
+	waitpid(pid, &global_status, 0);
+	// return (status);
+
+	// if (ft_strncmp(shell->input, "exit", 4) == 0)
+	// 	return(exit(0));
+	// else if (ft_strncmp(shell->input, "cd", 2) == 0)
+	// 		return(cd(shell));
+	// else if (ft_strncmp(shell->input, "pwd", 3) == 0)
+	// 	return((void)printf("%s\n", getcwd(NULL, 0)));
+	// else if (ft_strncmp(shell->input, "export", 6) == 0)
+	// 	return(export(shell)); 
+	// else if (ft_strncmp(shell->input, "unset", 5) == 0)
+	// 	return(unset(shell)); 
+	// else if (ft_strncmp(shell->input, "env", 3) == 0)
+	// 	return(print_env(shell->env_list));
+	// else if (ft_strncmp(shell->input, "echo", 4) == 0)
+	// 	return(echo(shell->parsed_input.head->cmd_list));
+	// more_cmd_handler(shell);
 	
 }

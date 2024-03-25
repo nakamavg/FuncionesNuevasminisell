@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/24 19:47:32 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 05:01:09 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ pid_t	fork_process(void)
 		unix_error("fork error", NULL);
 	return (pid);
 }
+
 void	create_pipes(int pipe_fd[2])
 {
 	if (pipe(pipe_fd) == -1)
@@ -165,6 +166,7 @@ void run_process(char **cmd, char **envp, int pipe_in[2], int pipe_out[2]) {
         }
         exec_cmd(cmd, envp);
     }
+	waitpid(pid, &global_status, 0);
     if (pipe_in[0] != STDIN_FILENO) {
         close(pipe_in[0]);
     }
@@ -205,4 +207,5 @@ void run_pipes(t_input cmd_input, char **envp)
     }
 	if (prev_pipe[STDIN_FILENO] != STDIN_FILENO)
 		close(prev_pipe[STDIN_FILENO]);
+	exit (global_status);
 }

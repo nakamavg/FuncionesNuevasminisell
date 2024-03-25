@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int global_status;
+
 void disable_echo_ctrl_c() {
     struct termios term;
     tcgetattr(0, &term);
@@ -26,7 +28,7 @@ void handler_int(int sig)
 		disable_echo_ctrl_c();
 		//printf("\n");
 		rl_on_new_line();
-		rl_replace_line("\n", 0);//cosas de duvan magia a mi no me iba kekw
+		rl_replace_line("\n", 0);
 		rl_redisplay();
         }
     	else if (sig == SIGQUIT)
@@ -48,10 +50,11 @@ void shell_loop(t_shell *shell)
 	while(1)
     {
         shell->input= readline(shell->prompt);
-		shell->parsed_input = parse_input(shell->input);
         if (shell->input && *shell->input) 
 		{
 			
+			// shell->parsed_input = parse_input(shell->input);
+			parse_input(shell);
 			test_lexer(&shell->parsed_input);
             add_history(shell->input);
 			command_handler(shell);
@@ -80,7 +83,7 @@ int main(int argc, char **argv, char **envp)
 	// cmd_list = parse_input("<in cat -e >outfile");
 	// cmd_list = parse_input("ls -la | ls -la");
 	// cmd_list = parse_input("ls -l | wc -l");
-	// cmd_list = parse_input("<in cat -e | cat -e | cat -e >outfile | <in cat -e");
+	// cmd_list = parse_input("<in  cat -e | cat -e >outfile | <in cat -e");
 	// cmd_list = parse_input("<in cat -e | cat -e | cat -e  | cat -e");
 	ft_getenv(&shell, envp);
 	ft_env_split(&shell);

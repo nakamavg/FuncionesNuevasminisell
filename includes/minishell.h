@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/24 21:09:23 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 05:00:53 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,25 +124,29 @@ typedef struct s_shell
 	t_input		parsed_input;
 }	t_shell;
 
+extern int global_status;
 
 // testers.c
 void			test_lexer(t_input *cmd_list);
 
 // /parse_input/parser.c
 int				sanitize_input(const char *input);
-t_input			parse_input(const char *input);
+// t_input			parse_input(const char *input);
+void	parse_input(t_shell *shell);
 
 // /parse/input/build_cmd.c
 t_input			init_input(void);
-void			build_cmdlst(const char *input, t_input *cmd_list);
+// void			build_cmdlst(const char *input, t_input *cmd_list);
 void			cleanup_cmd_list(t_input *cmd_list);
+void	build_cmdlst(const char *input, t_shell *shell);
 
 // /parse/input/build_split.c
 char			**cmd_split(const char *text, char *in, char *out);
 
 // /parse/input/build_pipe.c
-t_cmd			*init_pipe(const char *text,
-					size_t text_length, int initial_idx);
+// t_cmd			*init_pipe(const char *text,
+// 					size_t text_length, int initial_idx);
+t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx, t_shell *shell);
 void			add_pipe(t_input *cmd_list, t_cmd *new_token);
 
 // /parse/input/build_io.c
@@ -152,8 +156,10 @@ t_Token_Type	ft_outfile_mode(const char *input);
 char			*ft_outfile_content(const char *input);
 
 // /parse/input/build_variable.c
-char			*get_the_variable(char *cmd);
-char			**expand_variable(char **cmd);
+// char			*get_the_variable(char *cmd);
+char	*get_the_variable(char *cmd, t_shell *shell);
+// char			**expand_variable(char **cmd);
+char	**expand_variable(char **cmd, t_shell *shell);
 
 // split_cmd.c
 char			**cmd_split(const char *text, char *in, char *out);
