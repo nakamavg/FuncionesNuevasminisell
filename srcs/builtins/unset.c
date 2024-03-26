@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:33:50 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/24 20:41:15 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:48:28 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void unset (t_shell *shell)
 {
-	int i;
-	i = 5;
+	// int i;
+	// i = 5;
 	t_my_env *tmp = shell->env_list;
 	char *temp;
 	temp = ft_strtrim(shell->input, SPLIT_QUOTE);

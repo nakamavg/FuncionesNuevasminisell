@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/19 14:03:18 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:48:21 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void 	realloc_env(t_shell *shell, char *newvar)
 }
 void export(t_shell *shell)
 {
-	int idx;
-	idx = 5;
+	// int idx;
+	// idx = 5;
 	char *temp;
 	temp = ft_strtrim(shell->input, SPLIT_QUOTE);
 	if (ft_strncmp(temp,"export", ft_strlen(temp))== 0)

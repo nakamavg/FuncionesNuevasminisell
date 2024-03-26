@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtsinhandler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/25 10:37:38 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:48:14 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void exec_cmd(t_shell *shell)
 	int status;
 	char **args;
 	char *cmd;
-	int i;
+	// int i;
 
-	i = -1;
+	// i = -1;
 	args = ft_split(shell->input, ' ');
 	cmd = get_cmd(ft_split(shell->path, ':'), args[0]);
 	pid = fork();
