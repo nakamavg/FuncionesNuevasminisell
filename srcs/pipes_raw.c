@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_raw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/25 10:39:01 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:26:20 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,24 +155,29 @@ void run_process(char **cmd, char **envp, int pipe_in[2], int pipe_out[2]) {
 
     pid = fork_process();
     if (pid == 0) {
-		printf("\n\tfirst cmd: %s\n\tpipe_fd[in]: %d\n\tpipe_out[out]: %d\n\n", cmd[0], pipe_in[0], pipe_out[1]);
+        printf("\n\tfirst cmd: %s\n\tpipe_fd[in]: %d\n\tpipe_out[out]: %d\n\n", cmd[0], pipe_in[0], pipe_out[1]);
         if (pipe_in[0] != STDIN_FILENO) {
             dup2(pipe_in[0], STDIN_FILENO);
             close(pipe_in[0]);
+            close(pipe_in[1]);
         }
         if (pipe_out[1] != STDOUT_FILENO) {
             dup2(pipe_out[1], STDOUT_FILENO);
+            close(pipe_out[0]);
             close(pipe_out[1]);
         }
         exec_cmd(cmd, envp);
     }
     if (pipe_in[0] != STDIN_FILENO) {
         close(pipe_in[0]);
+        close(pipe_in[1]); 
     }
     if (pipe_out[1] != STDOUT_FILENO) {
+        // close(pipe_out[0]); 
         close(pipe_out[1]);
     }
 }
+
 
 void run_pipes(t_input cmd_input, char **envp)
 {
@@ -201,19 +206,25 @@ void run_pipes(t_input cmd_input, char **envp)
             prev_pipe[STDIN_FILENO] = STDIN_FILENO;
 
         run_process(pipe->cmd_list, envp, prev_pipe, next_pipe);
-        advance_pipe(prev_pipe, next_pipe);
+
+        // Close the read end of the previous pipe after the command has been run
+        if (prev_pipe[STDIN_FILENO] != STDIN_FILENO)
+            close(prev_pipe[STDIN_FILENO]);
+
+        // The output pipe of the current command becomes the input pipe for the next command
+        prev_pipe[STDIN_FILENO] = next_pipe[STDIN_FILENO];
+
         pipe = pipe->next_cmd;
     }
-	if (prev_pipe[STDIN_FILENO] != STDIN_FILENO)
-		close(prev_pipe[STDIN_FILENO]);
-	int	status;
-	while (waitpid(-1, &status, 0) > 0)
-		;
-	if (WIFEXITED(status))
-		global_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		global_status = WTERMSIG(status) + 128;
-	else
-		global_status = EXIT_FAILURE;
-	// exit (global_status);
+
+    int status;
+    while (waitpid(-1, &status, 0) > 0)
+        ;
+    if (WIFEXITED(status))
+        global_status = WEXITSTATUS(status);
+    else if (WIFSIGNALED(status))
+        global_status = WTERMSIG(status) + 128; // this is just a convention, because usually >128 means that a signal was used
+    else
+        global_status = EXIT_FAILURE;
+    // exit (global_status);
 }
