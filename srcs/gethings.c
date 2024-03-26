@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/24 20:25:59 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/25 16:46:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char *search_things(t_shell *shell, char *search)
 {
-t_my_env *tmp;
+// t_my_env *tmp;
 int i;
 
-tmp = shell->env_list;
+// tmp = shell->env_list;
 i = -1;
 
 while(shell->my_env[++i])
@@ -28,7 +28,7 @@ while(shell->my_env[++i])
 	
 	}
 }
-tmp = shell->env_list;
+// tmp = shell->env_list;
 return(NULL);
 }
 
