@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/25 16:46:11 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:20:36 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ while(shell->my_env[++i])
 }
 // tmp = shell->env_list;
 return(NULL);
+}
+
+char *search_expand(t_shell *shell, char *search)
+{
+	t_my_env *node;
+
+	node = shell->env_list;
+	while (node)
+	{
+		if (!ft_strncmp(node->name, search, ft_strlen(search)))
+			return (ft_strdup(node->value));
+		node = node->next;
+	}
+	return (NULL);
 }
 
 void get_things(t_shell *shell)
