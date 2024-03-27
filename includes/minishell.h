@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/27 19:23:11 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:48:26 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ void delone_env(t_shell *shell);
 void add_env_back(t_my_env **env, t_my_env *new);
 
 // builtsinhandler.c
-// void more_cmd_handler(t_shell *shell);
 void command_handler(t_shell *shell);
 int run_builtin(t_shell *shell);
 
@@ -221,9 +220,6 @@ int run_builtin(t_shell *shell);
 void	cd(t_shell *shell);
 
 // echo.c
-int check_names(char *name, char *search);
-char *search_echo(t_shell *shell, char *search);
-// void echo(t_shell *shell);
 void echo (char **cmd);
 
 // export.c

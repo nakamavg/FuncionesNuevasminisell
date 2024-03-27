@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/27 20:41:19 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:49:49 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char *search_echo(t_shell *shell, char *search)
 
 
 
-void print_escaped_characters(char *str)
+static void print_escaped_characters(char *str)
 {
 	int idx;
 
@@ -63,7 +63,7 @@ void echo(char **cmd)
 	
 	idx = 0;
 	lnbr = 1;
-	if (!ft_strncmp(cmd[1], "-n", ft_strlen(cmd[1])))
+	if (cmd[1] && !ft_strncmp(cmd[1], "-n", ft_strlen(cmd[1])))
 	{
 		lnbr = 0;
 		idx++;
