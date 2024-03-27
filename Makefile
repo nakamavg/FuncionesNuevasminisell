@@ -1,10 +1,10 @@
 NAME	= minishell
-CC		= clang
+CC		= cc
 # CFLAGS	= -Wall -Wextra -Werror
-# CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include  -fsanitize=address -g3 
-CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
-# LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
-LDFLAGS	= -lreadline -L /opt/homebrew/opt/readline/lib 
+CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include  -fsanitize=address -g3 
+# CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
+LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+# LDFLAGS	= -lreadline -L /opt/homebrew/opt/readline/lib 
 SFLAGS	= -g3 -fsanitize=address
 
 FILES	=	srcs/main \
@@ -15,7 +15,6 @@ FILES	=	srcs/main \
 			srcs/parse_input/build_io \
 			srcs/parse_input/build_variable \
 			srcs/parse_input/build_split \
-			srcs/pipes_raw \
 			srcs/errors \
 			srcs/gethings \
 			srcs/utilslist \
@@ -23,7 +22,11 @@ FILES	=	srcs/main \
 			srcs/builtins/cd \
 			srcs/builtins/echo \
 			srcs/builtins/export \
-			srcs/builtins/unset
+			srcs/builtins/unset \
+			srcs/pipes/manage_files \
+			srcs/pipes/process_utils \
+			srcs/pipes/pipes_utils \
+			srcs/pipes/run_pipes
 
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))
