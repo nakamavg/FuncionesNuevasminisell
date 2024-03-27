@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/27 00:59:20 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:17:22 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void ft_error_cmd(char *str,char *aux);
 void ft_error(char *str,char *aux);
 
 // gethings.c
-
+char *search_expand(t_shell *shell, char *search);
 char *search_things(t_shell *shell, char *search);
 void get_things(t_shell *shell);
 int ft_strlen_pp(char **container);

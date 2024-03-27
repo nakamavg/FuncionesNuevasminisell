@@ -6,33 +6,33 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/24 21:09:59 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:48:35 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-int check_names(char *name, char *search)
-{
-	if(ft_strlen(search) == ft_strlen(name))
-		if(ft_strncmp(name, search, ft_strlen(search)) == 0)
-			return(1);
-	return(0);
-}
-char *search_echo(t_shell *shell, char *search)
-{
-	t_my_env *tmp;
-	tmp = shell->env_list;
-	while(tmp)
-	{
-		if(check_names(tmp->name, search))
-			return(ft_strdup(tmp->value));
-		tmp = tmp->next;
-	}
-	tmp = shell->env_list;
-	return(NULL);
-}
+// int check_names(char *name, char *search)
+// {
+// 	if(ft_strlen(search) == ft_strlen(name))
+// 		if(ft_strncmp(name, search, ft_strlen(search)) == 0)
+// 			return(1);
+// 	return(0);
+// }
+// char *search_echo(t_shell *shell, char *search)
+// {
+// 	t_my_env *tmp;
+// 	tmp = shell->env_list;
+// 	while(tmp)
+// 	{
+// 		if(check_names(tmp->name, search))
+// 			return(ft_strdup(tmp->value));
+// 		tmp = tmp->next;
+// 	}
+// 	tmp = shell->env_list;
+// 	return(NULL);
+// }
 
 void echo (char **cmd)
 {

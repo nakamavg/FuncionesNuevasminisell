@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/26 23:27:53 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:35:59 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,28 +77,27 @@
 
 void command_handler(t_shell *shell)
 {
-	// int pid;
+	char *cmd;
 
-	// pid = fork_process();
-	// if (pid == 0)
+	if (!shell->parsed_input.head->next_cmd)
+	{
+		cmd = shell->parsed_input.head->cmd_list[0];
+		if (!ft_strncmp(cmd,  "echo", ft_strlen(cmd)))
+			return(echo(shell->parsed_input.head->cmd_list));
+		if (!ft_strncmp(cmd,  "env", ft_strlen(cmd)))
+			return(print_env(shell->env_list));
+		if (!ft_strncmp(cmd,  "exit", ft_strlen(cmd)))
+			return(exit(0));
+		if (!ft_strncmp(cmd,  "pwd", ft_strlen(cmd)))
+			return ((void)printf("%s\n", getcwd(NULL, 0)));
+		if (!ft_strncmp(cmd,  "cd", ft_strlen(cmd)))
+			return(cd(shell));
+		if (!ft_strncmp(cmd,  "export", ft_strlen(cmd)))
+			return(export(shell));
+		if (!ft_strncmp(cmd,  "unset", ft_strlen(cmd)))
+			return(unset(shell));
+		if (ft_strncmp(shell->input, "export", 6) == 0)
+			return(export(shell)); 
+	}
 	run_pipes(shell, shell->parsed_input, shell->parsed_input.head);
-	// waitpid(pid, &global_status, 0);
-	// return (status);
-
-	// if (ft_strncmp(shell->input, "exit", 4) == 0)
-	// 	return(exit(0));
-	// else if (ft_strncmp(shell->input, "cd", 2) == 0)
-	// 		return(cd(shell));
-	// else if (ft_strncmp(shell->input, "pwd", 3) == 0)
-	// 	return((void)printf("%s\n", getcwd(NULL, 0)));
-	// else if (ft_strncmp(shell->input, "export", 6) == 0)
-	// 	return(export(shell)); 
-	// else if (ft_strncmp(shell->input, "unset", 5) == 0)
-	// 	return(unset(shell)); 
-	// else if (ft_strncmp(shell->input, "env", 3) == 0)
-	// 	return(print_env(shell->env_list));
-	// else if (ft_strncmp(shell->input, "echo", 4) == 0)
-	// 	return(echo(shell->parsed_input.head->cmd_list));
-	// more_cmd_handler(shell);
-	
 }

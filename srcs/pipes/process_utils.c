@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/27 00:34:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:09:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*extract_path(char *raw_path, char *cmd)
 void	exec_cmd(char **cmd, t_shell *shell)
 {
 	char	*path;
-
 	path = extract_path(shell->path, cmd[0]);
 	if (!path)
 		unix_error("command error", cmd[0]);
