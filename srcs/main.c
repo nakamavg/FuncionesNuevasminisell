@@ -70,8 +70,8 @@ void shell_loop(t_shell *shell)
 		}
 
         free(shell->input); 
+	cleanup_cmd_list(&shell->parsed_input);	
     }
-	
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/27 19:24:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:52:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ void command_handler(t_shell *shell)
 {
 	if (!shell->parsed_input.head->next_cmd)
 		if (run_builtin(shell))
+		{
+			global_status = 0;
 			return ;
+		}
 	run_pipes(shell, shell->parsed_input, shell->parsed_input.head);
 }
