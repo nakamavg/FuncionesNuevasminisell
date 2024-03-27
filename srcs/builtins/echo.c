@@ -6,43 +6,81 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/27 17:48:35 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:41:19 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-// int check_names(char *name, char *search)
-// {
-// 	if(ft_strlen(search) == ft_strlen(name))
-// 		if(ft_strncmp(name, search, ft_strlen(search)) == 0)
-// 			return(1);
-// 	return(0);
-// }
-// char *search_echo(t_shell *shell, char *search)
-// {
-// 	t_my_env *tmp;
-// 	tmp = shell->env_list;
-// 	while(tmp)
-// 	{
-// 		if(check_names(tmp->name, search))
-// 			return(ft_strdup(tmp->value));
-// 		tmp = tmp->next;
-// 	}
-// 	tmp = shell->env_list;
-// 	return(NULL);
-// }
+int check_names(char *name, char *search)
+{
+	if(ft_strlen(search) == ft_strlen(name))
+		if(ft_strncmp(name, search, ft_strlen(search)) == 0)
+			return(1);
+	return(0);
+}
+char *search_echo(t_shell *shell, char *search)
+{
+	t_my_env *tmp;
+	tmp = shell->env_list;
+	while(tmp)
+	{
+		if(check_names(tmp->name, search))
+			return(ft_strdup(tmp->value));
+		tmp = tmp->next;
+	}
+	tmp = shell->env_list;
+	return(NULL);
+}
 
-void echo (char **cmd)
+
+
+void print_escaped_characters(char *str)
 {
 	int idx;
 
-	idx = 0;
-	while (cmd[++idx])
-		printf("%s ", cmd[idx]);
-	printf("\n");
+	idx = -1;
+	while (str[++idx])
+	{
+		if (str[idx] == '\\' && str[idx + 1] != '\0')
+		{
+			if ((str[idx + 1] == 'n') && (str[0] == '"' || str[0] == '\''))
+				printf("\\");
+			idx++;
+			printf("%c", str[idx]);
+		}
+		else
+			if (str[idx] != '\'' && str[idx] != '"')
+				printf("%c", str[idx]);
+	}
 }
+
+void echo(char **cmd)
+{
+	int idx;
+    int lnbr;
+	
+	idx = 0;
+	lnbr = 1;
+	if (!ft_strncmp(cmd[1], "-n", ft_strlen(cmd[1])))
+	{
+		lnbr = 0;
+		idx++;
+	}
+
+	while (cmd[++idx])
+	{
+		print_escaped_characters(cmd[idx]);
+		if (cmd[idx + 1])
+			printf(" ");
+	}
+	if (!lnbr)
+		printf("%%");
+	else
+		printf("\n");
+}
+
 // void echo(t_shell *shell)
 // {
 // 	t_my_env *save;
