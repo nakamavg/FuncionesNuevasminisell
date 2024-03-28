@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:11:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/25 01:46:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:59:13 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ void	add_pipe(t_input *cmd_list, t_cmd *new_token)
 		new_token->prev_token = tmp;
 		new_token->prev_token->next_cmd = new_token;
 	}
-	printf("Added token: %s\n", new_token->text);
+	// printf("Added token: %s\n", new_token->text);
 }
