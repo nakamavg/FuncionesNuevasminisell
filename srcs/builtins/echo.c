@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/24 21:09:59 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:49:49 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,53 @@ char *search_echo(t_shell *shell, char *search)
 	return(NULL);
 }
 
-void echo (char **cmd)
+
+
+static void print_escaped_characters(char *str)
 {
 	int idx;
 
-	idx = 0;
-	while (cmd[++idx])
-		printf("%s ", cmd[idx]);
-	printf("\n");
+	idx = -1;
+	while (str[++idx])
+	{
+		if (str[idx] == '\\' && str[idx + 1] != '\0')
+		{
+			if ((str[idx + 1] == 'n') && (str[0] == '"' || str[0] == '\''))
+				printf("\\");
+			idx++;
+			printf("%c", str[idx]);
+		}
+		else
+			if (str[idx] != '\'' && str[idx] != '"')
+				printf("%c", str[idx]);
+	}
 }
+
+void echo(char **cmd)
+{
+	int idx;
+    int lnbr;
+	
+	idx = 0;
+	lnbr = 1;
+	if (cmd[1] && !ft_strncmp(cmd[1], "-n", ft_strlen(cmd[1])))
+	{
+		lnbr = 0;
+		idx++;
+	}
+
+	while (cmd[++idx])
+	{
+		print_escaped_characters(cmd[idx]);
+		if (cmd[idx + 1])
+			printf(" ");
+	}
+	if (!lnbr)
+		printf("%%");
+	else
+		printf("\n");
+}
+
 // void echo(t_shell *shell)
 // {
 // 	t_my_env *save;

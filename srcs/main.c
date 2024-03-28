@@ -14,7 +14,8 @@
 
 int global_status;
 
-void disable_echo_ctrl_c() {
+void disable_echo_ctrl_c()
+{
     struct termios term;
     tcgetattr(0, &term);
     term.c_lflag &= ~ECHOCTL;
@@ -36,6 +37,7 @@ void handler_int(int sig)
     
     return ;
 }
+
 void init_signals(void)
 {
     struct sigaction mshell;
@@ -44,6 +46,7 @@ void init_signals(void)
     sigaction(SIGQUIT, &mshell, NULL);
 
 }
+
 void shell_loop(t_shell *shell)
 {
 	// t_input	cmd_list;
@@ -68,7 +71,7 @@ void shell_loop(t_shell *shell)
 
         free(shell->input); 
     }
-	
+	cleanup_cmd_list(&shell->parsed_input);	
 }
 
 

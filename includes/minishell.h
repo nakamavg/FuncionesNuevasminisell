@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/25 10:42:47 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/28 03:28:04 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <stdbool.h>
+
+# define OUT STDOUT_FILENO
+# define IN STDIN_FILENO
 #define ERR_INVALID_CHAR "\nexport not an identifier: "
 #define ERR_INVALID_CTXT "\nexport: not valid in this context: "
 #define ERR_SPACES_IN_VAR "\nexport: bad assignment "
@@ -70,6 +73,19 @@ typedef enum s_Token_Type {
 	TOKEN_TYPE_MAX
 }	t_Token_Type;
 
+
+typedef enum s_Builtin {
+	ECH0 = 42,
+	ENV = 43,
+	EXIT = 44,
+	PWD = 45,
+	CD = 46,
+	EXPORT = 47,
+	UNSET = 48,
+	NONE = 0
+} t_Builtin;
+
+
 typedef struct s_cmd
 {
 	char			*text;
@@ -77,8 +93,6 @@ typedef struct s_cmd
 	t_Token_Type	infile_mode;
 	char			*outfile;
 	int				write_mode;
-	// int				pipe_fd[2];
-	// int				next_pipe[2];
 	char			**cmd_list;
 	struct s_cmd	*next_cmd;
 	struct s_cmd	*prev_token;
@@ -165,8 +179,29 @@ char	**expand_variable(char **cmd, t_shell *shell);
 char			**cmd_split(const char *text, char *in, char *out);
 
 // pipes_raw.c
-void			run_pipes(t_input cmd_input, char **envp);
+// void 			run_pipes(t_input cmd_input, t_cmd *pipe, char **envp);
 pid_t			fork_process(void);
+
+// pipes/manage_files.c
+int				out_file_open(char *file_write, t_Token_Type write_type);
+void			out_file_create(char *file_write);
+int				in_file_open(char *file_read);
+// pipes/run_pipes.c
+void			run_pipes(t_shell *shell, t_input cmd_input, t_cmd *pipe);
+void			run_process(char **cmd, t_shell *shell, int pipe_in[2], int pipe_out[2]);
+void			set_null_pipe(int *in, int *out);
+int				set_global_status(int status);
+void			create_pipes(int pipe_fd[2]);
+// pipes/process_utils.c
+void			unix_error(char *mssg, char *str);
+pid_t			fork_process(void);
+char			*extract_path(char *raw_path, char *cmd);
+void			exec_cmd(char **cmd, t_shell *shell);
+// pipes/pipes_utils.c
+void	create_pipes(int pipe_fd[2]);
+void	dup_and_close_fds(int pipe_fd[2], int std_fd);
+void	set_null_pipe(int *in, int *out);
+int		set_global_status(int status);
 
 ////////
 
@@ -176,7 +211,7 @@ void ft_error_cmd(char *str,char *aux);
 void ft_error(char *str,char *aux);
 
 // gethings.c
-
+char *search_expand(t_shell *shell, char *search);
 char *search_things(t_shell *shell, char *search);
 void get_things(t_shell *shell);
 int ft_strlen_pp(char **container);
@@ -190,17 +225,14 @@ void add_env(t_my_env **env, t_my_env *new);
 void delone_env(t_shell *shell);
 void add_env_back(t_my_env **env, t_my_env *new);
 
-// builtsinhandler.c
-void more_cmd_handler(t_shell *shell);
+// cmd_handler.c
 void command_handler(t_shell *shell);
+int run_builtin(t_shell *shell);
 
 // cd.c
 void	cd(t_shell *shell);
 
 // echo.c
-int check_names(char *name, char *search);
-char *search_echo(t_shell *shell, char *search);
-// void echo(t_shell *shell);
 void echo (char **cmd);
 
 // export.c
@@ -208,6 +240,7 @@ void export(t_shell *shell);
 
 // unset.c
 void unset (t_shell *shell);
+
 
 
 #endif

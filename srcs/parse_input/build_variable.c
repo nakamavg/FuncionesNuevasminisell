@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/25 10:36:56 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:21:22 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
 		}
 	}
-	out = ft_sprintf("%s%s%s", sent[0], search_things(shell, sent[1]), sent[2]);
+	out = ft_sprintf("%s%s%s", sent[0], search_expand(shell, sent[1]), sent[2]);
 	free_sent(sent);
 	free(cmd);
 	return (out);
