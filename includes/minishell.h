@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/27 20:48:26 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/28 03:28:04 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,19 @@ typedef enum s_Token_Type {
 	TOKEN_TYPE_EXPAND,
 	TOKEN_TYPE_MAX
 }	t_Token_Type;
+
+
+typedef enum s_Builtin {
+	ECH0 = 42,
+	ENV = 43,
+	EXIT = 44,
+	PWD = 45,
+	CD = 46,
+	EXPORT = 47,
+	UNSET = 48,
+	NONE = 0
+} t_Builtin;
+
 
 typedef struct s_cmd
 {
@@ -212,7 +225,7 @@ void add_env(t_my_env **env, t_my_env *new);
 void delone_env(t_shell *shell);
 void add_env_back(t_my_env **env, t_my_env *new);
 
-// builtsinhandler.c
+// cmd_handler.c
 void command_handler(t_shell *shell);
 int run_builtin(t_shell *shell);
 

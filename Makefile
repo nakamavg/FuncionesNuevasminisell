@@ -1,10 +1,10 @@
 NAME	= minishell
 CC		= cc
 # CFLAGS	= -Wall -Wextra -Werror
-CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include  -fsanitize=address -g3 
-# CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
-LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
-# LDFLAGS	= -lreadline -L /opt/homebrew/opt/readline/lib 
+# CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include  -fsanitize=address -g3 
+CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
+# LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+LDFLAGS	= -lreadline -L /opt/homebrew/opt/readline/lib 
 SFLAGS	= -g3 -fsanitize=address
 
 FILES	=	srcs/main \
@@ -18,11 +18,11 @@ FILES	=	srcs/main \
 			srcs/errors \
 			srcs/gethings \
 			srcs/utilslist \
-			srcs/builtins/builtsinhandler \
 			srcs/builtins/cd \
 			srcs/builtins/echo \
 			srcs/builtins/export \
 			srcs/builtins/unset \
+			srcs/pipes/cmd_handler \
 			srcs/pipes/manage_files \
 			srcs/pipes/process_utils \
 			srcs/pipes/pipes_utils \
