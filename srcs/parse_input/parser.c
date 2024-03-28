@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/25 01:48:34 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:59:01 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,16 @@ int	sanitize_input(const char *input)
 	}
 	if (within_sq_sent || within_dq_sent)
 		return (printf("Error: Not closed string used as input\n"), 1);
-	return (printf("input sanitized\n"), 0);
+	// return (printf("input sanitized\n"), 0);
+	return (0);
 }
-
-// t_input	parse_input(const char *input)
-// {
-// 	t_input	cmd_list;
-
-// 	cmd_list = init_input();
-// 	printf("input: %s\n", input);
-// 	if (sanitize_input(input))
-// 		return (printf("non-valid input\n"), cmd_list);
-// 	build_cmdlst(input, &cmd_list);
-// 	// test_lexer(&cmd_list);
-// 	return (cmd_list);
-// }
 
 void	parse_input(t_shell *shell)
 {
 	// t_input	cmd_list;
 
 	shell->parsed_input = init_input();
-	printf("input: %s\n", shell->input);
+	// printf("input: %s\n", shell->input);
 	if (sanitize_input(shell->input))
 	{
 		printf("non-valid input\n");
