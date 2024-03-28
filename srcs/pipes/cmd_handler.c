@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/28 03:27:50 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:51:36 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static t_Builtin	ft_is_builtin(char *cmd)
 	return (NONE);
 }
 
-static void	handle_io_redirection(t_shell *shell, int *stdin_copy, int *stdout_copy)
+static void	handle_io_redirection(t_shell *shell, int *stdin_copy,
+			int *stdout_copy)
 {
 	int	infile;
 	int	outfile;
@@ -40,7 +41,8 @@ static void	handle_io_redirection(t_shell *shell, int *stdin_copy, int *stdout_c
 	*stdout_copy = dup(STDOUT_FILENO);
 	if (shell->parsed_input.head->infile)
 	{
-		infile = in_file_open(shell->parsed_input.head->infile);
+		infile = in_file_open(shell->parsed_input.head->infile,
+				shell->parsed_input.head->infile_mode);
 		dup2(infile, STDIN_FILENO);
 		close(infile);
 	}

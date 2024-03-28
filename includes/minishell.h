@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/28 03:28:04 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:43:35 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,9 @@ pid_t			fork_process(void);
 // pipes/manage_files.c
 int				out_file_open(char *file_write, t_Token_Type write_type);
 void			out_file_create(char *file_write);
-int				in_file_open(char *file_read);
+// int				in_file_open(char *file_read);
+int				in_file_open(char *file_read, t_Token_Type infile_mode);
+
 // pipes/run_pipes.c
 void			run_pipes(t_shell *shell, t_input cmd_input, t_cmd *pipe);
 void			run_process(char **cmd, t_shell *shell, int pipe_in[2], int pipe_out[2]);
