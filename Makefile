@@ -9,6 +9,7 @@ LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 FILES	=	srcs/main \
 			srcs/testers \
+			srcs/free_shell \
 			srcs/parse_input/parser \
 			srcs/parse_input/build_cmd \
 			srcs/parse_input/build_pipe \
@@ -22,11 +23,13 @@ FILES	=	srcs/main \
 			srcs/builtins/echo \
 			srcs/builtins/export \
 			srcs/builtins/unset \
+			srcs/builtins/exit \
 			srcs/pipes/cmd_handler \
 			srcs/pipes/manage_files \
 			srcs/pipes/process_utils \
 			srcs/pipes/pipes_utils \
-			srcs/pipes/run_pipes
+			srcs/pipes/run_pipes 
+
 
 CFILES	= $(addsuffix .c, $(FILES))
 OBJS	= $(addsuffix .o, $(FILES))

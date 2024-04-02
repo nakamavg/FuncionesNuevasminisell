@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/02 17:21:51 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:13:08 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 # define ERR_DIR_NOT_FOUND "\ncd: no such file or directory: "
 # define SPLIT_QUOTE " \t\n\v\f\r"
 # define CMD_NOT_FOUND "\ncommand not found :"
+# define ERR_TOO_MANY_ARGS "\nexit: too many arguments"
+# define ERR_NUM_EXPECTED "exit: numeric argument required\n"
 
 typedef enum s_Token_Type
 {
@@ -242,8 +244,15 @@ int					check_names(char *name, char *search);
 
 // export.c
 void				export(t_shell *shell);
+//exit.c
+int				exit_shell(t_shell *shell, char **cmd);
+//free_shell.c
+void				free_shell(t_shell *shell);
+
 
 // unset.c
 void				unset(t_shell *shell);
+
+//free_shell.c
 
 #endif
