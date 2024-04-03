@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/03 15:39:06 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:28:40 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static t_Builtin	ft_is_builtin(char *cmd)
 {
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	if (check_names(cmd, "echo"))
 		return (ECH0);
 	if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 		return (ENV);
-	if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+	if (check_names(cmd, "exit"))
 		return (EXIT);
-	if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	if (check_names(cmd, "pwd"))
 		return (PWD);
-	if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+	if (check_names(cmd, "cd"))
 		return (CD);
-	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+	if (check_names(cmd, "export"))
 		return (EXPORT);
-	if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+	if (check_names(cmd, "unset"))
 		return (UNSET);
 	return (NONE);
 }
