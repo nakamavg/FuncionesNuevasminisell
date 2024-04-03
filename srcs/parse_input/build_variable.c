@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/27 18:21:22 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:17:22 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,13 @@ char	**expand_variable(char **cmd, t_shell *shell)
 			if (cmd[idx][jdx] == '$' && !quote)
 			{
 				if (cmd[idx][jdx + 1] == '?')
-					printf("I should print the exit status: $?");
+				{
+					free(cmd[idx]);
+					cmd[idx] = ft_sprintf("%d", global_status);
+					continue ;
+				}
+				else if (cmd[idx][jdx + 1] == '\0')
+					continue ;
 				cmd[idx] = get_the_variable(cmd[idx], shell);
 				jdx = -1;
 			}

@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:45:50 by alberrod          #+#    #+#             */
-/*   Updated: 2024/01/09 21:58:03 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:16:20 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*str_or_null(const char *str)
 	char	*out;
 
 	if (!str)
-		out = ft_strdup("(null)");
+		out = ft_strdup(" ");
 	else
 		out = ft_strdup(str);
 	return (out);
