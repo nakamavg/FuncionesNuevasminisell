@@ -78,20 +78,27 @@ void ft_env_split(t_shell *shell)
 {
 	int i;
 	int jdx;
-	char **tmp;
+	char *name;
+	char *value;
+	// char **tmp;
 
 	shell->env_list = NULL;
 	i = -1;
 	while (shell->my_env[++i])
 	{
-		// TODO: REPLACE FT_SPLIT with a function that splits based on the first '='
-		tmp = ft_split(shell->my_env[i], '=');
-		add_env(&shell->env_list, ft_envnew(tmp[0], tmp[1], shell->env_list));
 		jdx = -1;
-		while (tmp[++jdx])
-			if (jdx > 1)
-				free(tmp[jdx]);
-		free(tmp);
+		// DONE: REPLACE FT_SPLIT with a function that splits based on the first '='
+		while (shell->my_env[i][++jdx] != '=')
+			;
+		name = ft_substr(shell->my_env[i], 0, jdx);
+		value = ft_strdup(shell->my_env[i] + jdx + 1);
+		// tmp = ft_split(shell->my_env[i], '=');
+		add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
+		// add_env(&shell->env_list, ft_envnew(tmp[0], tmp[1], shell->env_list));
+		// while (tmp[++jdx])
+		// 	if (jdx > 1)
+		// 		free(tmp[jdx]);
+		// free(tmp);
 	}
 }
 
