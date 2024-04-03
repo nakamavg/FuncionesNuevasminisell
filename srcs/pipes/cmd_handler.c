@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/28 17:51:36 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:35:20 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	run_single_builtin(t_shell *shell)
 	if (builtin == ENV)
 		print_env(shell->env_list);
 	if (builtin == EXIT)
-		exit(0);
+		exit_shell(shell,shell->parsed_input.head->cmd_list);
 	if (builtin == PWD)
 		printf("%s\n", getcwd(NULL, 0));
 	if (builtin == CD)
@@ -94,7 +94,7 @@ int	run_builtin(t_shell *shell)
 	if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 		return (print_env(shell->env_list), 1);
 	if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
-		return (exit(0), 1);
+		return (exit_shell(shell, shell->parsed_input.head->cmd_list), 1);
 	if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
 		return ((void)printf("%s\n", getcwd(NULL, 0)), 1);
 	if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
