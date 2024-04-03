@@ -41,6 +41,8 @@ void handler_int(int sig)
 void init_signals(void)
 {
     struct sigaction mshell;
+
+	ft_memset(&mshell, 0, sizeof(mshell));
     mshell.sa_handler = handler_int;
     sigaction(SIGINT, &mshell, NULL);
     sigaction(SIGQUIT, &mshell, NULL);
