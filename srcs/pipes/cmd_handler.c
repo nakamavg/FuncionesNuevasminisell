@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/02 18:35:20 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:46:22 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ static int	run_single_builtin(t_shell *shell)
 	t_Builtin	builtin;
 	int			stdin_copy;
 	int			stdout_copy;
+	int			status;
 
+	status = 0;
 	builtin = ft_is_builtin(shell->parsed_input.head->cmd_list[0]);
-	if (builtin == NONE)
-		return (0);
 	handle_io_redirection(shell, &stdin_copy, &stdout_copy);
 	if (builtin == ECH0)
 		echo(shell->parsed_input.head->cmd_list);
 	if (builtin == ENV)
 		print_env(shell->env_list);
 	if (builtin == EXIT)
-		exit_shell(shell,shell->parsed_input.head->cmd_list);
+		status = exit_shell(shell,shell->parsed_input.head->cmd_list);
 	if (builtin == PWD)
 		printf("%s\n", getcwd(NULL, 0));
 	if (builtin == CD)
@@ -81,7 +81,7 @@ static int	run_single_builtin(t_shell *shell)
 		unset(shell);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
-	return (close(stdin_copy), close(stdout_copy), 1);
+	return (close(stdin_copy), close(stdout_copy), status);
 }
 
 int	run_builtin(t_shell *shell)
@@ -108,9 +108,11 @@ int	run_builtin(t_shell *shell)
 
 void	command_handler(t_shell *shell)
 {
-	if (!shell->parsed_input.head->next_cmd && run_single_builtin(shell))
+	// if (!shell->parsed_input.head->next_cmd && run_single_builtin(shell))
+	if (!shell->parsed_input.head->next_cmd &&
+		ft_is_builtin(shell->parsed_input.head->cmd_list[0]) != NONE)
 	{
-		global_status = 0;
+		global_status = run_single_builtin(shell);
 		return ;
 	}
 	run_pipes(shell, shell->parsed_input, shell->parsed_input.head);
