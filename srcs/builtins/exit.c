@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:23:43 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/02 20:35:52 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:32:14 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 bool check_numeric(char *cmd)
 {
 	int i;
@@ -43,15 +44,30 @@ bool check_two_args(char **cmd)
 	return (true);
 }
 
+int	check_number_of_args(char **cmd)
+{
+	int	idx;
+
+	idx = -1;
+	while (cmd[++idx])
+		;
+	return (idx);
+}
+
 int	exit_shell(t_shell *shell , char **cmd)
 {
-	printf("exit\n");
-	if (check_two_args(cmd))
-		if(check_numeric(cmd[1]))
-			global_status = ft_atoi(cmd[1]);
-	
-	ft_putstr_fd("exit\n", 1);
-	printf("exit status: %d\n", global_status);
+	int	number_of_args;
+
+	number_of_args = check_number_of_args(cmd);
+	if (number_of_args > 2)
+	{
+		global_status = 1;	
+		return (printf("exit: too many arguments\n"), global_status);
+	}
+	else if (number_of_args == 2)
+		global_status = ft_atoi(cmd[1]);
+	else
+		global_status = 0;
 	free_shell(shell);
 	exit(global_status);
 }
