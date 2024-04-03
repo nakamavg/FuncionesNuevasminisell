@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:41:13 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/02 17:58:53 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:33:43 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	go_direction(char *dir)
 		ft_error(ERR_DIR_NOT_FOUND, dir);
 }
 
-void	cd(t_shell *shell)
+void	cd(t_shell *shell, char **cmd)
 {
 	char	**temp;
 	char	*new_pwd;
@@ -59,7 +59,7 @@ void	cd(t_shell *shell)
 	if (!temp[1] || ft_strncmp(temp[1], "~", 1) == 0)
 		go_direction(shell->home);
 	else
-		go_direction(temp[1]);
+		go_direction(cmd[1]);
 	change_old_pwd(shell);
 	new_pwd = getcwd(NULL, 0);
 	insert_value(shell, "PWD", new_pwd);
