@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/27 18:20:36 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:05:22 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char *search_expand(t_shell *shell, char *search)
 	node = shell->env_list;
 	while (node)
 	{
-		if (!ft_strncmp(node->name, search, ft_strlen(search)))
+		if (check_names(node->name, search))
 			return (ft_strdup(node->value));
 		node = node->next;
 	}
