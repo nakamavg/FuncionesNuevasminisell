@@ -2,8 +2,8 @@ NAME	= minishell
 CC		= cc
 # CFLAGS	= -Wall -Wextra -Werror
 # CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include  -fsanitize=address -g3 
- CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
-LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include
+LDFLAGS = -lreadline
 # LDFLAGS	= -lreadline -L /opt/homebrew/opt/readline/lib 
 #SFLAGS	= -g3 -fsanitize=address
 
@@ -44,8 +44,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
-	#  $(CC) $(SFLAGS) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft
+		$(CC) $(CFLAGS) -o $@ $^ -L $(LIBFT_DIR) -lft $(LDFLAGS)
 
 fsanitize:
 	$(eval CFLAGS +=-fsanitize=address -g3)

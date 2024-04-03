@@ -14,22 +14,17 @@
 
 char *search_things(t_shell *shell, char *search)
 {
-// t_my_env *tmp;
-int i;
+	t_my_env *tmp;
 
-// tmp = shell->env_list;
-i = -1;
-
-while(shell->my_env[++i])
-{
-	if(ft_strncmp(shell->my_env[i], search, ft_strlen(search)) == 0)
+	tmp = shell->env_list;
+	while (tmp)
 	{
-		return( ft_strdup(shell->my_env[i]+ft_strlen(search)+1));
-	
+		if (check_names(tmp->name, search))
+			return (ft_strdup(tmp->value));
+		tmp = tmp->next;
+
 	}
-}
-// tmp = shell->env_list;
-return(NULL);
+	return (NULL);
 }
 
 char *search_expand(t_shell *shell, char *search)
