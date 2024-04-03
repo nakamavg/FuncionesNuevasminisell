@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/03 15:05:22 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:05:22berrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,20 @@ void ft_getenv(t_shell *shell, char **env)
 void ft_env_split(t_shell *shell)
 {
 	int i;
+	int jdx;
 	char **tmp;
 
 	shell->env_list = NULL;
 	i = -1;
 	while (shell->my_env[++i])
 	{
+		// TODO: REPLACE FT_SPLIT with a function that splits based on the first '='
 		tmp = ft_split(shell->my_env[i], '=');
 		add_env(&shell->env_list, ft_envnew(tmp[0], tmp[1], shell->env_list));
+		jdx = -1;
+		while (tmp[++jdx])
+			if (jdx > 1)
+				free(tmp[jdx]);
 		free(tmp);
 	}
 }
@@ -97,6 +103,5 @@ void print_env(t_my_env *env)
 				printf("declare -x %s=%s\n", env->name, env->value);
 		env = env->next;
 	}
-
 }
 	
