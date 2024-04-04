@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/04 02:48:23 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/04 03:30:55 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_shell
 	char			*path;
 	char			**my_env;
 	t_my_env		*env_list;
+	t_my_env		*env_sys_end;
 	char			*prompt;
 	char			*input;
 	char			*home;
@@ -247,6 +248,9 @@ int					export(t_shell *shell, char **cmd);
 bool				check_if_exist(t_shell *env, char *name, char *value);
 // export_utils.c
 void				handle_errors_export(char *input,bool *local_error);
+t_my_env			*go_to_end(t_my_env *env);
+void 				sort_env(t_my_env *env);
+
 // exit.c
 int					exit_shell(t_shell *shell, char **cmd);
 // free_shell.c

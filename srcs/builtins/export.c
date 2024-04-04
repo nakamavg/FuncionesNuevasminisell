@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/04 02:47:21 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/04 03:26:40 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void equal_handler(t_shell *shell, char *name, char *value)
 	if(check_if_exist(shell, name, value))
 		return ;
 	add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
-
+	sort_env(shell->env_sys_end);
 }
 void realloc_env(t_shell *shell, char **newvar, bool *error_handler)
 {
@@ -72,8 +72,6 @@ void realloc_env(t_shell *shell, char **newvar, bool *error_handler)
 }
 int export(t_shell *shell , char **cmd)
 {
-	// int idx;
-	// idx = 5;
 	bool error_handler;
 	error_handler = false;
 	if (!cmd[1])

@@ -47,6 +47,10 @@ void get_things(t_shell *shell)
 	shell->env = search_things(shell, "PWD");
 	shell->home = search_things(shell, "HOME");
 	shell->path = search_things(shell, "PATH");
+	shell->env_sys_end = go_to_end(shell->env_list);
+	//añadir un puntero al final de la lista de env_list
+	//para ordenar las variables de entorno del usuario y no del sistema
+
 	shell->prompt = ft_strjoin(shell->user, " minishell$ ");
 }
 int ft_strlen_pp(char **container)

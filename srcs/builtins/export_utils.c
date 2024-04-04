@@ -6,11 +6,48 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 00:58:24 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/04 02:47:48 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/04 03:31:31 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void sort_env(t_my_env *env)
+{
+	t_my_env *tmp;
+	t_my_env *tmp2;
+	char *name;
+	char *value;
+
+	tmp = env;
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		while (tmp2)
+		{
+			if (ft_strncmp(tmp->name, tmp2->name, ft_strlen(tmp->name)) > 0)
+			{
+				name = tmp->name;
+				value = tmp->value;
+				tmp->name = tmp2->name;
+				tmp->value = tmp2->value;
+				tmp2->name = name;
+				tmp2->value = value;
+			}
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+	}
+}
+
+t_my_env *go_to_end(t_my_env *env)
+{
+	t_my_env *tmp;
+	tmp = env;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}
 
 bool auxiliar_errors_export(char input)
 {
