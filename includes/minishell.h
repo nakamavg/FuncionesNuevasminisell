@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/03 15:35:14 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/04 02:48:23 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
@@ -41,7 +40,7 @@
 
 # define OUT STDOUT_FILENO
 # define IN STDIN_FILENO
-# define ERR_INVALID_CHAR "\nexport not an identifier: "
+# define ERR_INVALID_CHAR "\nexport: not an identifier: "
 # define ERR_INVALID_CTXT "\nexport: not valid in this context: "
 # define ERR_SPACES_IN_VAR "\nexport: bad assignment "
 # define UNSET_NOT_ARG "\nunset: not enough arguments "
@@ -227,7 +226,7 @@ void				print_env(t_my_env *env);
 // utilslist.c
 t_my_env			*ft_envnew(void *name, void *value, t_my_env *new_l);
 void				add_env(t_my_env **env, t_my_env *new);
-void				delone_env(t_shell *shell);
+void				delone_env(t_my_env *shell);
 void				add_env_back(t_my_env **env, t_my_env *new);
 
 // cmd_handler.c
@@ -236,7 +235,7 @@ int					run_builtin(t_shell *shell);
 
 // cd.c
 // void				cd(t_shell *shell);
-void				cd(t_shell *shell, char **cmd);
+int					cd(t_shell *shell, char **cmd);
 
 // echo.c
 void				echo(char **cmd);
@@ -244,16 +243,18 @@ char				*search_echo(t_shell *shell, char *search);
 int					check_names(char *name, char *search);
 
 // export.c
-void				export(t_shell *shell);
-//exit.c
-int				exit_shell(t_shell *shell, char **cmd);
-//free_shell.c
+int					export(t_shell *shell, char **cmd);
+bool				check_if_exist(t_shell *env, char *name, char *value);
+// export_utils.c
+void				handle_errors_export(char *input,bool *local_error);
+// exit.c
+int					exit_shell(t_shell *shell, char **cmd);
+// free_shell.c
 void				free_shell(t_shell *shell);
 
-
 // unset.c
-void				unset(t_shell *shell);
+void				unset(t_shell *shell, char **cmd);
 
-//free_shell.c
+// free_shell.c
 
 #endif

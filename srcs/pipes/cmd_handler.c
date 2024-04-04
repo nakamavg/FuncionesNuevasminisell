@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/03 20:28:40 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:44:28 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ static int	run_single_builtin(t_shell *shell, char **cmd)
 	if (builtin == PWD)
 		printf("%s\n", getcwd(NULL, 0));
 	if (builtin == CD)
-		cd(shell, cmd);
+		status = cd(shell, cmd);
 	if (builtin == EXPORT)
-		export(shell);
+		status = export(shell,cmd);
 	if (builtin == UNSET)
-		unset(shell);
+		unset(shell, shell->parsed_input.head->cmd_list);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
 	return (close(stdin_copy), close(stdout_copy), status);
@@ -128,9 +128,9 @@ int	run_builtin(t_shell *shell)
 	if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		return (cd(shell, shell->parsed_input.head->cmd_list), 1);
 	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
-		return (export(shell), 1);
+		return (export(shell,shell->parsed_input.head->cmd_list), 1);
 	if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
-		return (unset(shell), 1);
+		return (unset(shell,shell->parsed_input.head->cmd_list), 1);
 	return (0);
 }
 

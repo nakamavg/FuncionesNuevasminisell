@@ -22,6 +22,7 @@ FILES	=	srcs/main \
 			srcs/builtins/cd \
 			srcs/builtins/echo \
 			srcs/builtins/export \
+			srcs/builtins/export_utils \
 			srcs/builtins/unset \
 			srcs/builtins/exit \
 			srcs/pipes/cmd_handler \

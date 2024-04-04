@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:41:13 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/03 15:33:43 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:45:09 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,37 @@ void	change_old_pwd(t_shell *shell)
 	free(old_pwd);
 }
 
-void	go_direction(char *dir)
+void go_direction(char *dir, bool *success)
 {
 	if (chdir(dir) == -1)
+	{
 		ft_error(ERR_DIR_NOT_FOUND, dir);
+		*success = false;
+	}
+	else
+		*success = true;
 }
 
-void	cd(t_shell *shell, char **cmd)
+int	cd(t_shell *shell, char **cmd)
 {
 	char	**temp;
 	char	*new_pwd;
+	bool    success;
 
 	temp = ft_split(shell->input, ' ');
 	if (!temp[1] || ft_strncmp(temp[1], "~", 1) == 0)
-		go_direction(shell->home);
+		go_direction(shell->home,&success);
 	else
-		go_direction(cmd[1]);
+		go_direction(cmd[1],&success);
+	if (!success)
+	{
+		free(temp);
+		return (1);
+	}
 	change_old_pwd(shell);
 	new_pwd = getcwd(NULL, 0);
 	insert_value(shell, "PWD", new_pwd);
 	free(new_pwd);
 	free(temp);
+	return (0);
 }

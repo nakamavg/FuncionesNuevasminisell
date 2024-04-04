@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilslist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 01:42:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/24 20:28:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/04 00:50:05 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ void add_env(t_my_env **env, t_my_env *new)
 	tmp->next = new;
 	new->prev = tmp;
 }
- void delone_env(t_shell *shell)
+ void delone_env(t_my_env *delete)
 {
-	t_my_env *pre = shell->env_list->prev;
-	t_my_env *next = shell->env_list->next;
+	t_my_env *pre = delete->prev;
+	t_my_env *next = delete->next;
+	
 	if (pre && !next)
 	{
 		pre->next = NULL;
@@ -58,10 +59,11 @@ void add_env(t_my_env **env, t_my_env *new)
 		next->prev = pre;
 	}
 	
-	free(shell->env_list->name);
-	free(shell->env_list->value);
-	free(shell->env_list);
-
+	free(delete->name);
+	if(*delete->value)
+		free(delete->value);
+	free(delete);
+	delete = NULL;
 } 
 void add_env_back(t_my_env **env, t_my_env *new)
 {

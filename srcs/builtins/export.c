@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/03/25 16:48:21 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/04 02:47:21 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool check_if_exist(t_shell *env, char *name, char *value)
 	tmp = env->env_list;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->name, name, ft_strlen(name)) == 0)
+		if (check_names(tmp->name, name))
 		{
 			tmp->value = value;
 			return (1);
@@ -45,44 +45,44 @@ void equal_handler(t_shell *shell, char *name, char *value)
 	add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
 
 }
-
-void 	realloc_env(t_shell *shell, char *newvar)
+void realloc_env(t_shell *shell, char **newvar, bool *error_handler)
 {
-	t_my_env *save_env;
-	char **tmp;
-	
-	save_env = shell->env_list;
-	newvar +=7;
-	newvar=ft_strtrim(newvar, SPLIT_QUOTE);
-		if(check_input(newvar) == 1)
-				ft_error(ERR_SPACES_IN_VAR,&newvar[0]);
-	if(ft_isalpha(newvar[0]) == 0 && newvar[0] != 95)
+	int i;
+	char **split;
+	bool local_error;
+	local_error = false;	
+	i = 0;
+	while (newvar[++i])
 	{
-		if(ft_isdigit(newvar[0]))
-			return (ft_error(ERR_INVALID_CHAR,&newvar[0]));
+		local_error = false;
+		split = ft_split(newvar[i], '=');
+		handle_errors_export(split[0],&local_error);
+		if(local_error)
+		{
+			*error_handler = true;
+			free(split);
+			continue;
+		}
+		if(!split[1])
+				equal_handler(shell, split[0], "");
 		else
-			return (ft_error(ERR_INVALID_CTXT,&newvar[0]));
-			
+			equal_handler(shell, split[0], split[1]);
+		free(split);
 	}
-	tmp = ft_split(newvar, '=');
-	if(ft_strlen_pp(tmp) == 2)
-		equal_handler(shell, tmp[0], tmp[1]);
-	else
-		equal_handler(shell, tmp[0], ft_strdup("''"));
-	free(tmp);
-	shell->env_list = save_env;
 }
-void export(t_shell *shell)
+int export(t_shell *shell , char **cmd)
 {
 	// int idx;
 	// idx = 5;
-	char *temp;
-	temp = ft_strtrim(shell->input, SPLIT_QUOTE);
-	if (ft_strncmp(temp,"export", ft_strlen(temp))== 0)
-		return(	print_env(shell->env_list));
-	else
-		return(realloc_env(shell, temp));
-
+	bool error_handler;
+	error_handler = false;
+	if (!cmd[1])
+	{
+		print_env(shell->env_list);
+		return (0);
+	}
+	realloc_env(shell, cmd,&error_handler);
+	return ((int)error_handler);
 }
 
 
