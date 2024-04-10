@@ -8,7 +8,6 @@ CC		= cc
 #SFLAGS	= -g3 -fsanitize=address
 
 FILES	=	srcs/main \
-			srcs/testers \
 			srcs/free_shell \
 			srcs/parse_input/parser \
 			srcs/parse_input/build_cmd \
@@ -18,6 +17,7 @@ FILES	=	srcs/main \
 			srcs/parse_input/build_split \
 			srcs/errors \
 			srcs/gethings \
+			srcs/get_things_aux \
 			srcs/utilslist \
 			srcs/builtins/cd \
 			srcs/builtins/echo \

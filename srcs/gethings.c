@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/10 20:16:07 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 21:36:12 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,8 @@ void	get_things(t_shell *shell)
 	shell->home = search_things(shell, "HOME");
 	shell->path = search_things(shell, "PATH");
 	shell->env_sys_end = go_to_end(shell->env_list);
-	shell->prompt = ft_sprintf("%s%s%s%s@minishell$%s ", YELLOW, shell->user, RESET, PURPLE, RESET);
-	// shell->prompt = ft_strjoin(shell->user, " minishell$ ");
-}
-
-int	ft_strlen_pp(char **container)
-{
-	int	y;
-
-	y = -1;
-	while (container[++y])
-		;
-	return (y);
+	shell->prompt = ft_sprintf("%s%s%s%s@minishell$%s ", YELLOW, shell->user,
+			RESET, PURPLE, RESET);
 }
 
 void	ft_getenv(t_shell *shell, char **env)
@@ -91,15 +81,5 @@ void	ft_env_split(t_shell *shell)
 		name = ft_substr(shell->my_env[i], 0, jdx);
 		value = ft_strdup(shell->my_env[i] + jdx + 1);
 		add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
-	}
-}
-
-void	print_env(t_my_env *env)
-{
-	while (env)
-	{
-		if (env->name && env->value && ft_strlen(env->name) > 0)
-			printf("declare -x %s=%s\n", env->name, env->value);
-		env = env->next;
 	}
 }

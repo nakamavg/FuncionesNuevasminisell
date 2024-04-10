@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 20:25:20 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 21:40:10 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@
 # define ERR_TOO_MANY_ARGS "\nexit: too many arguments"
 # define ERR_NUM_EXPECTED "exit: numeric argument required\n"
 
-# define RESET   "\001\e[0m\002"
+# define RESET "\001\e[0m\002"
 # define BLUE "\033[0;34m"
 # define YELLOW "\033[0;33m"
 # define PURPLE "\033[0;35m"
+
 typedef enum s_Token_Type
 {
 	TOKEN_TYPE_UNKNOWN,
@@ -224,9 +225,11 @@ void				ft_error(char *str, char *aux);
 char				*search_expand(t_shell *shell, char *search);
 char				*search_things(t_shell *shell, char *search);
 void				get_things(t_shell *shell);
-int					ft_strlen_pp(char **container);
 void				ft_getenv(t_shell *shell, char **env);
 void				ft_env_split(t_shell *shell);
+
+// get_things_aux.c
+int					ft_strlen_pp(char **container);
 void				print_env(t_my_env *env);
 
 // utilslist.c
