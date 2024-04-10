@@ -59,9 +59,10 @@ void shell_loop(t_shell *shell)
 		{
 			
 			// shell->parsed_input = parse_input(shell->input);
-			parse_input(shell);
 			// test_lexer(&shell->parsed_input);
             add_history(shell->input);
+			if (parse_input(shell))
+				continue ;
 			command_handler(shell);
 			cleanup_cmd_list(&shell->parsed_input);
         }

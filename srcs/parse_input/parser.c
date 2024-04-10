@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/28 17:59:01 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 05:36:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	sanitize_input(const char *input)
 	return (0);
 }
 
-void	parse_input(t_shell *shell)
+int	parse_input(t_shell *shell)
 {
 	// t_input	cmd_list;
 
@@ -55,10 +55,10 @@ void	parse_input(t_shell *shell)
 	if (sanitize_input(shell->input))
 	{
 		printf("non-valid input\n");
-		return ;
+		return (1);
 	}
 	// build_cmdlst(shell->input, &shell->parsed_input);
 	build_cmdlst(shell->input, shell);
 	// test_lexer(&cmd_list);
-	return ;
+	return (0);
 }

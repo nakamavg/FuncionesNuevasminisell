@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 05:27:28 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 05:37:14 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void				test_lexer(t_input *cmd_list);
 // /parse_input/parser.c
 int					sanitize_input(const char *input);
 // t_input			parse_input(const char *input);
-void				parse_input(t_shell *shell);
+int					parse_input(t_shell *shell);
 
 // /parse/input/build_cmd.c
 t_input				init_input(void);
