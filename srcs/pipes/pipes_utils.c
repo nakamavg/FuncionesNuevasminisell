@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:34:49 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/27 00:50:11 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:15:35 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	set_null_pipe(int *in, int *out)
 	*out = -1;
 }
 
-int	set_global_status(int status)
+int	set_g_status(int status)
 {
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));

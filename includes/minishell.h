@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 05:37:14 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:15:35 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ typedef struct s_shell
 	t_input			parsed_input;
 }					t_shell;
 
-extern int			global_status;
+extern int			g_status;
 
 // testers.c
 void				test_lexer(t_input *cmd_list);
@@ -195,7 +195,7 @@ void				run_pipes(t_shell *shell, t_input cmd_input, t_cmd *pipe);
 void				run_process(char **cmd, t_shell *shell, int pipe_in[2],
 						int pipe_out[2]);
 void				set_null_pipe(int *in, int *out);
-int					set_global_status(int status);
+int					set_g_status(int status);
 void				create_pipes(int pipe_fd[2]);
 // pipes/process_utils.c
 void				unix_error(char *mssg, char *str);
@@ -206,7 +206,7 @@ void				exec_cmd(char **cmd, t_shell *shell);
 void				create_pipes(int pipe_fd[2]);
 void				dup_and_close_fds(int pipe_fd[2], int std_fd);
 void				set_null_pipe(int *in, int *out);
-int					set_global_status(int status);
+int					set_g_status(int status);
 
 ////////
 
@@ -248,9 +248,9 @@ int					check_names(char *name, char *search);
 int					export(t_shell *shell, char **cmd);
 bool				check_if_exist(t_shell *env, char *name, char *value);
 // export_utils.c
-void				handle_errors_export(char *input,bool *local_error);
+void				handle_errors_export(char *input, bool *local_error);
 t_my_env			*go_to_end(t_my_env *env);
-void 				sort_env(t_my_env *env);
+void				sort_env(t_my_env *env);
 
 // exit.c
 int					exit_shell(t_shell *shell, char **cmd);

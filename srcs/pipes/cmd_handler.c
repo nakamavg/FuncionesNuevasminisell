@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/10 05:26:08by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:40:29 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_Builtin	ft_is_builtin(char *cmd)
 }
 
 static void	handle_io_redirection(t_shell *shell, int *stdin_copy,
-			int *stdout_copy)
+		int *stdout_copy)
 {
 	int	infile;
 	int	outfile;
@@ -55,34 +55,6 @@ static void	handle_io_redirection(t_shell *shell, int *stdin_copy,
 	}
 }
 
-// static int	run_single_builtin(t_shell *shell)
-// {
-// 	t_Builtin	builtin;
-// 	int			stdin_copy;
-// 	int			stdout_copy;
-// 	int			status;
-
-// 	status = 0;
-// 	builtin = ft_is_builtin(shell->parsed_input.head->cmd_list[0]);
-// 	handle_io_redirection(shell, &stdin_copy, &stdout_copy);
-// 	if (builtin == ECH0)
-// 		echo(shell->parsed_input.head->cmd_list);
-// 	if (builtin == ENV)
-// 		print_env(shell->env_list);
-// 	if (builtin == EXIT)
-// 		status = exit_shell(shell,shell->parsed_input.head->cmd_list);
-// 	if (builtin == PWD)
-// 		printf("%s\n", getcwd(NULL, 0));
-// 	if (builtin == CD)
-// 		cd(shell);
-// 	if (builtin == EXPORT)
-// 		export(shell);
-// 	if (builtin == UNSET)
-// 		unset(shell);
-// 	dup2(stdin_copy, STDIN_FILENO);
-// 	dup2(stdout_copy, STDOUT_FILENO);
-// 	return (close(stdin_copy), close(stdout_copy), status);
-// }
 static int	run_single_builtin(t_shell *shell, char **cmd)
 {
 	t_Builtin	builtin;
@@ -98,13 +70,13 @@ static int	run_single_builtin(t_shell *shell, char **cmd)
 	if (builtin == ENV)
 		print_env(shell->env_list);
 	if (builtin == EXIT)
-		status = exit_shell(shell,shell->parsed_input.head->cmd_list);
+		status = exit_shell(shell, shell->parsed_input.head->cmd_list);
 	if (builtin == PWD)
 		printf("%s\n", getcwd(NULL, 0));
 	if (builtin == CD)
 		status = cd(shell, cmd);
 	if (builtin == EXPORT)
-		status = export(shell,cmd);
+		status = export(shell, cmd);
 	if (builtin == UNSET)
 		unset(shell, shell->parsed_input.head->cmd_list);
 	dup2(stdin_copy, STDIN_FILENO);
@@ -125,7 +97,7 @@ int	run_builtin(t_shell *shell, char **cmd)
 	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
 		return (cd(shell, cmd), 1);
 	if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
-		return (export(shell,cmd), 1);
+		return (export(shell, cmd), 1);
 	if (!ft_strncmp(cmd[0], "unset", ft_strlen(cmd[0])))
 		return (unset(shell, cmd), 1);
 	return (0);
@@ -133,11 +105,11 @@ int	run_builtin(t_shell *shell, char **cmd)
 
 void	command_handler(t_shell *shell)
 {
-	// if (!shell->parsed_input.head->next_cmd && run_single_builtin(shell))
-	if (!shell->parsed_input.head->next_cmd &&
-		ft_is_builtin(shell->parsed_input.head->cmd_list[0]) != NONE)
+	if (!shell->parsed_input.head->next_cmd
+		&& ft_is_builtin(shell->parsed_input.head->cmd_list[0]) != NONE)
 	{
-		global_status = run_single_builtin(shell, shell->parsed_input.head->cmd_list);
+		g_status = run_single_builtin(shell,
+				shell->parsed_input.head->cmd_list);
 		return ;
 	}
 	run_pipes(shell, shell->parsed_input, shell->parsed_input.head);

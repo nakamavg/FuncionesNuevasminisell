@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   build_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:11:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/28 17:59:13 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:35:19 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO: ASK: Do I have to deal with wrong flags? 
-// TODO: Document about how to deal with the case $?
-t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx, t_shell *shell)
+t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
+	t_shell *shell)
 {
 	t_cmd	*token;
 
@@ -57,5 +56,4 @@ void	add_pipe(t_input *cmd_list, t_cmd *new_token)
 		new_token->prev_token = tmp;
 		new_token->prev_token->next_cmd = new_token;
 	}
-	// printf("Added token: %s\n", new_token->text);
 }

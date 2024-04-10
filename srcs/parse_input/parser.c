@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 05:36:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:37:54 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * sq_sent: single quotes sentence
- * dq_sent: double quotes sentence
-*/
 int	sanitize_input(const char *input)
 {
 	int	within_dq_sent;
@@ -42,23 +38,17 @@ int	sanitize_input(const char *input)
 	}
 	if (within_sq_sent || within_dq_sent)
 		return (printf("Error: Not closed string used as input\n"), 1);
-	// return (printf("input sanitized\n"), 0);
 	return (0);
 }
 
 int	parse_input(t_shell *shell)
 {
-	// t_input	cmd_list;
-
 	shell->parsed_input = init_input();
-	// printf("input: %s\n", shell->input);
 	if (sanitize_input(shell->input))
 	{
 		printf("non-valid input\n");
 		return (1);
 	}
-	// build_cmdlst(shell->input, &shell->parsed_input);
 	build_cmdlst(shell->input, shell);
-	// test_lexer(&cmd_list);
 	return (0);
 }

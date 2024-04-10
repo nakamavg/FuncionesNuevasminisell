@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:41:13 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/03 20:45:09 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:22:49 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	change_old_pwd(t_shell *shell)
 	free(old_pwd);
 }
 
-void go_direction(char *dir, bool *success)
+void	go_direction(char *dir, bool *success)
 {
 	if (chdir(dir) == -1)
 	{
@@ -59,13 +59,13 @@ int	cd(t_shell *shell, char **cmd)
 {
 	char	**temp;
 	char	*new_pwd;
-	bool    success;
+	bool	success;
 
 	temp = ft_split(shell->input, ' ');
 	if (!temp[1] || ft_strncmp(temp[1], "~", 1) == 0)
-		go_direction(shell->home,&success);
+		go_direction(shell->home, &success);
 	else
-		go_direction(cmd[1],&success);
+		go_direction(cmd[1], &success);
 	if (!success)
 	{
 		free(temp);

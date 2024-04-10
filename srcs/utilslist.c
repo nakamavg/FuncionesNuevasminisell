@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utilslist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 01:42:16 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/04 03:25:12 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:47:00 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 t_my_env	*ft_envnew(void *name, void *value, t_my_env *new_l)
 {
@@ -24,11 +22,12 @@ t_my_env	*ft_envnew(void *name, void *value, t_my_env *new_l)
 	new_l->next = NULL;
 	new_l->prev = NULL;
 	return (new_l);
-	
 }
-void add_env(t_my_env **env, t_my_env *new)
+
+void	add_env(t_my_env **env, t_my_env *new)
 {
-	t_my_env *tmp;
+	t_my_env	*tmp;
+
 	if (!*env)
 	{
 		*env = new;
@@ -40,11 +39,14 @@ void add_env(t_my_env **env, t_my_env *new)
 	tmp->next = new;
 	new->prev = tmp;
 }
- void delone_env(t_my_env *delete)
+
+void	delone_env(t_my_env *delete)
 {
-	t_my_env *pre = delete->prev;
-	t_my_env *next = delete->next;
-	
+	t_my_env	*pre;
+	t_my_env	*next;
+
+	pre = delete->prev;
+	next = delete->next;
 	if (pre && !next)
 	{
 		pre->next = NULL;
@@ -58,16 +60,17 @@ void add_env(t_my_env **env, t_my_env *new)
 		pre->next = next;
 		next->prev = pre;
 	}
-	
 	free(delete->name);
-	if(*delete->value)
+	if (*delete->value)
 		free(delete->value);
 	free(delete);
 	delete = NULL;
-} 
-void add_env_back(t_my_env **env, t_my_env *new)
+}
+
+void	add_env_back(t_my_env **env, t_my_env *new)
 {
-	t_my_env *tmp;
+	t_my_env	*tmp;
+
 	if (!*env)
 	{
 		*env = new;

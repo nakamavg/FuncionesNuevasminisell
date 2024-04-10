@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int global_status;
+int g_status;
 
 void disable_echo_ctrl_c()
 {
@@ -85,7 +85,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	global_status = 0;
+	g_status = 0;
 	// cmd_list = parse_input("< in ls -la | echo \"hola mundo\" | ls | echo sup '$USER' | wc -c | echo \"This is the $PATH and this is additional $ENV\" | cat -e >>outfile");
 	// cmd_list = parse_input("<in cat -e | cat -e | cat -e >outfile | <in cat -e");
 	// cmd_list = parse_input("<in cat -e >outfile");

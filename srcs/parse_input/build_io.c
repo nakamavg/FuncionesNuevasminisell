@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:17:37 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/28 17:27:57 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:30:22 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_Token_Type	ft_infile_mode(const char *input)
 		return (TOKEN_TYPE_UNKNOWN);
 	if (*input == '<')
 	{
-		if (*(input+1) == '<')
+		if (*(input + 1) == '<')
 			return (printf("return here doc\n"), TOKEN_TYPE_REDIR_HEREDOC);
 		return (TOKEN_TYPE_REDIR_IN);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:54:23 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/28 17:49:33 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:15:35 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	run_pipes(t_shell *shell, t_input cmd_input, t_cmd *pipe)
 	unlink("/tmp/here_doc");
 	while (waitpid(-1, &status, 0) > 0)
 		;
-	global_status = set_global_status(status);
+	g_status = set_g_status(status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/03 14:17:22 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:15:35 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**expand_variable(char **cmd, t_shell *shell)
 				if (cmd[idx][jdx + 1] == '?')
 				{
 					free(cmd[idx]);
-					cmd[idx] = ft_sprintf("%d", global_status);
+					cmd[idx] = ft_sprintf("%d", g_status);
 					continue ;
 				}
 				else if (cmd[idx][jdx + 1] == '\0')

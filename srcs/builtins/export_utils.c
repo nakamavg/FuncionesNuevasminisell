@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 00:58:24 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/04 03:31:31 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:24:43 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void sort_env(t_my_env *env)
+void	sort_env(t_my_env *env)
 {
-	t_my_env *tmp;
-	t_my_env *tmp2;
-	char *name;
-	char *value;
+	t_my_env	*tmp;
+	t_my_env	*tmp2;
+	char		*name;
+	char		*value;
 
 	tmp = env;
 	while (tmp)
@@ -40,28 +40,29 @@ void sort_env(t_my_env *env)
 	}
 }
 
-t_my_env *go_to_end(t_my_env *env)
+t_my_env	*go_to_end(t_my_env *env)
 {
-	t_my_env *tmp;
+	t_my_env	*tmp;
+
 	tmp = env;
 	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
 }
 
-bool auxiliar_errors_export(char input)
+bool	auxiliar_errors_export(char input)
 {
 	if (input == ' ')
 		return (1);
 	if ((!ft_isdigit(input) && !ft_isalnum(input) && input != '_'))
 		return (1);
-
 	return (0);
 }
 
-void handle_errors_export(char *input , bool *local_error)
+void	handle_errors_export(char *input, bool *local_error)
 {
-	int i;
+	int	i;
+
 	i = -1;
 	if (ft_isdigit(input[0]))
 	{
@@ -70,13 +71,13 @@ void handle_errors_export(char *input , bool *local_error)
 	}
 	else
 	{
-		while(input[++i])
+		while (input[++i])
 		{
-			if(auxiliar_errors_export(input[i]))
+			if (auxiliar_errors_export(input[i]))
 			{
 				*local_error = true;
 				ft_error(ERR_INVALID_CHAR, input);
-				break;
+				break ;
 			}
 		}
 	}
