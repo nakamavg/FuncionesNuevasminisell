@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/04 03:30:55 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 05:27:28 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,8 @@ void				add_env_back(t_my_env **env, t_my_env *new);
 
 // cmd_handler.c
 void				command_handler(t_shell *shell);
-int					run_builtin(t_shell *shell);
+// int					run_builtin(t_shell *shell);
+int					run_builtin(t_shell *shell, char **cmd);
 
 // cd.c
 // void				cd(t_shell *shell);

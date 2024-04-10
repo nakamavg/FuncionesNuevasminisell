@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/03 21:44:28 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 05:26:08by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,25 +112,22 @@ static int	run_single_builtin(t_shell *shell, char **cmd)
 	return (close(stdin_copy), close(stdout_copy), status);
 }
 
-int	run_builtin(t_shell *shell)
+int	run_builtin(t_shell *shell, char **cmd)
 {
-	char	*cmd;
-
-	cmd = shell->parsed_input.head->cmd_list[0];
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-		return (echo(shell->parsed_input.head->cmd_list), 1);
-	if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd[0], "echo", ft_strlen(cmd[0])))
+		return (echo(cmd), 1);
+	if (!ft_strncmp(cmd[0], "env", ft_strlen(cmd[0])))
 		return (print_env(shell->env_list), 1);
-	if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
-		return (exit_shell(shell, shell->parsed_input.head->cmd_list), 1);
-	if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd[0], "exit", ft_strlen(cmd[0])))
+		return (exit_shell(shell, cmd), 1);
+	if (!ft_strncmp(cmd[0], "pwd", ft_strlen(cmd[0])))
 		return ((void)printf("%s\n", getcwd(NULL, 0)), 1);
-	if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-		return (cd(shell, shell->parsed_input.head->cmd_list), 1);
-	if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
-		return (export(shell,shell->parsed_input.head->cmd_list), 1);
-	if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
-		return (unset(shell,shell->parsed_input.head->cmd_list), 1);
+	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
+		return (cd(shell, cmd), 1);
+	if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
+		return (export(shell,cmd), 1);
+	if (!ft_strncmp(cmd[0], "unset", ft_strlen(cmd[0])))
+		return (unset(shell, cmd), 1);
 	return (0);
 }
 

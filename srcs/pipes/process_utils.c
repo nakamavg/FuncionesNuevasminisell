@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/28 17:52:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 05:30:21 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exec_cmd(char **cmd, t_shell *shell)
 	}
 	if (!path)
 		unix_error("command error", cmd[0]);
-	if (run_builtin(shell))
+	if (run_builtin(shell, cmd))
 		exit (EXIT_SUCCESS);
 	if (execve(path, cmd, shell->my_env) == -1)
 	{
