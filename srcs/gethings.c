@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/10 19:45:31 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:16:07 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	get_things(t_shell *shell)
 	shell->home = search_things(shell, "HOME");
 	shell->path = search_things(shell, "PATH");
 	shell->env_sys_end = go_to_end(shell->env_list);
-	shell->prompt = ft_strjoin(shell->user, " minishell$ ");
+	shell->prompt = ft_sprintf("%s%s%s%s@minishell$%s ", YELLOW, shell->user, RESET, PURPLE, RESET);
+	// shell->prompt = ft_strjoin(shell->user, " minishell$ ");
 }
 
 int	ft_strlen_pp(char **container)

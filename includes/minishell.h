@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 19:15:35 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:15:02 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@
 # define ERR_TOO_MANY_ARGS "\nexit: too many arguments"
 # define ERR_NUM_EXPECTED "exit: numeric argument required\n"
 
+# define RESET   "\001\e[0m\002"
+# define BLUE "\033[0;34m"
+# define YELLOW "\033[0;33m"
+# define PURPLE "\033[0;35m"
 typedef enum s_Token_Type
 {
 	TOKEN_TYPE_UNKNOWN,
