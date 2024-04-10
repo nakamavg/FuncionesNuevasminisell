@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 05:30:21 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 01:47:55 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	exec_cmd(char **cmd, t_shell *shell)
 {
 	char	*path;
 
+	if (run_builtin(shell, cmd))
+		exit (EXIT_SUCCESS);
 	if (!ft_strchr(cmd[0], '/'))
 		path = extract_path(shell->path, cmd[0]);
 	else
@@ -69,8 +71,6 @@ void	exec_cmd(char **cmd, t_shell *shell)
 	}
 	if (!path)
 		unix_error("command error", cmd[0]);
-	if (run_builtin(shell, cmd))
-		exit (EXIT_SUCCESS);
 	if (execve(path, cmd, shell->my_env) == -1)
 	{
 		free(path);
