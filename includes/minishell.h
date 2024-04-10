@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 20:15:02 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:25:20 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ int					parse_input(t_shell *shell);
 t_input				init_input(void);
 // void			build_cmdlst(const char *input, t_input *cmd_list);
 void				cleanup_cmd_list(t_input *cmd_list);
-void				build_cmdlst(const char *in, t_shell *shell);
+// void				build_cmdlst(const char *in, t_shell *shell);
+void				build_cmdlst(const char *input, t_shell *shell);
 
 // /parse/input/build_split.c
 char				**cmd_split(const char *text, char *in, char *out);

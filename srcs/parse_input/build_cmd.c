@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 19:26:50 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:32:49 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,29 @@ t_input	init_input(void)
 	return (cmd_list);
 }
 
-void	build_cmdlst(const char *in, t_shell *shell)
+static int	advance_quotes(const char *input, int idx)
+{
+	if (input[idx] == '"')
+		while (input[idx] && input[++idx] != '"')
+			;
+	if (input[idx] == '\'')
+		while (input[idx] && input[++idx] != '\'')
+			;
+	return (idx);
+}
+
+void	build_cmdlst(const char *input, t_shell *shell)
 {
 	int		idx;
 	int		pipe_idx;
-	char	*input;
 
 	idx = -1;
 	pipe_idx = 0;
-	input = ft_strtrim(in, " \t\n\v\f\r");
 	while (input[++idx])
 	{
 		while (input[idx] && ft_isspace(input[idx]))
 			idx++;
-		if (input[idx] == '"')
-			while (input[idx] && input[++idx] != '"')
-				;
-		if (input[idx] == '\'')
-			while (input[idx] && input[++idx] != '\'')
-				;
+		idx = advance_quotes(input, idx);
 		if (input[idx] && (input[idx] == '|' || idx == (int)ft_strlen(input)
 				- 1))
 		{
@@ -54,7 +58,6 @@ void	build_cmdlst(const char *in, t_shell *shell)
 			pipe_idx = idx;
 		}
 	}
-	free(input);
 }
 
 void	cleanup_cmd_list(t_input *cmd_list)

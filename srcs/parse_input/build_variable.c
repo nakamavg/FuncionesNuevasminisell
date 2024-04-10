@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 19:15:35 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:58:08 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@ static	void	free_sent(char **sent)
 	}
 	sent[idx] = NULL;
 }
-
-// TODO: USE OUR OWN VERSION OF GETENV
-// out = ft_sprintf("%s%s%s", begin, getenv(sent[1]), end);
-// The sent (sentence) is structured: 0 - begin, 1 - variable, 2 - end
 
 char	*get_the_variable(char *cmd, t_shell *shell)
 {
@@ -63,7 +59,7 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 	return (out);
 }
 
-int	handle_quote(char c, int quote)
+int	handle_single_quote(char c, int quote)
 {
 	if (c == '\'' && !quote)
 		return (c);
@@ -72,9 +68,17 @@ int	handle_quote(char c, int quote)
 	return (quote);
 }
 
-// TODO: FIND A WAY TO GET THE EXIT STATUS
-// Build a function similar to get_the_variable but with
-// get_the_exit_status
+static int	replace_with_global(char **cmd, int idx, int jdx)
+{
+	if (cmd[idx][jdx + 1] == '?')
+	{
+		free(cmd[idx]);
+		cmd[idx] = ft_sprintf("%d", g_status);
+		return (1);
+	}
+	return (0);
+}
+
 char	**expand_variable(char **cmd, t_shell *shell)
 {
 	int		idx;
@@ -88,15 +92,11 @@ char	**expand_variable(char **cmd, t_shell *shell)
 		jdx = -1;
 		while (cmd[idx][++jdx])
 		{
-			quote = handle_quote(cmd[idx][jdx], quote);
+			quote = handle_single_quote(cmd[idx][jdx], quote);
 			if (cmd[idx][jdx] == '$' && !quote)
 			{
-				if (cmd[idx][jdx + 1] == '?')
-				{
-					free(cmd[idx]);
-					cmd[idx] = ft_sprintf("%d", g_status);
+				if (replace_with_global(cmd, idx, jdx))
 					continue ;
-				}
 				else if (cmd[idx][jdx + 1] == '\0')
 					continue ;
 				cmd[idx] = get_the_variable(cmd[idx], shell);
