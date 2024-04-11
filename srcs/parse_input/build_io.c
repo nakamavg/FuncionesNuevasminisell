@@ -71,6 +71,7 @@ char	*ft_outfile_content(const char *input)
 	size_t	len;
 	int	s_quote;
 	int d_quote;
+	char *last_redirection = NULL;
 
 	s_quote = 0;
 	d_quote = 0;
@@ -83,16 +84,22 @@ char	*ft_outfile_content(const char *input)
 			input++;
 			if (*input == '>')
 				input++;
-			break ;
+			while (*input && ft_isspace(*input))
+				input++;
+			if (!*input)
+				break;
+			len = 0;
+			while (input[len] && !ft_isspace(input[len]))
+				len++;
+			
+			if (last_redirection != NULL)
+			{
+				out_file_create(last_redirection);
+				free(last_redirection);
+			}
+			last_redirection = ft_substr(input, 0, len);
 		}
 		input++;
 	}
-	while (*input && ft_isspace(*input))
-		input++;
-	if (!*input)
-		return (NULL);
-	len = 0;
-	while (input[len] && !ft_isspace(input[len]))
-		len++;
-	return (ft_substr(input, 0, len));
+	return last_redirection;
 }
