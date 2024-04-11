@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 06:27:16 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:14:16 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_env_split(t_shell *shell)
 		while (shell->my_env[i][++jdx] != '=')
 			;
 		name = ft_substr(shell->my_env[i], 0, jdx);
-		value = ft_strdup(shell->my_env[i] + jdx);
+		value = ft_strdup(shell->my_env[i] + jdx + 1);
 		add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
 	}
 }

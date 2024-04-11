@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:51:32 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 05:53:43 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:16:26 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_list(t_my_env *env_list)
 	{
 		tmp2 = tmp->next;
 		free(tmp->name);
-		if (*tmp->value)
+		if (tmp->value)
 			free(tmp->value);
 		free(tmp);
 		tmp = tmp2;
