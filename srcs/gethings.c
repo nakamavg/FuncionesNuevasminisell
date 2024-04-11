@@ -57,7 +57,7 @@ void	get_things(t_shell *shell, bool update)
 		free(shell->prompt);
 		shell->prompt = ft_strjoin(shell->user, " > ");
 	}
-	shell->prompt = ft_sprintf("%s%s > %s", PURPLE, shell->user, RESET);
+	shell->prompt = ft_sprintf("%s%s%s %s> %s", PURPLE, shell->user, RESET,  YELLOW, RESET);
 	// shell->prompt = ft_strjoin(shell->user, " > ");
 }
 
