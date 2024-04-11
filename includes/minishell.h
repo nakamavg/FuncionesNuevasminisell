@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 09:46:11 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:25:30 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,5 +254,8 @@ void				unset(t_shell *shell, char **cmd);
 
 // pwd.c
 void				pwd(void);
+
+/////
+int	handle_quote(char c, int quote, int type);
 
 #endif

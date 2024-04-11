@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 10:58:18 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:25:12 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,6 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 	return (free_sent(sent), free(sent), free(cmd), free(expanded), out);
 }
 
-int	handle_single_quote(char c, int quote)
-{
-	if (c == '\'' && !quote)
-		return (c);
-	else if (c == '\'' && quote)
-		return (0);
-	return (quote);
-}
 
 int	handle_quote(char c, int quote, int type)
 {

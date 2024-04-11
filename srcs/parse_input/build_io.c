@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:17:37 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 19:30:22 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:3561200alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_Token_Type	ft_infile_mode(const char *input)
 char	*ft_infile_content(const char *input)
 {
 	size_t	len;
-
 	while (*input && ft_isspace(*input))
 		input++;
 	if (!input)
@@ -66,24 +65,32 @@ t_Token_Type	ft_outfile_mode(const char *input)
 	return (TOKEN_TYPE_UNKNOWN);
 }
 
+
 char	*ft_outfile_content(const char *input)
 {
 	size_t	len;
+	int	s_quote;
+	int d_quote;
 
-	while (*input && *input != '>')
-		input++;
-	if (!input)
-		return (NULL);
-	if (*input == '>')
+	s_quote = 0;
+	d_quote = 0;
+	while (*input)
 	{
-		input++;
-		if (*input == '>')
+		s_quote = handle_quote(*input, s_quote, '\'');
+		d_quote = handle_quote(*input, d_quote, '"');
+		if (*input == '>' && s_quote == 0 && d_quote == 0)
+		{
 			input++;
+			if (*input == '>')
+				input++;
+			break ;
+		}
+		input++;
 	}
-	else
-		return (NULL);
 	while (*input && ft_isspace(*input))
 		input++;
+	if (!*input)
+		return (NULL);
 	len = 0;
 	while (input[len] && !ft_isspace(input[len]))
 		len++;
