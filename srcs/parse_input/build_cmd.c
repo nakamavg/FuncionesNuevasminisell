@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 20:32:49 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 03:47:21 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ void	cleanup_cmd_list(t_input *cmd_list)
 		original_cmd_list = current_token->cmd_list;
 		while (*current_token->cmd_list)
 			free(*current_token->cmd_list++);
-		free(original_cmd_list);
-		free(current_token);
+		if (original_cmd_list)
+			free(original_cmd_list);
+		if (current_token)
+			free(current_token);
 		current_token = next_token;
 	}
 	free(current_token);

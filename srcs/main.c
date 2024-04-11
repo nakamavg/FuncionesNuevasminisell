@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 02:45:07 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 03:50:10 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ void	shell_loop(t_shell *shell)
 		else if (shell->input == NULL)
 		{
 			ft_putstr_fd("exit \n", STDOUT_FILENO);
-			exit(0);
+			break ;
 		}
 		free(shell->input);
 	}
+	if (shell->input)
+		free(shell->input);
 	cleanup_cmd_list(&shell->parsed_input);
 }
 
