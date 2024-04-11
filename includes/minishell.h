@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 06:06:17 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:46:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void				run_process(char **cmd, t_shell *shell, int pipe_in[2],
 						int pipe_out[2]);
 int					set_g_status(int status);
 void				create_pipes(int pipe_fd[2]);
+
 // pipes/process_utils.c
 void				unix_error(char *mssg, char *str);
 pid_t				fork_process(void);
@@ -203,8 +204,8 @@ void				ft_error(char *str, char *aux);
 
 // gethings.c
 char				*search_expand(t_shell *shell, char *search);
-//char				*search_things(t_shell *shell, char *search);
-char	*search_things(t_shell *shell, char *search, char **original);
+char				*search_things(t_shell *shell, char *search,
+						char **original);
 void				get_things(t_shell *shell, bool update);
 void				ft_getenv(t_shell *shell, char **env);
 void				ft_env_split(t_shell *shell);
@@ -250,5 +251,8 @@ void				free_env(t_shell *shell);
 
 // unset.c
 void				unset(t_shell *shell, char **cmd);
+
+// pwd.c
+void				pwd(void);
 
 #endif

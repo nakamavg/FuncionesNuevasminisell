@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:41:13 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 04:36:27 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:41:12 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	cd(t_shell *shell, char **cmd)
 	new_pwd = getcwd(NULL, 0);
 	insert_value(shell, "PWD", new_pwd);
 	free(new_pwd);
-	free_array_of_strings(temp);	
-		return (1);
+	free_array_of_strings(temp);
 	return (0);
 }

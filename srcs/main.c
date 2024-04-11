@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 06:08:28 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:44:53 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	init_signals(void)
 
 void	shell_loop(t_shell *shell)
 {
-	char *tmp;
-	
-	while (1)
+	char	*tmp;
+
+	while (42)
 	{
 		tmp = readline(shell->prompt);
 		shell->input = ft_strtrim(tmp, " \t\n\v\f\r");

@@ -1,5 +1,5 @@
 NAME	= minishell
-CC		= gcc
+CC		= cc
 # CFLAGS	= -Wall -Wextra -Werror
 #CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -g3 
   CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
@@ -25,6 +25,7 @@ FILES	=	srcs/main \
 			srcs/builtins/export_utils \
 			srcs/builtins/unset \
 			srcs/builtins/exit \
+			srcs/builtins/pwd \
 			srcs/pipes/cmd_handler \
 			srcs/pipes/manage_files \
 			srcs/pipes/process_utils \

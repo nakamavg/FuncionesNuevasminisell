@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:51:32 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 08:16:26 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:43:04 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_shell(t_shell *shell)
 	free_list(shell->env_list);
 	free_array_of_strings(shell->my_env);
 	free_env(shell);
-	if(!shell->input)
+	if (!shell->input)
 		return ;
 	cleanup_cmd_list(&shell->parsed_input);
 }

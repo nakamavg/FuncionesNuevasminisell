@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 08:14:16 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:42:45 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*search_things(t_shell *shell, char *search, char **original)
 			if (*original)
 				free(*original);
 			return (ft_strdup(tmp->value));
-		}		
+		}
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -48,8 +48,6 @@ void	get_things(t_shell *shell, bool update)
 {
 	shell->user = search_things(shell, "USER", &shell->user);
 	shell->env = search_things(shell, "PWD", &shell->env);
-	// if (update && shell->home)
-	// 	free(shell->home);
 	shell->home = search_things(shell, "HOME", &shell->home);
 	shell->path = search_things(shell, "PATH", &shell->path);
 	if (!update)
