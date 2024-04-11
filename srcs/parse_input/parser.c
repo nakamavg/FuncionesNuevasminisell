@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 04:01:27 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:08:49 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	sanitize_input(const char *input)
 			within_sq_sent = !within_sq_sent;
 		if (*input == '|' && !within_dq_sent && !within_sq_sent)
 		{
-			while (ft_isspace(input[++cursor]))
+			while (ft_isspace(input[++cursor])
+				|| ft_strchr("\"'<>$", input[cursor]))
 				;
 			if (input[cursor] == '|')
 				return (printf("Error: two pipes, no cmds in between\n"), 1);
