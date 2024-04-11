@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 21:40:10 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:44:51 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,8 @@ void				ft_error(char *str, char *aux);
 // gethings.c
 char				*search_expand(t_shell *shell, char *search);
 char				*search_things(t_shell *shell, char *search);
-void				get_things(t_shell *shell);
+// void				get_things(t_shell *shell);
+void				get_things(t_shell *shell, bool update);
 void				ft_getenv(t_shell *shell, char **env);
 void				ft_env_split(t_shell *shell);
 

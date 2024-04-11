@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 21:38:56 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:45:07 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_getenv(&shell, envp);
 	ft_env_split(&shell);
 	init_signals();
-	get_things(&shell);
+	get_things(&shell, false);
 	printf("\033[34mMartes locos presentan: \n\033[0m");
 	shell_loop(&shell);
 	return (0);

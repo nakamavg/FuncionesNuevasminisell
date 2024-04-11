@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/10 21:36:12 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:44:27 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ char	*search_expand(t_shell *shell, char *search)
 	return (NULL);
 }
 
-void	get_things(t_shell *shell)
+void	get_things(t_shell *shell, bool update)
 {
 	shell->user = search_things(shell, "USER");
 	shell->env = search_things(shell, "PWD");
 	shell->home = search_things(shell, "HOME");
 	shell->path = search_things(shell, "PATH");
-	shell->env_sys_end = go_to_end(shell->env_list);
+	if (!update)
+		shell->env_sys_end = go_to_end(shell->env_list);
 	shell->prompt = ft_sprintf("%s%s%s%s@minishell$%s ", YELLOW, shell->user,
 			RESET, PURPLE, RESET);
 }

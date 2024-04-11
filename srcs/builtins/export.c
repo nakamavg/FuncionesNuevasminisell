@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/10 19:25:38 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:45:15 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int	export(t_shell *shell, char **cmd)
 		return (0);
 	}
 	realloc_env(shell, cmd, &error_handler);
+	get_things(shell, true);
 	return ((int)error_handler);
 }
