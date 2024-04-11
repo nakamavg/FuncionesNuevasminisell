@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 20:58:08 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 04:38:14 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 			sent[0] = ft_substr(cmd, 0, idx);
 			jdx = 0;
 			while ((cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx]))
-				&& cmd[idx + jdx] != '\"')
+				&& cmd[idx + jdx] != '\"' && cmd[idx + jdx] != '=')
 				jdx++;
 			sent[1] = ft_substr(cmd, idx + 1, jdx - 1);
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);

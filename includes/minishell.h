@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 02:55:46 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 04:35:54 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ int					exit_shell(t_shell *shell, char **cmd);
 
 // free_shell.c
 void				free_shell(t_shell *shell);
+void				free_array_of_strings(char **env);
 
 // unset.c
 void				unset(t_shell *shell, char **cmd);

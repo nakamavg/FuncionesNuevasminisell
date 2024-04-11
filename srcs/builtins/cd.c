@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:41:13 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 04:24:41 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 04:36:27 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	cd(t_shell *shell, char **cmd)
 	char	**temp;
 	char	*new_pwd;
 	bool	success;
-	int		freedx;
 
 	temp = ft_split(shell->input, ' ');
 	if (!temp[1] || ft_strncmp(temp[1], "~", 1) == 0)
@@ -69,20 +68,14 @@ int	cd(t_shell *shell, char **cmd)
 		go_direction(cmd[1], &success);
 	if (!success)
 	{
-		freedx = -1;
-		while (temp[++freedx])
-			free(temp[freedx]);
-		free(temp);
+		free_array_of_strings(temp);
 		return (1);
 	}
 	change_old_pwd(shell);
 	new_pwd = getcwd(NULL, 0);
 	insert_value(shell, "PWD", new_pwd);
 	free(new_pwd);
-	freedx = -1;
-	while (temp[++freedx])
-		free(temp[freedx]);
-	free(temp);
+	free_array_of_strings(temp);	
 		return (1);
 	return (0);
 }
