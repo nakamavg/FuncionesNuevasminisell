@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:06:34 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 04:14:46 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:37:23 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static int	run_single_builtin(t_shell *shell, char **cmd)
 	int			stdin_copy;
 	int			stdout_copy;
 	int			status;
+	char		*path;
 
 	status = 0;
 	builtin = ft_is_builtin(shell->parsed_input.head->cmd_list[0]);
@@ -72,7 +73,11 @@ static int	run_single_builtin(t_shell *shell, char **cmd)
 	if (builtin == EXIT)
 		status = exit_shell(shell, shell->parsed_input.head->cmd_list);
 	if (builtin == PWD)
-		printf("%s\n", getcwd(NULL, 0));
+	{
+		path = getcwd(NULL, 0);
+		printf("%s\n", path);
+		free(path);
+	}
 	if (builtin == CD)
 		status = cd(shell, cmd);
 	if (builtin == EXPORT)

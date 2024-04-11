@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 03:47:21 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:31:07 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	cleanup_cmd_list(t_input *cmd_list)
 	t_cmd	*next_token;
 	char	**original_cmd_list;
 
+	
 	current_token = cmd_list->head;
 	while (current_token)
 	{
@@ -85,5 +86,6 @@ void	cleanup_cmd_list(t_input *cmd_list)
 			free(current_token);
 		current_token = next_token;
 	}
-	free(current_token);
+	if (current_token)
+		free(current_token);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_pipes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:54:23 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 01:46:43 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:15:32 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	run_pipes(t_shell *shell, t_input cmd_input, t_cmd *pipe)
 	int	prev_pipe[2];
 	int	next_pipe[2];
 
-	set_null_pipe(&prev_pipe[IN], &prev_pipe[OUT]);
+	pipe_fd(&prev_pipe[IN], &prev_pipe[OUT]);
 	while (pipe)
 	{
-		set_null_pipe(&next_pipe[IN], &next_pipe[OUT]);
+		pipe_fd(&next_pipe[IN], &next_pipe[OUT]);
 		if (pipe->outfile)
 			out_file_create(pipe->outfile);
 		if (pipe->next_cmd)

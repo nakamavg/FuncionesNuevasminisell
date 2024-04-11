@@ -1,10 +1,10 @@
 NAME	= minishell
 CC		= gcc
 # CFLAGS	= -Wall -Wextra -Werror
-CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -g3 
-#  CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
-LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
-# LDFLAGS	= -lreadline -L /opt/homebrew/opt/readline/lib 
+#CFLAGS	= -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -g3 
+  CFLAGS	= -Wall -Wextra -Werror -I/opt/homebrew/opt/readline/include  #-fsanitize=address -g3 
+#LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+ LDFLAGS	= -lreadline -L /opt/homebrew/opt/readline/lib 
 #SFLAGS	= -g3 -fsanitize=address
 
 FILES	=	srcs/main \
@@ -58,7 +58,7 @@ clean:
 
 fclean: clean
 	rm -rf *.dSYM
-	rm $(NAME)
+	rm - srcs/libft/libft.a
 
 re: fclean all
 

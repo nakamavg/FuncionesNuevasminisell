@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 02:45:15 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 06:52:39 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	check_if_exist(t_shell *env, char *name, char *value)
 void	equal_handler(t_shell *shell, char *name, char *value)
 {
 	if (check_if_exist(shell, name, value))
-		return ;
+		return (free(name));
 	add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
 	sort_env(shell->env_sys_end);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:34:49 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 19:15:35 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:19:49 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	dup_and_close_fds(int pipe_fd[2], int std_fd)
 	}
 }
 
-void	set_null_pipe(int *in, int *out)
+void	pipe_fd(int *in, int *out)
 {
-	*in = -1;
-	*out = -1;
+	*in = 42;
+	*out = 42;
 }
 
 int	set_g_status(int status)

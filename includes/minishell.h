@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 04:35:54 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 06:06:17 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ int					in_file_open(char *file_read, t_Token_Type infile_mode);
 void				run_pipes(t_shell *shell, t_input cmd_input, t_cmd *pipe);
 void				run_process(char **cmd, t_shell *shell, int pipe_in[2],
 						int pipe_out[2]);
-void				set_null_pipe(int *in, int *out);
 int					set_g_status(int status);
 void				create_pipes(int pipe_fd[2]);
 // pipes/process_utils.c
@@ -194,7 +193,7 @@ void				exec_cmd(char **cmd, t_shell *shell);
 // pipes/pipes_utils.c
 void				create_pipes(int pipe_fd[2]);
 void				dup_and_close_fds(int pipe_fd[2], int std_fd);
-void				set_null_pipe(int *in, int *out);
+void				pipe_fd(int *in, int *out);
 int					set_g_status(int status);
 
 // errors.c
@@ -204,7 +203,8 @@ void				ft_error(char *str, char *aux);
 
 // gethings.c
 char				*search_expand(t_shell *shell, char *search);
-char				*search_things(t_shell *shell, char *search);
+//char				*search_things(t_shell *shell, char *search);
+char	*search_things(t_shell *shell, char *search, char **original);
 void				get_things(t_shell *shell, bool update);
 void				ft_getenv(t_shell *shell, char **env);
 void				ft_env_split(t_shell *shell);
@@ -246,6 +246,7 @@ int					exit_shell(t_shell *shell, char **cmd);
 // free_shell.c
 void				free_shell(t_shell *shell);
 void				free_array_of_strings(char **env);
+void				free_env(t_shell *shell);
 
 // unset.c
 void				unset(t_shell *shell, char **cmd);
