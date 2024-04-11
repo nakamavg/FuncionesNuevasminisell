@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 04:00:56 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 04:09:54 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	shell_loop(t_shell *shell)
 		}
 		free(shell->input);
 	}
-	if (shell->input)
-		free(shell->input);
-	cleanup_cmd_list(&shell->parsed_input);
+	//if (shell->input)
+	//	free(shell->input);
+	//cleanup_cmd_list(&shell->parsed_input);
 }
 
 int	main(int argc, char **argv, char **envp)

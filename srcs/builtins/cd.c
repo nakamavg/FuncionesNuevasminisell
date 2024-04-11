@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 04:41:13 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/10 19:22:49 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 04:24:41 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	cd(t_shell *shell, char **cmd)
 	char	**temp;
 	char	*new_pwd;
 	bool	success;
+	int		freedx;
 
 	temp = ft_split(shell->input, ' ');
 	if (!temp[1] || ft_strncmp(temp[1], "~", 1) == 0)
@@ -68,6 +69,9 @@ int	cd(t_shell *shell, char **cmd)
 		go_direction(cmd[1], &success);
 	if (!success)
 	{
+		freedx = -1;
+		while (temp[++freedx])
+			free(temp[freedx]);
 		free(temp);
 		return (1);
 	}
@@ -75,6 +79,10 @@ int	cd(t_shell *shell, char **cmd)
 	new_pwd = getcwd(NULL, 0);
 	insert_value(shell, "PWD", new_pwd);
 	free(new_pwd);
+	freedx = -1;
+	while (temp[++freedx])
+		free(temp[freedx]);
 	free(temp);
+		return (1);
 	return (0);
 }
