@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 03:50:10 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 03:56:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
-	(void)argc;
+	if (argc != 1)
+		return (printf("Only call the minishell %sboss\n", PURPLE), 1);
 	(void)argv;
 	g_status = 0;
 	ft_getenv(&shell, envp);
