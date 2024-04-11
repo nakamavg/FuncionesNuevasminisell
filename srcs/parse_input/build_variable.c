@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 04:38:14 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:55:39 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 	int		jdx;
 	char	**sent;
 	char	*out;
+	char	*expanded;
 
 	idx = -1;
 	sent = ft_calloc(4, sizeof(char *));
@@ -53,10 +54,9 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
 		}
 	}
-	out = ft_sprintf("%s%s%s", sent[0], search_expand(shell, sent[1]), sent[2]);
-	free_sent(sent);
-	free(cmd);
-	return (out);
+	expanded = search_expand(shell, sent[1]);
+	out = ft_sprintf("%s%s%s", sent[0], expanded, sent[2]);
+	return (free_sent(sent), free(sent), free(cmd), free(expanded), out);
 }
 
 int	handle_single_quote(char c, int quote)
