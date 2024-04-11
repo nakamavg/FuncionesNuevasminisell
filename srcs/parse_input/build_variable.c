@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 08:55:39 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:58:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 			sent[0] = ft_substr(cmd, 0, idx);
 			jdx = 0;
 			while ((cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx]))
-				&& cmd[idx + jdx] != '\"' && cmd[idx + jdx] != '=')
+				&& cmd[idx + jdx] != '"' && cmd[idx + jdx] != '\''
+				&& cmd[idx + jdx] != '=')
 				jdx++;
 			sent[1] = ft_substr(cmd, idx + 1, jdx - 1);
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
@@ -68,6 +69,14 @@ int	handle_single_quote(char c, int quote)
 	return (quote);
 }
 
+int	handle_quote(char c, int quote, int type)
+{
+	if (c == type && !quote)
+		return (c);
+	else if (c == type && quote)
+		return (0);
+	return (quote);
+}
 static int	replace_with_global(char **cmd, int idx, int jdx)
 {
 	if (cmd[idx][jdx + 1] == '?')
@@ -83,17 +92,20 @@ char	**expand_variable(char **cmd, t_shell *shell)
 {
 	int		idx;
 	int		jdx;
-	int		quote;
+	int		s_quote;
+	int		d_quote;
 
 	idx = -1;
-	quote = 0;
+	s_quote = 0;
+	d_quote = 0;
 	while (cmd[++idx])
 	{
 		jdx = -1;
 		while (cmd[idx][++jdx])
 		{
-			quote = handle_single_quote(cmd[idx][jdx], quote);
-			if (cmd[idx][jdx] == '$' && !quote)
+			s_quote = handle_quote(cmd[idx][jdx], s_quote, '\'');
+			d_quote = handle_quote(cmd[idx][jdx], d_quote, '"');
+			if (cmd[idx][jdx] == '$' && (!s_quote || (s_quote && d_quote)))
 			{
 				if (replace_with_global(cmd, idx, jdx))
 					continue ;

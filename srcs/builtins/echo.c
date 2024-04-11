@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 01:43:29 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:04:28 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,32 @@ char	*search_echo(t_shell *shell, char *search)
 
 static void	print_escaped_characters(char *str)
 {
-	int	idx;
+    int	idx;
+    int	len;
 
-	idx = -1;
-	while (str[++idx])
-	{
-		if (str[idx] == '\\' && str[idx + 1] != '\0')
-		{
-			if ((str[idx + 1] == 'n') && (str[0] == '"' || str[0] == '\''))
-				printf("\\");
-			idx++;
-			printf("%c", str[idx]);
-		}
-		else if (str[idx] != '\'' && str[idx] != '"')
-			printf("%c", str[idx]);
-	}
+    len = ft_strlen(str);
+    if (str[0] == '"' || str[0] == '\'') {
+        idx = 1;
+        len--;
+    }
+	else
+        idx = 0;
+
+    while (idx < len)
+    {
+        if (str[idx] == '\\' && str[idx + 1] != '\0')
+        {
+            if ((str[idx + 1] == 'n') && (str[0] == '"' || str[0] == '\''))
+                printf("\\");
+            idx++;
+            printf("%c", str[idx]);
+        }
+        else
+        {
+            printf("%c", str[idx]);
+        }
+        idx++;
+    }
 }
 
 void	echo(char **cmd)
