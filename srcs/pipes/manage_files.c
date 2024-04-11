@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   manage_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/12 00:08:56 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/12 00:27:42 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_files.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 20:10:06 by alberrod          #+#    #+#             */
@@ -83,12 +95,12 @@ int	in_file_open(char *file_read, t_Token_Type infile_mode)
 	else
 	{
 		if (access(file_read, F_OK) != 0)
-			unix_error("file error", file_read);
+			return (unix_error("file error", file_read), -1);
 		if (access(file_read, R_OK) != 0)
-			unix_error("read error", file_read);
+			return (unix_error("read error", file_read), -1);
 		file_in = open(file_read, O_RDONLY, 0444);
 	}
 	if (file_in == -1)
-		unix_error("error when reading the file", file_read);
+		return (unix_error("error when reading the file", file_read), -1);
 	return (file_in);
 }

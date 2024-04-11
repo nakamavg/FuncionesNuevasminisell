@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   process_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/12 00:13:27 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/12 00:13:27 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
@@ -19,7 +31,7 @@ void	unix_error(char *mssg, char *str)
 	else
 		ft_fd_printf(STDERR_FILENO, "<%s> %s: %s\n",
 			str, mssg, strerror(errno));
-	exit (127);
+//	exit (127);
 }
 
 pid_t	fork_process(void)
