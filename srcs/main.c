@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 03:56:23 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 04:00:56 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	shell_loop(t_shell *shell)
 {
 	while (1)
 	{
-		shell->input = readline(shell->prompt);
+		shell->input = ft_strtrim(readline(shell->prompt), " \t\n\v\f\r");
 		if (shell->input && *shell->input)
 		{
 			add_history(shell->input);

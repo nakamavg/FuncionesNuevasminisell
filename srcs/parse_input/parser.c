@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/10 20:23:56 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/11 04:01:27 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	parse_input(t_shell *shell)
 		printf("non-valid input\n");
 		return (1);
 	}
-	build_cmdlst(ft_strtrim(shell->input, " \t\n\v\f\r"), shell);
+	build_cmdlst(shell->input, shell);
 	return (0);
 }
