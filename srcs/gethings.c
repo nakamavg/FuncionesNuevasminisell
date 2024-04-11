@@ -52,10 +52,13 @@ void	get_things(t_shell *shell, bool update)
 	shell->path = search_things(shell, "PATH", &shell->path);
 	if (!update)
 		shell->env_sys_end = go_to_end(shell->env_list);
-	if (update)
+	if(update)
+	{
 		free(shell->prompt);
-	shell->prompt = ft_sprintf("%s%s%s%s@minishell$%s ", YELLOW, shell->user,
-			RESET, PURPLE, RESET);
+		shell->prompt = ft_strjoin(shell->user, " > ");
+	}
+	shell->prompt = ft_sprintf("%s%s > %s", PURPLE, shell->user, RESET);
+	// shell->prompt = ft_strjoin(shell->user, " > ");
 }
 
 void	ft_getenv(t_shell *shell, char **env)
