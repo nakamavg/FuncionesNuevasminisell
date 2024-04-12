@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/12 06:08:00 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_split.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:54:16 by alberrod          #+#    #+#             */
@@ -112,15 +124,27 @@ char	**cmd_split(const char *text, char *in, char *out)
 
 	i = 0;
 	j = 0;
+
 	cmd_list = ft_split_cmd(text);
+	if (in)
+	{
+		while (ft_strncmp(cmd_list[i], in, ft_strlen(cmd_list[i])))
+			free(cmd_list[i++]);
+		i++;
+	}
 	while (cmd_list[i])
 	{
 		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
 		free(cmd_list[i - 1]);
-		if (ft_strncmp(tmp, in, ft_strlen(tmp))
-			&& ft_strncmp(tmp, out, ft_strlen(tmp))
-			&& *tmp != '<' && *tmp != '>')
+		if (tmp[0] == '>')
+		{
+			free(tmp);
+			break ;
+		}
+		if (ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
+		{
 			cmd_list[j++] = ft_strdup(tmp);
+		}
 		free(tmp);
 	}
 	cmd_list[j] = NULL;

@@ -1,0 +1,10 @@
+[?1h=[?25l[H[2J(B[mtop - 01:05:51 up 2 min,  1 user,  load average: 0,09, 0,16, 0,08(B[m[39;49m(B[m[39;49m[K
+Tasks:(B[m[39;49m[1m 219 (B[m[39;49mtotal,(B[m[39;49m[1m   1 (B[m[39;49mrunning,(B[m[39;49m[1m 218 (B[m[39;49msleeping,(B[m[39;49m[1m   0 (B[m[39;49mstopped,(B[m[39;49m[1m   0 (B[m[39;49mzombie(B[m[39;49m(B[m[39;49m[K
+%Cpu(s):(B[m[39;49m[1m  3,1 (B[m[39;49mus,(B[m[39;49m[1m  0,0 (B[m[39;49msy,(B[m[39;49m[1m  0,0 (B[m[39;49mni,(B[m[39;49m[1m 96,9 (B[m[39;49mid,(B[m[39;49m[1m  0,0 (B[m[39;49mwa,(B[m[39;49m[1m  0,0 (B[m[39;49mhi,(B[m[39;49m[1m  0,0 (B[m[39;49msi,(B[m[39;49m[1m  0,0 (B[m[39;49mst(B[m[39;49m(B[m[39;49m[K
+MiB Mem :(B[m[39;49m[1m   7623,8 (B[m[39;49mtotal,(B[m[39;49m[1m   6098,6 (B[m[39;49mfree,(B[m[39;49m[1m    582,0 (B[m[39;49mused,(B[m[39;49m[1m    943,2 (B[m[39;49mbuff/cache(B[m[39;49m(B[m[39;49m[K
+MiB Swap:(B[m[39;49m[1m   2048,0 (B[m[39;49mtotal,(B[m[39;49m[1m   2048,0 (B[m[39;49mfree,(B[m[39;49m[1m      0,0 (B[m[39;49mused.(B[m[39;49m[1m   6735,3 (B[m[39;49mavail Mem (B[m[39;49m(B[m[39;49m[K
+[K
+[7m    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                                                   (B[m[39;49m[K
+(B[m   1363 alberrod  20   0  320832   7404   5632 S   6,7   0,1   0:01.18 ibus-daemon                                                                                                                               (B[m[39;49m[K
+(B[m      1 root      20   0  166792  11676   8220 S   0,0   0,1   0:01.59 systemd                                                                                                                                   (B[m[39;49m[K
+(B[m      2 root      20   0       0      0      0 S   0,0   0,0   0:00.00 kthreadd                                                                                                                                  (B[m[39;49m[K
