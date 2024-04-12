@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 12:57:09 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:26:26 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,6 @@ void				unset(t_shell *shell, char **cmd);
 void				pwd(void);
 
 /////
-int					handle_quote(char c, int quote, int type);
+int					handle_quote(char c, int quote, int *compare, int type);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 13:05:33 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 14:29:03 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,14 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 	return (free_sent(sent), free(sent), free(cmd), free(expanded), out);
 }
 
-int	handle_quote(char c, int quote, int type)
+int	handle_quote(char c, int quote, int *compare, int type)
 {
 	if (c == type && !quote)
-		return (c);
+	{
+		if (*compare)
+			 *compare += 1;
+		return (1);
+	}
 	else if (c == type && quote)
 		return (0);
 	return (quote);
@@ -75,6 +79,11 @@ static int	replace_with_global(char **cmd, int idx, int jdx)
 		return (1);
 	}
 	return (0);
+}
+void set_quote(int *s_quote,int *d_quote,char c)
+{
+	*s_quote = handle_quote(c, *s_quote, d_quote, '\'');
+	*d_quote = handle_quote(c, *d_quote, s_quote, '"');
 }
 
 char	**expand_variable(char **cmd, t_shell *shell)
@@ -92,9 +101,8 @@ char	**expand_variable(char **cmd, t_shell *shell)
 		jdx = -1;
 		while (cmd[idx][++jdx])
 		{
-			s_quote = handle_quote(cmd[idx][jdx], s_quote, '\'');
-			d_quote = handle_quote(cmd[idx][jdx], d_quote, '"');
-			if (cmd[idx][jdx] == '$' && (!s_quote || (s_quote && d_quote)))
+			set_quote(&s_quote, &d_quote, cmd[idx][jdx]);
+			if (cmd[idx][jdx] == '$' && (!s_quote || (s_quote <= d_quote)))
 			{
 				if (replace_with_global(cmd, idx, jdx))
 					continue ;
