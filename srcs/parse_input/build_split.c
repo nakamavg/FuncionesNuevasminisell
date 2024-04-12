@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 06:08:00 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 07:13:46 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ char	**cmd_split(const char *text, char *in, char *out)
 	char	*tmp;
 	int		i;
 	int		j;
+	char    *tmp_cmp;
 
 	i = 0;
 	j = 0;
@@ -128,9 +129,22 @@ char	**cmd_split(const char *text, char *in, char *out)
 	cmd_list = ft_split_cmd(text);
 	if (in)
 	{
-		while (ft_strncmp(cmd_list[i], in, ft_strlen(cmd_list[i])))
-			free(cmd_list[i++]);
-		i++;
+		while (42)
+		{
+			tmp_cmp = ft_strtrim(cmd_list[i], "<");
+			if (!check_names(tmp_cmp, in))
+			{
+				free(cmd_list[i++]);
+				free(tmp_cmp);
+			}
+			else
+			{
+				free(tmp_cmp);
+				free(cmd_list[i++]);
+				break ;
+			}
+
+		}
 	}
 	while (cmd_list[i])
 	{
