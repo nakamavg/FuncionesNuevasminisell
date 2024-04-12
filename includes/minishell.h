@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 09:03:35 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:57:09 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ char				*ft_outfile_content(const char *input);
 // /parse/input/build_variable.c
 char				*get_the_variable(char *cmd, t_shell *shell);
 char				**expand_variable(char **cmd, t_shell *shell);
+// /parse/input/build_variable_utils.c
+bool				search_token(char *cmd, int idx, int jdx);
 
 // split_cmd.c
 char				**cmd_split(const char *text, char *in, char *out);
@@ -187,10 +189,11 @@ int					set_g_status(int status);
 void				create_pipes(int pipe_fd[2]);
 
 // pipes/aux_run_pipes.c
-void	handle_outfile_and_next_cmd(t_cmd *pipe, int *next_pipe);
-void	handle_infile(t_cmd *pipe, t_input cmd_input, int *prev_pipe);
-void	run_process_if(t_cmd *pipe, t_shell *shell, int *p_pipe, int *n_pipe);
-
+void				handle_outfile_and_next_cmd(t_cmd *pipe, int *next_pipe);
+void				handle_infile(t_cmd *pipe, t_input cmd_input,
+						int *prev_pipe);
+void				run_process_if(t_cmd *pipe, t_shell *shell, int *p_pipe,
+						int *n_pipe);
 
 // pipes/process_utils.c
 void				unix_error(char *mssg, char *str);
@@ -260,7 +263,6 @@ void				unset(t_shell *shell, char **cmd);
 
 // pwd.c
 void				pwd(void);
-
 
 /////
 int					handle_quote(char c, int quote, int type);

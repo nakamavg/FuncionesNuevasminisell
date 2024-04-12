@@ -6,19 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 11:34:13 by alberrod         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   build_split.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 21:54:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/03/20 17:56:15 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:47:38 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +103,12 @@ static char	**ft_split_cmd(char const *s)
 	return (out);
 }
 
-void process_in(char **cmd_list, char *in, int *idx)
+void	process_in(char **cmd_list, char *in, int *idx)
 {
-	char    *tmp_cmp;
+	char	*tmp_cmp;
 
 	if (!cmd_list)
-			return ;
+		return ;
 	while (cmd_list[*idx])
 	{
 		tmp_cmp = ft_strtrim(cmd_list[*idx], "<");
@@ -134,9 +122,9 @@ void process_in(char **cmd_list, char *in, int *idx)
 	(*idx)++;
 }
 
-void process_in_out(char **cmd_list, char *in, char *out, int *idx)
+void	process_in_out(char **cmd_list, char *in, char *out, int *idx)
 {
-	char    *tmp_cmp;
+	char	*tmp_cmp;
 
 	if (!cmd_list)
 		return ;
@@ -159,9 +147,9 @@ void process_in_out(char **cmd_list, char *in, char *out, int *idx)
 	if (*idx < ft_strlen_pp(cmd_list))
 		(*idx)++;
 }
-void free_cmd_list(char **cmd_list, int up_to_idx)
+void	free_cmd_list(char **cmd_list, int up_to_idx)
 {
-	int idx;
+	int	idx;
 
 	if (!cmd_list)
 		return ;

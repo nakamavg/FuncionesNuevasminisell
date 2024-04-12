@@ -6,19 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 08:23:19 by dgomez-m         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   build_io.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 17:17:37 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 19:3561200alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:47:08 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +84,11 @@ t_Token_Type	ft_outfile_mode(const char *input)
 char	*ft_outfile_content(const char *input)
 {
 	size_t	len;
-	int	s_quote;
-	int	d_quote;
-	char *last_redirection = NULL;
+	int		s_quote;
+	int		d_quote;
+	char	*last_redirection;
 
+	last_redirection = NULL;
 	s_quote = 0;
 	d_quote = 0;
 	while (*input)
@@ -118,7 +107,6 @@ char	*ft_outfile_content(const char *input)
 			len = 0;
 			while (input[len] && !ft_isspace(input[len]))
 				len++;
-
 			if (last_redirection != NULL)
 			{
 				out_file_create(last_redirection);

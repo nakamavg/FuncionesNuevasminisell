@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 19:25:12 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 13:05:33 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	void	free_sent(char **sent)
+static void	free_sent(char **sent)
 {
 	int	idx;
 
@@ -47,9 +47,7 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 			free_sent(sent);
 			sent[0] = ft_substr(cmd, 0, idx);
 			jdx = 0;
-			while ((cmd[idx + jdx] && !ft_isspace(cmd[idx + jdx]))
-				&& cmd[idx + jdx] != '"' && cmd[idx + jdx] != '\''
-				&& cmd[idx + jdx] != '=')
+			while (search_token(cmd, idx, jdx))
 				jdx++;
 			sent[1] = ft_substr(cmd, idx + 1, jdx - 1);
 			sent[2] = ft_substr(cmd, idx + jdx, ft_strlen(cmd) - idx - jdx);
@@ -59,7 +57,6 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 	out = ft_sprintf("%s%s%s", sent[0], expanded, sent[2]);
 	return (free_sent(sent), free(sent), free(cmd), free(expanded), out);
 }
-
 
 int	handle_quote(char c, int quote, int type)
 {
@@ -82,10 +79,10 @@ static int	replace_with_global(char **cmd, int idx, int jdx)
 
 char	**expand_variable(char **cmd, t_shell *shell)
 {
-	int		idx;
-	int		jdx;
-	int		s_quote;
-	int		d_quote;
+	int	idx;
+	int	jdx;
+	int	s_quote;
+	int	d_quote;
 
 	idx = -1;
 	s_quote = 0;
