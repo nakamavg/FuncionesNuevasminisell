@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 07:13:46 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:24:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,41 +115,85 @@ static char	**ft_split_cmd(char const *s)
 	return (out);
 }
 
+//void process_in(char **cmd_list, char *in, int *i)
+//{
+//	char    *tmp_cmp;
+//
+//	while (42)
+//	{
+//		tmp_cmp = ft_strtrim(cmd_list[*i], "<");
+//		if (!check_names(tmp_cmp, in))
+//		{
+//			free(cmd_list[*i]);
+//			free(tmp_cmp);
+//			(*i)++;
+//		}
+//		else
+//		{
+//			free(tmp_cmp);
+//			free(cmd_list[*i]);
+//			(*i)++;
+//			break ;
+//
+//		}
+//	}
+//}
+
+void process_in(char **cmd_list, char *in, int *idx)
+{
+	char    *tmp_cmp;
+
+	if (!cmd_list)
+			return ;
+	while (cmd_list[*idx])
+	{
+		tmp_cmp = ft_strtrim(cmd_list[*idx], "<");
+		if (check_names(tmp_cmp, in))
+			break ;
+		free(tmp_cmp);
+		(*idx)++;
+	}
+	if (*tmp_cmp)
+		free(tmp_cmp);
+	(*idx)++;
+}
+
+void free_cmd_list(char **cmd_list, int up_to_idx)
+{
+	int idx;
+
+	if (!cmd_list)
+		return ;
+	idx = 0;
+	while (idx < up_to_idx)
+	{
+		if (cmd_list[idx])
+			free(cmd_list[idx]);
+		idx++;
+	}
+}
+
 char	**cmd_split(const char *text, char *in, char *out)
 {
 	char	**cmd_list;
 	char	*tmp;
-	int		i;
+	int		idx;
 	int		j;
-	char    *tmp_cmp;
 
-	i = 0;
+	idx = 0;
 	j = 0;
 
 	cmd_list = ft_split_cmd(text);
 	if (in)
+		process_in(cmd_list, in, &idx);
+	if (idx == ft_strlen_pp(cmd_list))
+		idx = 0;
+	else
+		free_cmd_list(cmd_list, idx);
+	while (cmd_list[idx])
 	{
-		while (42)
-		{
-			tmp_cmp = ft_strtrim(cmd_list[i], "<");
-			if (!check_names(tmp_cmp, in))
-			{
-				free(cmd_list[i++]);
-				free(tmp_cmp);
-			}
-			else
-			{
-				free(tmp_cmp);
-				free(cmd_list[i++]);
-				break ;
-			}
-
-		}
-	}
-	while (cmd_list[i])
-	{
-		tmp = ft_strtrim(cmd_list[i++], " \t\n\v\f\r");
-		free(cmd_list[i - 1]);
+		tmp = ft_strtrim(cmd_list[idx++], " \t\n\v\f\r");
+		free(cmd_list[idx - 1]);
 		if (tmp[0] == '>')
 		{
 			free(tmp);
