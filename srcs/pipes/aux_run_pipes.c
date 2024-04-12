@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 08:45:59 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/12 09:03:04 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:16:06 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	handle_infile(t_cmd *pipe, t_input cmd_input, int *prev_pipe)
 	}
 }
 
-void	run_process_if(t_cmd *pipe, t_shell *shell, int *p_pipe,int *n_pipe)
+void	run_process_if(t_cmd *pipe, t_shell *shell, int *p_pipe, int *n_pipe)
 {
 	if (p_pipe[IN] >= 0)
 		run_process(pipe->cmd_list, shell, p_pipe, n_pipe);
