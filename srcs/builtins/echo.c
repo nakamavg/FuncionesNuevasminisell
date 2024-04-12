@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/12 09:53:39 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/12 10:17:01 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
@@ -14,6 +26,8 @@
 
 int	check_names(char *name, char *search)
 {
+	if (!name || !search)
+		return (0);
 	if (ft_strlen(search) == ft_strlen(name))
 		if (ft_strncmp(name, search, ft_strlen(search)) == 0)
 			return (1);
