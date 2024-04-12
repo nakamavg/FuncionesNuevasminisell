@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 07:13:46 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 08:00:37 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,10 @@ char	**cmd_split(const char *text, char *in, char *out)
 	char	*tmp;
 	int		i;
 	int		j;
-	char    *tmp_cmp;
+	char	*tmp_cmp;
 
 	i = 0;
 	j = 0;
-
 	cmd_list = ft_split_cmd(text);
 	if (in)
 	{
@@ -143,7 +142,6 @@ char	**cmd_split(const char *text, char *in, char *out)
 				free(cmd_list[i++]);
 				break ;
 			}
-
 		}
 	}
 	while (cmd_list[i])

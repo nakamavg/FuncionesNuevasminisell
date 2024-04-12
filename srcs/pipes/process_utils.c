@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 00:13:27 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 00:13:27 by alberrod         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   process_utils.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 01:47:55 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 08:09:27 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +17,8 @@ void	unix_error(char *mssg, char *str)
 	if (!str)
 		ft_fd_printf(STDERR_FILENO, "%s: %s\n", mssg, strerror(errno));
 	else
-		ft_fd_printf(STDERR_FILENO, "<%s> %s: %s\n",
-			str, mssg, strerror(errno));
-//	exit (127);
+		ft_fd_printf(STDERR_FILENO, "<%s> %s: %s\n", str, mssg,
+			strerror(errno));
 }
 
 pid_t	fork_process(void)
@@ -71,7 +58,7 @@ void	exec_cmd(char **cmd, t_shell *shell)
 	char	*path;
 
 	if (run_builtin(shell, cmd))
-		exit (EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 	if (!ft_strchr(cmd[0], '/'))
 		path = extract_path(shell->path, cmd[0]);
 	else

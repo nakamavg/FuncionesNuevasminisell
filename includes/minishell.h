@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 19:25:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 08:08:52 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,6 @@ void				unset(t_shell *shell, char **cmd);
 void				pwd(void);
 
 /////
-int	handle_quote(char c, int quote, int type);
+int					handle_quote(char c, int quote, int type);
 
 #endif

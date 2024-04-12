@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gethings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/05 00:12:09 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 09:42:45berrod         ###   ########.fr       */
+/*   Created: 2024/04/12 08:08:22 by dgomez-m          #+#    #+#             */
+/*   Updated: 2024/04/12 08:08:38 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	get_things(t_shell *shell, bool update)
 	shell->path = search_things(shell, "PATH", &shell->path);
 	if (!update)
 		shell->env_sys_end = go_to_end(shell->env_list);
-	if(update)
+	if (update)
 	{
 		free(shell->prompt);
 		shell->prompt = ft_strjoin(shell->user, " > ");
 	}
-	shell->prompt = ft_sprintf("%s%s%s %s> %s", PURPLE, shell->user, RESET,  YELLOW, RESET);
-	// shell->prompt = ft_strjoin(shell->user, " > ");
+	shell->prompt = ft_sprintf("%s%s%s %s> %s", PURPLE, shell->user, RESET,
+			YELLOW, RESET);
 }
 
 void	ft_getenv(t_shell *shell, char **env)
