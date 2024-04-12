@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/12 09:22:13 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/12 09:22:13 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
@@ -80,11 +92,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
+	g_status = 0;
 	if (argc != 1)
 		return (printf("Only call the minishell %sboss\n", PURPLE), 1);
 	(void)argv;
 	ft_memset(&shell, 0, sizeof(shell));
-	g_status = 0;
 	ft_getenv(&shell, envp);
 	ft_env_split(&shell);
 	init_signals();

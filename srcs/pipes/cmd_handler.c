@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 00:07:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 00:07:31 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:23:01 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_Builtin	ft_is_builtin(char *cmd)
 {
 	if (check_names(cmd, "echo"))
 		return (ECH0);
-	if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	if (check_names(cmd, "env"))
 		return (ENV);
 	if (check_names(cmd, "exit"))
 		return (EXIT);
@@ -98,19 +98,19 @@ static int	run_single_builtin(t_shell *shell, char **cmd)
 
 int	run_builtin(t_shell *shell, char **cmd)
 {
-	if (!ft_strncmp(cmd[0], "echo", ft_strlen(cmd[0])))
+	if (check_names(cmd[0], "echo"))
 		return (echo(cmd), 1);
-	if (!ft_strncmp(cmd[0], "env", ft_strlen(cmd[0])))
+	if (check_names(cmd[0], "env"))
 		return (print_env(shell->env_list), 1);
-	if (!ft_strncmp(cmd[0], "exit", ft_strlen(cmd[0])))
+	if (check_names(cmd[0], "exit"))
 		return (exit_shell(shell, cmd), 1);
-	if (!ft_strncmp(cmd[0], "pwd", ft_strlen(cmd[0])))
+	if (check_names(cmd[0], "pwd"))
 		return ((void)printf("%s\n", getcwd(NULL, 0)), 1);
-	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
+	if (check_names(cmd[0], "cd"))
 		return (cd(shell, cmd), 1);
-	if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
+	if (check_names(cmd[0], "export"))
 		return (export(shell, cmd), 1);
-	if (!ft_strncmp(cmd[0], "unset", ft_strlen(cmd[0])))
+	if (check_names(cmd[0], "unset"))
 		return (unset(shell, cmd), 1);
 	return (0);
 }
