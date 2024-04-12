@@ -30,7 +30,8 @@ FILES	=	srcs/main \
 			srcs/pipes/manage_files \
 			srcs/pipes/process_utils \
 			srcs/pipes/pipes_utils \
-			srcs/pipes/run_pipes 
+			srcs/pipes/run_pipes \
+			srcs/pipes/aux_run_pipes
 
 
 CFILES	= $(addsuffix .c, $(FILES))

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
 /*   Updated: 2024/04/12 11:34:13 by alberrod         ###   ########.fr       */
@@ -183,7 +183,6 @@ char	**cmd_split(const char *text, char *in, char *out)
 
 	idx = 0;
 	j = 0;
-
 	cmd_list = ft_split_cmd(text);
 	if (in || out)
 		process_in_out(cmd_list, in, out, &idx);

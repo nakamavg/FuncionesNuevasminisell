@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 00:04:07 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 08:23:19 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,20 @@ t_Token_Type	ft_infile_mode(const char *input)
 	if (*input == '<')
 	{
 		if (*(input + 1) == '<')
-			return (printf("return here doc\n"), TOKEN_TYPE_REDIR_HEREDOC);
+			return (printf("return (here doc\n"), TOKEN_TYPE_REDIR_HEREDOC);
 		return (TOKEN_TYPE_REDIR_IN);
 	}
 	return (TOKEN_TYPE_UNKNOWN);
 }
 
-
 char	*ft_infile_content(const char *input)
 {
-	size_t  len;
-	int     s_quote;
-	int     d_quote;
-	char *last_redirection = NULL;
+	size_t	len;
+	int		s_quote;
+	int		d_quote;
+	char	*last_redirection;
 
+	last_redirection = NULL;
 	s_quote = 0;
 	d_quote = 0;
 	while (*input)
@@ -61,11 +61,10 @@ char	*ft_infile_content(const char *input)
 			while (*input && ft_isspace(*input))
 				input++;
 			if (!*input)
-				break;
+				break ;
 			len = 0;
 			while (input[len] && !ft_isspace(input[len]))
 				len++;
-
 			if (last_redirection != NULL)
 			{
 				if (access(last_redirection, F_OK) != 0)
@@ -76,31 +75,8 @@ char	*ft_infile_content(const char *input)
 		}
 		input++;
 	}
-	return last_redirection;
+	return (last_redirection);
 }
-
-//char	*ft_infile_content(const char *input)
-//{
-//	size_t	len;
-//	while (*input && ft_isspace(*input))
-//		input++;
-//	if (!input)
-//		return (NULL);
-//	if (*input == '<')
-//	{
-//		input++;
-//		if (*input == '<')
-//			input++;
-//	}
-//	else
-//		return (NULL);
-//	while (*input && ft_isspace(*input))
-//		input++;
-//	len = 0;
-//	while (input[len] && !ft_isspace(input[len]))
-//		len++;
-//	return (ft_substr(input, 0, len));
-//}
 
 t_Token_Type	ft_outfile_mode(const char *input)
 {
@@ -117,12 +93,11 @@ t_Token_Type	ft_outfile_mode(const char *input)
 	return (TOKEN_TYPE_UNKNOWN);
 }
 
-
 char	*ft_outfile_content(const char *input)
 {
 	size_t	len;
 	int	s_quote;
-	int d_quote;
+	int	d_quote;
 	char *last_redirection = NULL;
 
 	s_quote = 0;
@@ -139,11 +114,11 @@ char	*ft_outfile_content(const char *input)
 			while (*input && ft_isspace(*input))
 				input++;
 			if (!*input)
-				break;
+				break ;
 			len = 0;
 			while (input[len] && !ft_isspace(input[len]))
 				len++;
-			
+
 			if (last_redirection != NULL)
 			{
 				out_file_create(last_redirection);
@@ -153,5 +128,5 @@ char	*ft_outfile_content(const char *input)
 		}
 		input++;
 	}
-	return last_redirection;
+	return (last_redirection);
 }

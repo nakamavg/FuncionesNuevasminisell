@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 19:25:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:03:35 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,12 @@ void				run_process(char **cmd, t_shell *shell, int pipe_in[2],
 int					set_g_status(int status);
 void				create_pipes(int pipe_fd[2]);
 
+// pipes/aux_run_pipes.c
+void	handle_outfile_and_next_cmd(t_cmd *pipe, int *next_pipe);
+void	handle_infile(t_cmd *pipe, t_input cmd_input, int *prev_pipe);
+void	run_process_if(t_cmd *pipe, t_shell *shell, int *p_pipe, int *n_pipe);
+
+
 // pipes/process_utils.c
 void				unix_error(char *mssg, char *str);
 pid_t				fork_process(void);
@@ -255,7 +261,8 @@ void				unset(t_shell *shell, char **cmd);
 // pwd.c
 void				pwd(void);
 
+
 /////
-int	handle_quote(char c, int quote, int type);
+int					handle_quote(char c, int quote, int type);
 
 #endif
