@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:54:33 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/12 13:08:01 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 13:17:05 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,4 @@ bool	search_token(char *cmd, int idx, int jdx)
 	}
 	return (true);
 }
+
