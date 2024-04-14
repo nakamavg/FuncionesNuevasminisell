@@ -14,7 +14,9 @@ FILES	=	srcs/main \
 			srcs/parse_input/build_pipe \
 			srcs/parse_input/build_io \
 			srcs/parse_input/build_variable \
+			srcs/parse_input/build_variable_utils \
 			srcs/parse_input/build_split \
+			srcs/parse_input/build_split_utils \
 			srcs/errors \
 			srcs/gethings \
 			srcs/get_things_aux \
@@ -30,7 +32,8 @@ FILES	=	srcs/main \
 			srcs/pipes/manage_files \
 			srcs/pipes/process_utils \
 			srcs/pipes/pipes_utils \
-			srcs/pipes/run_pipes 
+			srcs/pipes/run_pipes \
+			srcs/pipes/aux_run_pipes
 
 
 CFILES	= $(addsuffix .c, $(FILES))

@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:54:23 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 09:23:06 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:15:55 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,9 @@ void	run_pipes(t_shell *shell, t_input cmd_input, t_cmd *pipe)
 	while (pipe)
 	{
 		pipe_fd(&next_pipe[IN], &next_pipe[OUT]);
-		if (pipe->outfile)
-			out_file_create(pipe->outfile);
-		if (pipe->next_cmd)
-			create_pipes(next_pipe);
-		if (pipe->outfile || !pipe->next_cmd)
-			next_pipe[OUT] = out_file_open(pipe->outfile, pipe->write_mode);
-		if (pipe->infile || cmd_input.head == pipe)
-			prev_pipe[IN] = in_file_open(pipe->infile, pipe->infile_mode);
-		if (prev_pipe[IN] >= 0)
-			run_process(pipe->cmd_list, shell, prev_pipe, next_pipe);
+		handle_outfile_and_next_cmd(pipe, next_pipe);
+		handle_infile(pipe, cmd_input, prev_pipe);
+		run_process_if(pipe, shell, prev_pipe, next_pipe);
 		prev_pipe[IN] = next_pipe[IN];
 		pipe = pipe->next_cmd;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/11 19:25:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:29:02 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,11 @@ void				build_cmdlst(const char *input, t_shell *shell);
 // /parse/input/build_split.c
 char				**cmd_split(const char *text, char *in, char *out);
 
+// /parse/input/build_split_utils.c
+ssize_t break_content(const char *s, char c, char **out);
+size_t	count_words(char const *s, char c);
+void	free_output(char **output, size_t counter);
+
 // /parse/input/build_pipe.c
 t_cmd				*init_pipe(const char *text, size_t text_length,
 						int initial_idx, t_shell *shell);
@@ -167,6 +172,8 @@ char				*ft_outfile_content(const char *input);
 // /parse/input/build_variable.c
 char				*get_the_variable(char *cmd, t_shell *shell);
 char				**expand_variable(char **cmd, t_shell *shell);
+// /parse/input/build_variable_utils.c
+bool				search_token(char *cmd, int idx, int jdx);
 
 // split_cmd.c
 char				**cmd_split(const char *text, char *in, char *out);
@@ -185,6 +192,13 @@ void				run_process(char **cmd, t_shell *shell, int pipe_in[2],
 						int pipe_out[2]);
 int					set_g_status(int status);
 void				create_pipes(int pipe_fd[2]);
+
+// pipes/aux_run_pipes.c
+void				handle_outfile_and_next_cmd(t_cmd *pipe, int *next_pipe);
+void				handle_infile(t_cmd *pipe, t_input cmd_input,
+						int *prev_pipe);
+void				run_process_if(t_cmd *pipe, t_shell *shell, int *p_pipe,
+						int *n_pipe);
 
 // pipes/process_utils.c
 void				unix_error(char *mssg, char *str);
@@ -256,6 +270,7 @@ void				unset(t_shell *shell, char **cmd);
 void				pwd(void);
 
 /////
-int	handle_quote(char c, int quote, int type);
+int					handle_quote(char c, int quote, int *compare, int type);
+void                set_quote(int *s_quote,int *d_quote,char c);
 
 #endif
