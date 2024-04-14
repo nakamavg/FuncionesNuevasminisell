@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 20:51:11 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:29:02 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,11 @@ void				build_cmdlst(const char *input, t_shell *shell);
 
 // /parse/input/build_split.c
 char				**cmd_split(const char *text, char *in, char *out);
+
+// /parse/input/build_split_utils.c
+ssize_t break_content(const char *s, char c, char **out);
+size_t	count_words(char const *s, char c);
+void	free_output(char **output, size_t counter);
 
 // /parse/input/build_pipe.c
 t_cmd				*init_pipe(const char *text, size_t text_length,

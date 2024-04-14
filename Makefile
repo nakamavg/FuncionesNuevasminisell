@@ -16,6 +16,7 @@ FILES	=	srcs/main \
 			srcs/parse_input/build_variable \
 			srcs/parse_input/build_variable_utils \
 			srcs/parse_input/build_split \
+			srcs/parse_input/build_split_utils \
 			srcs/errors \
 			srcs/gethings \
 			srcs/get_things_aux \
