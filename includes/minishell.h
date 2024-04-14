@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 14:26:26 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:51:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,5 +266,6 @@ void				pwd(void);
 
 /////
 int					handle_quote(char c, int quote, int *compare, int type);
+void                set_quote(int *s_quote,int *d_quote,char c);
 
 #endif

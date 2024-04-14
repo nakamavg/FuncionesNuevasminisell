@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 12:47:38 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:15:24 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ static ssize_t	break_content(char const *s, char c, char **out)
 			while (s[idx] && s[idx] != quote)
 				idx++;
 		}
+		else if (s[idx] == '<' || s[idx] == '>')
+			while (ft_isspace(s[idx+1]))
+				idx++;
 		if (s[idx] != c)
 			idx++;
 		else
@@ -147,6 +150,7 @@ void	process_in_out(char **cmd_list, char *in, char *out, int *idx)
 	if (*idx < ft_strlen_pp(cmd_list))
 		(*idx)++;
 }
+
 void	free_cmd_list(char **cmd_list, int up_to_idx)
 {
 	int	idx;
@@ -162,15 +166,35 @@ void	free_cmd_list(char **cmd_list, int up_to_idx)
 	}
 }
 
+void    process_cmd_list(char **cmd_list, char *out, int *idx)
+{
+	char    *tmp;
+	int		jdx;
+
+	jdx = 0;
+	while (cmd_list[*idx])
+	{
+		tmp = ft_strtrim(cmd_list[*idx], " \t\n\v\f\r");
+		free(cmd_list[*idx]);
+		(*idx)++;
+		if (tmp[0] == '>')
+		{
+			free(tmp);
+			break ;
+		}
+		if (ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
+			cmd_list[jdx++] = ft_strdup(tmp);
+		free(tmp);
+	}
+	cmd_list[jdx] = NULL;
+}
+
 char	**cmd_split(const char *text, char *in, char *out)
 {
 	char	**cmd_list;
-	char	*tmp;
 	int		idx;
-	int		j;
 
 	idx = 0;
-	j = 0;
 	cmd_list = ft_split_cmd(text);
 	if (in || out)
 		process_in_out(cmd_list, in, out, &idx);
@@ -178,21 +202,6 @@ char	**cmd_split(const char *text, char *in, char *out)
 		idx = 0;
 	else
 		free_cmd_list(cmd_list, idx);
-	while (cmd_list[idx])
-	{
-		tmp = ft_strtrim(cmd_list[idx], " \t\n\v\f\r");
-		free(cmd_list[idx++]);
-		if (tmp[0] == '>')
-		{
-			free(tmp);
-			break ;
-		}
-		if (ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
-		{
-			cmd_list[j++] = ft_strdup(tmp);
-		}
-		free(tmp);
-	}
-	cmd_list[j] = NULL;
+	process_cmd_list(cmd_list, out, &idx);
 	return (cmd_list);
 }

@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 14:27:19 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:52:30 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ char	*ft_outfile_content(const char *input)
 	d_quote = 0;
 	while (*input)
 	{
-		s_quote = handle_quote(*input, s_quote, &d_quote, '\'');
-		d_quote = handle_quote(*input, d_quote, &s_quote, '"');
+		set_quote(&s_quote, &d_quote, *input);
 		if (*input == '>' && s_quote == 0 && d_quote == 0)
 		{
 			input++;
