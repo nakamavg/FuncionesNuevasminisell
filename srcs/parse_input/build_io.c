@@ -6,25 +6,54 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 20:52:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:21:33 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_Token_Type	ft_infile_mode(const char *input)
+t_Token_Type ft_infile_mode(const char *input)
 {
-	while (ft_isspace(*input))
-		input++;
-	if (!input)
-		return (TOKEN_TYPE_UNKNOWN);
-	if (*input == '<')
+	t_Token_Type mode;
+
+	mode = TOKEN_TYPE_UNKNOWN;
+	while (*input)
 	{
-		if (*(input + 1) == '<')
-			return (printf("return (here doc\n"), TOKEN_TYPE_REDIR_HEREDOC);
-		return (TOKEN_TYPE_REDIR_IN);
+		if (*input == '<')
+		{
+			input++;
+			while (*input && ft_isspace(*input))
+				input++;
+			if (*input && *input == '<')
+				mode = TOKEN_TYPE_REDIR_HEREDOC;
+			else
+				mode = TOKEN_TYPE_REDIR_IN;
+		}
+		input++;
 	}
-	return (TOKEN_TYPE_UNKNOWN);
+	return (mode);
+}
+
+t_Token_Type ft_outfile_mode(const char *input)
+{
+	t_Token_Type mode;
+
+	mode = TOKEN_TYPE_UNKNOWN;
+	while (*input)
+	{
+		if (*input == '>')
+		{
+			input++;
+			while (*input && ft_isspace(*input))
+				input++;
+			if (*input && *input == '>')
+				mode = TOKEN_TYPE_REDIR_APPEND;
+			else
+				mode = TOKEN_TYPE_REDIR_OUT;
+		}
+		input++;
+	}
+	return (mode);
 }
 
 char	*ft_infile_content(const char *input)
@@ -64,21 +93,6 @@ char	*ft_infile_content(const char *input)
 		input++;
 	}
 	return (last_redirection);
-}
-
-t_Token_Type	ft_outfile_mode(const char *input)
-{
-	while (*input && *input != '>')
-		input++;
-	if (!input)
-		return (TOKEN_TYPE_UNKNOWN);
-	if (*input == '>')
-	{
-		if (*++input == '>')
-			return (TOKEN_TYPE_REDIR_APPEND);
-		return (TOKEN_TYPE_REDIR_OUT);
-	}
-	return (TOKEN_TYPE_UNKNOWN);
 }
 
 char	*ft_outfile_content(const char *input)
