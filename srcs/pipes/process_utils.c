@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 08:09:27 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:10:37 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void	exec_cmd(char **cmd, t_shell *shell)
 	{
 		free(path);
 		unix_error("execve error", NULL);
+		exit (127);
 	}
 }
