@@ -6,15 +6,15 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/14 19:21:33 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/15 19:36:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_Token_Type ft_infile_mode(const char *input)
+t_Token_Type	ft_infile_mode(const char *input)
 {
-	t_Token_Type mode;
+	t_Token_Type	mode;
 
 	mode = TOKEN_TYPE_UNKNOWN;
 	while (*input)
@@ -34,9 +34,9 @@ t_Token_Type ft_infile_mode(const char *input)
 	return (mode);
 }
 
-t_Token_Type ft_outfile_mode(const char *input)
+t_Token_Type	ft_outfile_mode(const char *input)
 {
-	t_Token_Type mode;
+	t_Token_Type	mode;
 
 	mode = TOKEN_TYPE_UNKNOWN;
 	while (*input)
@@ -56,48 +56,57 @@ t_Token_Type ft_outfile_mode(const char *input)
 	return (mode);
 }
 
-char	*ft_infile_content(const char *input)
+char	*get_redirection(const char *input, char *last_redirection, bool is_heredoc)
 {
 	size_t	len;
+
+	while (*input && ft_isspace(*input))
+		input++;
+	if (!*input)
+		return (NULL);
+	len = 0;
+	while (input[len] && !ft_isspace(input[len]))
+		len++;
+	if (last_redirection != NULL)
+	{
+		if (access(last_redirection, F_OK) != 0 && !is_heredoc)
+			return (last_redirection);
+		free(last_redirection);
+	}
+	return (ft_substr(input, 0, len));
+}
+
+char	*ft_infile_content(const char *input)
+{
 	int		s_quote;
 	int		d_quote;
 	char	*last_redirection;
+	bool	is_heredoc;
 
 	last_redirection = NULL;
 	s_quote = 0;
 	d_quote = 0;
+	is_heredoc = false;
 	while (*input)
 	{
-		s_quote = handle_quote(*input, s_quote, &d_quote, '\'');
-		d_quote = handle_quote(*input, d_quote, &s_quote, '"');
-		if (*input == '<' && s_quote == 0 && d_quote == 0)
+		set_quote(&s_quote, &d_quote, *input);
+		if (*input++ == '<' && s_quote == 0 && d_quote == 0)
 		{
-			input++;
 			if (*input == '<')
-				input++;
-			while (*input && ft_isspace(*input))
-				input++;
-			if (!*input)
-				break ;
-			len = 0;
-			while (input[len] && !ft_isspace(input[len]))
-				len++;
-			if (last_redirection != NULL)
 			{
-				if (access(last_redirection, F_OK) != 0)
-					break ;
-				free(last_redirection);
+				is_heredoc = true;
+				input++;
 			}
-			last_redirection = ft_substr(input, 0, len);
+			last_redirection = get_redirection(input, last_redirection, is_heredoc);
+			if (last_redirection == NULL)
+				return (NULL);
 		}
-		input++;
 	}
 	return (last_redirection);
 }
 
 char	*ft_outfile_content(const char *input)
 {
-	size_t	len;
 	int		s_quote;
 	int		d_quote;
 	char	*last_redirection;
@@ -108,26 +117,14 @@ char	*ft_outfile_content(const char *input)
 	while (*input)
 	{
 		set_quote(&s_quote, &d_quote, *input);
-		if (*input == '>' && s_quote == 0 && d_quote == 0)
+		if (*input++ == '>' && s_quote == 0 && d_quote == 0)
 		{
-			input++;
 			if (*input == '>')
 				input++;
-			while (*input && ft_isspace(*input))
-				input++;
-			if (!*input)
-				break ;
-			len = 0;
-			while (input[len] && !ft_isspace(input[len]))
-				len++;
+			last_redirection = get_redirection(input, last_redirection, true);
 			if (last_redirection != NULL)
-			{
 				out_file_create(last_redirection);
-				free(last_redirection);
-			}
-			last_redirection = ft_substr(input, 0, len);
 		}
-		input++;
 	}
 	return (last_redirection);
 }
