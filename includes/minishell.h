@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 16:44:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:11:36 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ t_cmd				*init_pipe(const char *text, size_t text_length,
 void				add_pipe(t_input *cmd_list, t_cmd *new_token);
 
 // /parse/input/build_io.c
-t_Token_Type		ft_infile_mode(const char *input);
+//t_Token_Type		ft_infile_mode(const char *input);
+t_Token_Type	ft_infile_mode(const char *input, char *last_redir);
 char				*ft_infile_content(const char *input);
 t_Token_Type		ft_outfile_mode(const char *input);
 char				*ft_outfile_content(const char *input);
