@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 21:14:10 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:39:54 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,13 @@ char	*get_redirection(const char *input, char *last_redir, bool is_heredoc,
 	return (tmp);
 }
 
-char	*ft_infile_content(const char *input)
+char	*ft_infile_content(const char *input, int s_quote, int d_quote)
 {
-	int		s_quote;
-	int		d_quote;
 	char	*last_redir;
 	bool	is_heredoc;
 	bool	save_more;
 
 	last_redir = NULL;
-	s_quote = 0;
-	d_quote = 0;
 	save_more = true;
 	while (*input)
 	{
@@ -110,8 +106,6 @@ char	*ft_infile_content(const char *input)
 			if (save_more)
 				last_redir = get_redirection(input, last_redir, is_heredoc,
 						&save_more);
-			if (last_redir == NULL)
-				return (NULL);
 		}
 	}
 	return (last_redir);

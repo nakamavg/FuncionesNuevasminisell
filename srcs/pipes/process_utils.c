@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 21:14:25 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:43:43 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,10 @@ void	exec_cmd(char **cmd, t_shell *shell)
 		exit(EXIT_SUCCESS);
 	if (!ft_strchr(cmd[0], '/'))
 		path = extract_path(shell->path, cmd[0]);
+	else if (access(cmd[0], X_OK) == 0)
+		path = ft_strdup(cmd[0]);
 	else
-	{
-		if (access(cmd[0], X_OK) == 0)
-			path = ft_strdup(cmd[0]);
-		else
-			path = NULL;
-	}
+		path = NULL;
 	if (!path)
 	{
 		unix_error("command error", cmd[0]);

@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:17:51 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 19:13:18 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:37:53 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
 	if (!token)
 		return (NULL);
 	token->text = ft_substr(text, initial_idx, text_length);
-	token->infile = ft_infile_content(token->text);
+	token->infile = ft_infile_content(token->text, 0, 0);
 	if (token->infile)
 		token->infile_mode = ft_infile_mode(token->text, token->infile);
 	token->outfile = ft_outfile_content(token->text);
