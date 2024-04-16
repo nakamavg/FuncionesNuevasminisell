@@ -33,17 +33,9 @@
 # define OUT STDOUT_FILENO
 # define IN STDIN_FILENO
 # define ERR_INVALID_CHAR "\nexport: not an identifier: "
-# define ERR_INVALID_CTXT "\nexport: not valid in this context: "
-# define ERR_SPACES_IN_VAR "\nexport: bad assignment "
-# define UNSET_NOT_ARG "\nunset: not enough arguments "
 # define ERR_DIR_NOT_FOUND "\ncd: no such file or directory: "
-# define SPLIT_QUOTE " \t\n\v\f\r"
-# define CMD_NOT_FOUND "\ncommand not found :"
-# define ERR_TOO_MANY_ARGS "\nexit: too many arguments"
-# define ERR_NUM_EXPECTED "exit: numeric argument required\n"
 
 # define RESET "\001\e[0m\002"
-# define BLUE "\033[0;34m"
 # define YELLOW "\033[0;33m"
 # define PURPLE "\033[0;35m"
 
@@ -54,22 +46,6 @@ typedef enum s_Token_Type
 	TOKEN_TYPE_REDIR_OUT,
 	TOKEN_TYPE_REDIR_APPEND,
 	TOKEN_TYPE_REDIR_HEREDOC,
-	TOKEN_TYPE_PIPE,
-	TOKEN_TYPE_EOF,
-	TOKEN_TYPE_COMMAND,
-	TOKEN_TYPE_IN_FILE,
-	TOKEN_TYPE_OUT_FILE,
-	TOKEN_TYPE_AMPERSAND,
-	TOKEN_TYPE_WILDCARD,
-	TOKEN_TYPE_DOLLAR,
-	TOKEN_TYPE_DOT,
-	TOKEN_TYPE_QUESTION,
-	TOKEN_TYPE_SINGLE_QUOTE,
-	TOKEN_TYPE_DOUBLE_QUOTE,
-	TOKEN_TYPE_STRING,
-	TOKEN_TYPE_VAR,
-	TOKEN_TYPE_EXPAND,
-	TOKEN_TYPE_MAX
 }					t_Token_Type;
 
 typedef enum s_Builtin
@@ -102,17 +78,6 @@ typedef struct s_input
 	t_cmd			*token;
 }					t_input;
 
-typedef struct s_command
-{
-	char			**cmds;
-	char			*infile;
-	char			*outfile;
-	int				infile_fd;
-	int				outfile_fd;
-	char			*eof;
-	int				write_mode;
-}					t_command;
-
 typedef struct s_my_env
 {
 	char			*name;
@@ -132,14 +97,10 @@ typedef struct s_shell
 	char			*prompt;
 	char			*input;
 	char			*home;
-	char			**dolarvar;
 	t_input			parsed_input;
 }					t_shell;
 
 extern int			g_status;
-
-// testers.c
-void				test_lexer(t_input *cmd_list);
 
 // /parse_input/parser.c
 int					sanitize_input(const char *input);
@@ -218,8 +179,6 @@ void				pipe_fd(int *in, int *out);
 int					set_g_status(int status);
 
 // errors.c
-void				ft_error3(char *str);
-void				ft_error_cmd(char *str, char *aux);
 void				ft_error(char *str, char *aux);
 
 // gethings.c
@@ -238,7 +197,6 @@ void				print_env(t_my_env *env);
 t_my_env			*ft_envnew(void *name, void *value, t_my_env *new_l);
 void				add_env(t_my_env **env, t_my_env *new);
 void				delone_env(t_my_env *shell);
-void				add_env_back(t_my_env **env, t_my_env *new);
 
 // cmd_handler.c
 void				command_handler(t_shell *shell);

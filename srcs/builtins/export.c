@@ -12,19 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	check_input(char *input)
-{
-	int	i;
-
-	i = -1;
-	while (input[++i])
-	{
-		if (input[i] == ' ')
-			return (1);
-	}
-	return (0);
-}
-
 bool	check_if_exist(t_shell *env, char *name, char *value)
 {
 	t_my_env	*tmp;
