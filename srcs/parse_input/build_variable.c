@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/12 14:29:03 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:42:00 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,6 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 	return (free_sent(sent), free(sent), free(cmd), free(expanded), out);
 }
 
-int	handle_quote(char c, int quote, int *compare, int type)
-{
-	if (c == type && !quote)
-	{
-		if (*compare)
-			 *compare += 1;
-		return (1);
-	}
-	else if (c == type && quote)
-		return (0);
-	return (quote);
-}
 static int	replace_with_global(char **cmd, int idx, int jdx)
 {
 	if (cmd[idx][jdx + 1] == '?')
@@ -80,13 +68,8 @@ static int	replace_with_global(char **cmd, int idx, int jdx)
 	}
 	return (0);
 }
-void set_quote(int *s_quote,int *d_quote,char c)
-{
-	*s_quote = handle_quote(c, *s_quote, d_quote, '\'');
-	*d_quote = handle_quote(c, *d_quote, s_quote, '"');
-}
 
-char	**expand_variable(char **cmd, t_shell *shell)
+char	**expand_variable(char **cmd, t_shell *shell, int s_quote, int d_quote)
 {
 	int	idx;
 	int	jdx;
@@ -94,8 +77,6 @@ char	**expand_variable(char **cmd, t_shell *shell)
 	int	d_quote;
 
 	idx = -1;
-	s_quote = 0;
-	d_quote = 0;
 	while (cmd[++idx])
 	{
 		jdx = -1;
