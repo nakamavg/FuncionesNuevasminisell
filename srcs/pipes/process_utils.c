@@ -68,8 +68,10 @@ void	exec_cmd(char **cmd, t_shell *shell)
 		else
 			path = NULL;
 	}
-	if (!path)
-		unix_error("command error", cmd[0]);
+	if (!path) {
+        unix_error("command error", cmd[0]);
+        exit(127);
+    }
 	if (execve(path, cmd, shell->my_env) == -1)
 	{
 		free(path);
