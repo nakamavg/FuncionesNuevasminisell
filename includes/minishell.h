@@ -143,7 +143,6 @@ int					handle_quote(char c, int quote, int *compare, int type);
 bool				search_token(char *cmd, int idx, int jdx);
 
 // split_cmd.c
-char				**cmd_split(const char *text, char *in, char *out);
 
 // pipes_raw.c
 pid_t				fork_process(void);
@@ -169,14 +168,11 @@ void				run_process_if(t_cmd *pipe, t_shell *shell, int *p_pipe,
 
 // pipes/process_utils.c
 void				unix_error(char *mssg, char *str);
-pid_t				fork_process(void);
 char				*extract_path(char *raw_path, char *cmd);
 void				exec_cmd(char **cmd, t_shell *shell);
 // pipes/pipes_utils.c
-void				create_pipes(int pipe_fd[2]);
 void				dup_and_close_fds(int pipe_fd[2], int std_fd);
 void				pipe_fd(int *in, int *out);
-int					set_g_status(int status);
 
 // errors.c
 void				ft_error(char *str, char *aux);
