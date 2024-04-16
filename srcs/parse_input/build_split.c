@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 20:53:50 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:15:04 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**process_cmd_list(char **cmd_list, char *out, int *idx)
 		free(tmp);
 	}
 	new_list[jdx] = NULL;
-	return new_list;
+	return (new_list);
 }
 
 char	**cmd_split(const char *text, char *in, char *out)
@@ -107,5 +107,5 @@ char	**cmd_split(const char *text, char *in, char *out)
 		idx = 0;
 	new_list = process_cmd_list(cmd_list, out, &idx);
 	free_array_of_strings(cmd_list);
-	return new_list;
+	return (new_list);
 }

@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 21:07:44 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:14:25 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	exec_cmd(char **cmd, t_shell *shell)
 	char	*path;
 
 	if (!*cmd)
-		exit (0);
+		exit(0);
 	if (run_builtin(shell, cmd))
 		exit(EXIT_SUCCESS);
 	if (!ft_strchr(cmd[0], '/'))
@@ -70,14 +70,15 @@ void	exec_cmd(char **cmd, t_shell *shell)
 		else
 			path = NULL;
 	}
-	if (!path) {
-        unix_error("command error", cmd[0]);
-        exit(127);
-    }
+	if (!path)
+	{
+		unix_error("command error", cmd[0]);
+		exit(127);
+	}
 	if (execve(path, cmd, shell->my_env) == -1)
 	{
 		free(path);
 		unix_error("execve error", NULL);
-		exit (127);
+		exit(127);
 	}
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   build_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 20:10:06 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:14:10 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 t_Token_Type	ft_infile_mode(const char *input, char *last_redir)
 {
@@ -59,10 +58,11 @@ t_Token_Type	ft_outfile_mode(const char *input)
 	return (mode);
 }
 
-char	*get_redirection(const char *input, char *last_redir, bool is_heredoc, bool *save_more)
+char	*get_redirection(const char *input, char *last_redir, bool is_heredoc,
+		bool *save_more)
 {
 	size_t	len;
-	char    *tmp;
+	char	*tmp;
 
 	while (*input && ft_isspace(*input))
 		input++;
@@ -76,7 +76,7 @@ char	*get_redirection(const char *input, char *last_redir, bool is_heredoc, bool
 	{
 		*save_more = false;
 		if (last_redir)
-		free(last_redir);
+			free(last_redir);
 		return (tmp);
 	}
 	if (last_redir)
@@ -90,7 +90,7 @@ char	*ft_infile_content(const char *input)
 	int		d_quote;
 	char	*last_redir;
 	bool	is_heredoc;
-	bool    save_more;
+	bool	save_more;
 
 	last_redir = NULL;
 	s_quote = 0;
@@ -108,7 +108,8 @@ char	*ft_infile_content(const char *input)
 				input++;
 			}
 			if (save_more)
-				last_redir = get_redirection(input, last_redir, is_heredoc, &save_more);
+				last_redir = get_redirection(input, last_redir, is_heredoc,
+						&save_more);
 			if (last_redir == NULL)
 				return (NULL);
 		}
@@ -121,7 +122,7 @@ char	*ft_outfile_content(const char *input)
 	int		s_quote;
 	int		d_quote;
 	char	*last_redir;
-	bool    save_more;
+	bool	save_more;
 
 	last_redir = NULL;
 	s_quote = 0;
