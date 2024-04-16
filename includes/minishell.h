@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 21:49:18 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:32:35 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_shell
 extern int			g_status;
 
 // /parse_input/parser.c
-int					sanitize_input(const char *input);
+int	                sanitize_input(const char *input, int within_dq_sent, int within_sq_sent);
 int					parse_input(t_shell *shell);
 
 // /parse/input/build_cmd.c
