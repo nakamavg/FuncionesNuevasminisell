@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 16:42:00 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:08:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ char	**expand_variable(char **cmd, t_shell *shell, int s_quote, int d_quote)
 {
 	int	idx;
 	int	jdx;
-	int	s_quote;
-	int	d_quote;
 
 	idx = -1;
 	while (cmd[++idx])
