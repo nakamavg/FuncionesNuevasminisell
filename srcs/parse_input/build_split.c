@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/14 18:25:45 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:34:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,6 @@ static char	**ft_split_cmd(char const *s)
 			s++;
 	}
 	return (out);
-}
-
-void	process_in(char **cmd_list, char *in, int *idx)
-{
-	char	*tmp_cmp;
-
-	if (!cmd_list)
-		return ;
-	while (cmd_list[*idx])
-	{
-		tmp_cmp = ft_strtrim(cmd_list[*idx], "<");
-		if (check_names(tmp_cmp, in))
-			break ;
-		free(tmp_cmp);
-		(*idx)++;
-	}
-	if (*tmp_cmp)
-		free(tmp_cmp);
-	(*idx)++;
 }
 
 void	process_in_out(char **cmd_list, char *in, char *out, int *idx)
@@ -100,9 +81,9 @@ void	free_cmd_list(char **cmd_list, int up_to_idx)
 	}
 }
 
-void    process_cmd_list(char **cmd_list, char *out, int *idx)
+void	process_cmd_list(char **cmd_list, char *out, int *idx)
 {
-	char    *tmp;
+	char	*tmp;
 	int		jdx;
 
 	jdx = 0;

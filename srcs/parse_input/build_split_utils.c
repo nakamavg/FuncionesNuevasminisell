@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   build_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:25:06 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/14 18:32:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:35:38 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void advance_quotes(const char *s, ssize_t *idx)
+static void	advance_quotes(const char *s, ssize_t *idx)
 {
-	int quote;
+	int	quote;
 
 	quote = s[*idx];
 	(*idx)++;
@@ -22,15 +22,15 @@ static void advance_quotes(const char *s, ssize_t *idx)
 		(*idx)++;
 }
 
-static void advance_redirects(const char *s, ssize_t *idx)
+static void	advance_redirects(const char *s, ssize_t *idx)
 {
 	while (ft_isspace(s[*idx + 1]))
 		(*idx)++;
 }
 
-ssize_t break_content(const char *s, char c, char **out)
+ssize_t	break_content(const char *s, char c, char **out)
 {
-	ssize_t idx;
+	ssize_t	idx;
 
 	idx = 0;
 	while (s[idx])
