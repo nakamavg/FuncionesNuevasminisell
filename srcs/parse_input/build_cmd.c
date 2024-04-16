@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/16 22:24:47 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/16 22:42:26 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_cmd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:56:34 by alberrod          #+#    #+#             */
@@ -36,7 +48,9 @@ void	build_cmdlst(const char *input, t_shell *shell)
 {
 	int		idx;
 	int		pipe_idx;
+	int     len;
 
+	len = (int)ft_strlen(input);
 	idx = -1;
 	pipe_idx = 0;
 	while (input[++idx])
@@ -44,8 +58,7 @@ void	build_cmdlst(const char *input, t_shell *shell)
 		while (input[idx] && ft_isspace(input[idx]))
 			idx++;
 		idx = advance_quotes(input, idx);
-		if (input[idx] && (input[idx] == '|' || idx == (int)ft_strlen(input)
-				- 1))
+		if (input[idx] && (input[idx] == '|' || idx == len - 1))
 		{
 			if (input[idx] != '|')
 				idx++;
