@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 08:08:22 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/12 08:08:38 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:58:41 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	get_things(t_shell *shell, bool update)
 		free(shell->prompt);
 		shell->prompt = ft_strjoin(shell->user, " > ");
 	}
+	free(shell->prompt);
 	shell->prompt = ft_sprintf("%s%s%s %s> %s", PURPLE, shell->user, RESET,
 			YELLOW, RESET);
 }
@@ -89,7 +90,7 @@ void	ft_env_split(t_shell *shell)
 		while (shell->my_env[i][++jdx] != '=')
 			;
 		name = ft_substr(shell->my_env[i], 0, jdx);
-		value = ft_strdup(shell->my_env[i] + jdx + 1);
+		value = ft_strdup(shell->my_env[i] + jdx );
 		add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
 	}
 }
