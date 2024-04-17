@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:51:32 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/17 23:04:16 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:09:46 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ void	free_list(t_my_env *env_list)
 	tmp = env_list;
 	while (tmp)
 	{
-		printf("freeing %s\n", tmp->name);
-		
 		tmp2 = tmp->next;
 		free(tmp->name);
 		if (*(tmp->value))
 			free(tmp->value);
-		if(tmp != NULL)
+		if (tmp != NULL)
 			free(tmp);
 		tmp = tmp2;
 	}
