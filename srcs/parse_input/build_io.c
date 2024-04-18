@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 21:39:54 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 08:22:24 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*get_redirection(const char *input, char *last_redir, bool is_heredoc,
 		input++;
 	if (!*input)
 		return (NULL);
+	if (*input == '<' || *input == '>' || *input == '$')
+		return (ft_strdup("ambiguous_filename"));
 	len = 0;
 	while (input[len] && !ft_isspace(input[len]))
 		len++;
