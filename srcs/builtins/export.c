@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/18 04:30:29 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 04:48:24 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ bool	check_if_exist(t_shell *env, char *name, char *value)
 	{
 		if (check_names(tmp->name, name))
 		{
+			free(tmp->value);
 			tmp->value = value;
 			return (1);
 		}
