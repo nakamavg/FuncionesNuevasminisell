@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/18 01:14:05 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:12:26 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	handler_int(int sig)
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
-		printf("exit 3 \n");
+	{
+		disable_echo_ctrl_c();
+		if (rl_on_new_line() == -1)
+			exit(-1);
+		g_status = 0;
+		rl_replace_line("\n", 0);
+		rl_redisplay();
+	}
 	return ;
 }
 
