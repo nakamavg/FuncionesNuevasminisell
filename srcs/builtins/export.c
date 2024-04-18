@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/11 06:52:39 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/18 03:01:37 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	equal_handler(t_shell *shell, char *name, char *value)
 void	realloc_env(t_shell *shell, char **newvar, bool *error_handler)
 {
 	int		i;
-	char	**split;
+	char	*split[2];
 	bool	local_error;
 
 	local_error = false;
@@ -48,19 +48,18 @@ void	realloc_env(t_shell *shell, char **newvar, bool *error_handler)
 	while (newvar[++i])
 	{
 		local_error = false;
-		split = ft_split(newvar[i], '=');
+		split[0] = ft_substr(newvar[i], 0, ft_strchr(newvar[i], '=') - newvar[i]);
+		split[1] = ft_substr(ft_strchr(newvar[i], '=') + 1, 0, ft_strlen(ft_strchr(newvar[i], '=') + 1));
 		handle_errors_export(split[0], &local_error);
 		if (local_error)
 		{
 			*error_handler = true;
-			free(split);
 			continue ;
 		}
 		if (!split[1])
 			equal_handler(shell, split[0], "");
 		else
 			equal_handler(shell, split[0], split[1]);
-		free(split);
 	}
 }
 
