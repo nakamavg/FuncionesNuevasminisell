@@ -63,7 +63,7 @@ clean:
 
 fclean: clean
 	rm -rf *.dSYM
-	rm - srcs/libft/libft.a
+	rm -rf srcs/libft/libft.a
 
 re: fclean all
 

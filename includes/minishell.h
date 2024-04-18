@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 05:14:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/18 05:15:24 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 05:54:23 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ typedef struct s_shell
 extern int			g_status;
 
 // /parse_input/parser.c
-int					sanitize_input(const char *input,
-						int within_dq_sent, int within_sq_sent);
+int					sanitize_input(const char *input, int within_dq_sent,
+						int within_sq_sent);
 int					parse_input(t_shell *shell);
 
 // /parse/input/build_cmd.c
@@ -139,15 +139,15 @@ void				add_pipe(t_input *cmd_list, t_cmd *new_token);
 
 // /parse/input/build_io.c
 t_Token_Type		ft_infile_mode(const char *input, char *last_redir);
-char				*ft_infile_content(const char *input,
-						int s_quote, int d_quote);
+char				*ft_infile_content(const char *input, int s_quote,
+						int d_quote);
 t_Token_Type		ft_outfile_mode(const char *input);
 char				*ft_outfile_content(const char *input);
 
 // /parse/input/build_variable.c
 char				*get_the_variable(char *cmd, t_shell *shell);
-char				**expand_variable(char **cmd, t_shell *shell,
-						int s_quote, int d_quote);
+char				**expand_variable(char **cmd, t_shell *shell, int s_quote,
+						int d_quote);
 
 // /parse/input/handle_quotes.c
 void				set_quote(int *s_quote, int *d_quote, char c);
@@ -228,7 +228,7 @@ bool				check_if_exist(t_shell *env, char *name, char *value);
 void				handle_errors_export(char *input, bool *local_error);
 t_my_env			*go_to_end(t_my_env *env);
 void				sort_env(t_my_env *env);
-void                handle_split_env(char **name, char **value, char *newvar);
+void				handle_split_env(char **name, char **value, char *newvar);
 
 // exit.c
 int					exit_shell(t_shell *shell, char **cmd);
