@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:04:45 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/18 04:48:24 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 05:42:29 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	equal_handler(t_shell *shell, char *name, char *value)
 	if (check_if_exist(shell, name, value))
 		return (free(name));
 	add_env(&shell->env_list, ft_envnew(name, value, shell->env_list));
-	sort_env(shell->env_sys_end);
+	if (shell->env_sys_end->next)
+		sort_env(shell->env_sys_end->next);
 }
 
 void	realloc_env(t_shell *shell, char **newvar, bool *error_handler)
@@ -49,20 +50,13 @@ void	realloc_env(t_shell *shell, char **newvar, bool *error_handler)
 	while (newvar[++i])
 	{
 		local_error = false;
-		if (ft_strchr(newvar[i], '=') == NULL)
-		{
-			split[0] = ft_strdup(newvar[i]);
-			split[1] = ft_strdup(" ");
-		}
-		else
-		{
-			split[0] = ft_substr(newvar[i], 0, ft_strchr(newvar[i], '=') - newvar[i]);
-			split[1] = ft_substr(ft_strchr(newvar[i], '=') + 1, 0, ft_strlen(ft_strchr(newvar[i], '=') + 1));
-		}
+		handle_split_env(&split[0], &split[1], newvar[i]);
 		handle_errors_export(split[0], &local_error);
 		if (local_error)
 		{
 			*error_handler = true;
+			free(split[0]);
+			free(split[1]);
 			continue ;
 		}
 		equal_handler(shell, split[0], split[1]);

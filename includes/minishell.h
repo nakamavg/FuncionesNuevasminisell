@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/18 05:14:16 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/18 05:15:24 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:37:31 by alberrod          #+#    #+#             */
@@ -216,6 +228,7 @@ bool				check_if_exist(t_shell *env, char *name, char *value);
 void				handle_errors_export(char *input, bool *local_error);
 t_my_env			*go_to_end(t_my_env *env);
 void				sort_env(t_my_env *env);
+void                handle_split_env(char **name, char **value, char *newvar);
 
 // exit.c
 int					exit_shell(t_shell *shell, char **cmd);

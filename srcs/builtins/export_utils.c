@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 00:58:24 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/17 19:14:50 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/18 05:42:24 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,19 @@ void	handle_errors_export(char *input, bool *local_error)
 				break ;
 			}
 		}
+	}
+}
+
+void handle_split_env(char **name, char **value, char *newvar)
+{
+	if (ft_strchr(newvar, '=') == NULL)
+	{
+		*name = ft_strdup(newvar);
+		*value = ft_strdup(" ");
+	}
+	else
+	{
+		*name = ft_substr(newvar, 0, ft_strchr(newvar, '=') - newvar);
+		*value = ft_substr(ft_strchr(newvar, '=') + 1, 0, ft_strlen(ft_strchr(newvar, '=') + 1));
 	}
 }
