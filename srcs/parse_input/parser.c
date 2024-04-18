@@ -6,11 +6,20 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/18 07:39:50 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 08:01:32 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	is_valid_redir_sanitize(const char *c, int within_dq_sent,
+		int within_sq_sent)
+{
+	if ((c[0] == '>' || c[0] == '<') && !within_dq_sent && !within_sq_sent)
+		if (!c[1])
+			return (1);
+	return (0);
+}
 
 int	sanitize_input(const char *input, int within_dq_sent, int within_sq_sent)
 {
@@ -32,11 +41,8 @@ int	sanitize_input(const char *input, int within_dq_sent, int within_sq_sent)
 			if (input[i] == '|')
 				return (1);
 		}
-		if (*input == '>' && !within_dq_sent && !within_sq_sent)
-		{
-			if (!input[1])
-				return (1);
-		}
+		if (is_valid_redir_sanitize(input, within_dq_sent, within_sq_sent))
+			return (1);
 		input++;
 	}
 	if (within_sq_sent || within_dq_sent)
