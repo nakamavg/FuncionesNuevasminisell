@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 23:31:57 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/18 07:39:50 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int	sanitize_input(const char *input, int within_dq_sent, int within_sq_sent)
 			while (ft_isspace(input[++i]) || ft_strchr("\"'<>$", input[i]))
 				;
 			if (input[i] == '|')
+				return (1);
+		}
+		if (*input == '>' && !within_dq_sent && !within_sq_sent)
+		{
+			if (!input[1])
 				return (1);
 		}
 		input++;
