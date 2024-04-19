@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 05:14:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/18 05:54:23 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 00:27:06 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_shell
 }					t_shell;
 
 extern int			g_status;
+extern bool			g_cmd;
 
 // /parse_input/parser.c
 int					sanitize_input(const char *input, int within_dq_sent,
