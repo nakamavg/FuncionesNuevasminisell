@@ -5,6 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/20 12:32:14 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/20 18:34:33 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_pipe.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:11:38 by alberrod          #+#    #+#             */
 /*   Updated: 2024/04/18 01:13:01 by alberrod         ###   ########.fr       */
 /*                                                                            */
@@ -31,6 +43,7 @@ t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
 		token->write_mode = ft_outfile_mode(token->text);
 	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
 	token->cmd_list = expand_variable(token->cmd_list, shell, 0, 0);
+	token->cmd_list = trim_quotes(token->cmd_list);
 	token->next_cmd = NULL;
 	token->prev_token = NULL;
 	return (token);

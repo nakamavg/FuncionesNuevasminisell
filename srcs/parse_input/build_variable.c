@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 17:08:18 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:35:01 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

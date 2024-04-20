@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 21:15:04 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:36:13 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,25 @@ char	**cmd_split(const char *text, char *in, char *out)
 	new_list = process_cmd_list(cmd_list, out, &idx);
 	free_array_of_strings(cmd_list);
 	return (new_list);
+}
+
+char	**trim_quotes(char **cmd_list)
+{
+	int		idx;
+	char	**tmp_list;
+
+	tmp_list = ft_calloc(ft_strlen_pp(cmd_list) + 1, sizeof(char *));
+	idx = -1;
+	while (cmd_list[++idx])
+	{
+		if (cmd_list[idx][0] == '"')
+			tmp_list[idx] = ft_strtrim(cmd_list[idx], "\"");
+		else if (cmd_list[idx][0] == '\'')
+			tmp_list[idx] = ft_strtrim(cmd_list[idx], "'");
+		else
+			tmp_list[idx] = ft_strdup(cmd_list[idx]);
+		free(cmd_list[idx]);
+	}
+	free(cmd_list);
+	return (tmp_list);
 }
