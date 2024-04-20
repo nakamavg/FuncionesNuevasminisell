@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 05:14:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/20 00:39:01 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 03:05:05 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,8 @@ void				delone_env(t_my_env *shell);
 // cmd_handler.c
 void				command_handler(t_shell *shell);
 int					run_builtin(t_shell *shell, char **cmd);
-
+//signals.c
+void				init_signals(bool *signal_cmd);
 // cd.c
 int					cd(t_shell *shell, char **cmd);
 

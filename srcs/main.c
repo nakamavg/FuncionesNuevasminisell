@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:02 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/20 02:17:08 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 03:11:32 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,72 +23,30 @@ void	disable_echo_ctrl_c(void)
 	tcsetattr(0, TCSANOW, &term);
 }
 
-void	handler_true(int sig)
+void	handle_input(t_shell *shell, bool *s_flag)
 {
-	if (sig == SIGINT)
-	{
-			rl_on_new_line();
-			rl_replace_line("", 0);
-	}
-	return ;
-}
-void handler_false (int sig)
-{
-	if (sig == SIGINT)
-	{
-			ft_putstr_fd("\n", STDOUT_FILENO);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-			rl_on_new_line();
-			rl_replace_line("", 0);
-	}
-	
+	add_history(shell->input);
+	if (parse_input(shell))
+		return ;
+	*(s_flag) = true;
+	init_signals(s_flag);
+	command_handler(shell);
+	cleanup_cmd_list(&shell->parsed_input);
 }
 
-void	init_signals(bool *signal_cmd)
-{
-	if (*signal_cmd)
-	{
-		signal(SIGINT, &handler_true);
-		signal(SIGQUIT,	&handler_false);
-	}
-	else if (!*signal_cmd)
-	{
-		signal(SIGINT,	&handler_false);
-		
-		signal(SIGQUIT, SIG_IGN);
-			*signal_cmd = false;
-	}
-	
-
-}
-
-void	shell_loop(t_shell *shell,bool *s_flag)
+void	shell_loop(t_shell *shell, bool *s_flag)
 {
 	char	*tmp;
 
 	while (42)
 	{
- 		
-		*(s_flag)= false;
+		*(s_flag) = false;
 		init_signals(s_flag);
 		tmp = readline(shell->prompt);
 		shell->input = ft_strtrim(tmp, " \t\n\v\f\r");
 		free(tmp);
 		if (shell->input && *shell->input)
-		{
-			add_history(shell->input);
-			if (parse_input(shell))
-				continue ;
-			*(s_flag) = true;
-			init_signals(s_flag);
-			command_handler(shell);
-			cleanup_cmd_list(&shell->parsed_input);
-		}
+			handle_input(shell, s_flag);
 		else if (shell->input == NULL)
 		{
 			ft_putstr_fd("exit \n", STDOUT_FILENO);
