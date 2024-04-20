@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/20 19:00:59 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:02:38 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ char	*extract_path(char *raw_path, char *cmd)
 	char	*exec_path;
 	int		idx;
 
+	if (!raw_path)
+	{
+		errno = ENOENT;
+		return (NULL);
+	}
 	path_array = ft_split(raw_path, ':');
 	if (!path_array)
 		return (NULL);

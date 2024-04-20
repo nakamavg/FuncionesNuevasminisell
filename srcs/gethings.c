@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 08:08:22 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/17 23:06:23 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:57:35 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*search_things(t_shell *shell, char *search, char **original)
 		}
 		tmp = tmp->next;
 	}
+	if (*original != NULL)
+		free(*original);
 	return (NULL);
 }
 
@@ -52,13 +54,12 @@ void	get_things(t_shell *shell, bool update)
 	shell->path = search_things(shell, "PATH", &shell->path);
 	if (!update)
 		shell->env_sys_end = go_to_end(shell->env_list);
-	if (update)
-	{
+	if (shell->prompt)
 		free(shell->prompt);
-		shell->prompt = ft_strjoin(shell->user, " > ");
-	}
-	free(shell->prompt);
-	shell->prompt = ft_sprintf("%s%s%s %s> %s", PURPLE, shell->user, RESET,
+	if (!shell->user)
+		shell->prompt = ft_sprintf("%s%s%s", YELLOW, "> ", RESET);
+	else
+		shell->prompt = ft_sprintf("%s%s%s %s> %s", PURPLE, shell->user, RESET,
 			YELLOW, RESET);
 }
 
