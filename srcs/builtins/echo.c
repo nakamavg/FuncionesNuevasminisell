@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/12 08:06:20 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 12:57:33 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,7 @@ static void	print_escaped_characters(char *str)
 	int	len;
 
 	len = ft_strlen(str);
-	if (str[0] == '"' || str[0] == '\'')
-	{
-		idx = 1;
-		len--;
-	}
-	else
-		idx = 0;
+	idx = 0;
 	while (idx < len)
 	{
 		if (str[idx] == '\\' && str[idx + 1] != '\0')
