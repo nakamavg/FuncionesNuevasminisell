@@ -9,6 +9,7 @@ LDFLAGS	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 FILES	=	srcs/main \
 			srcs/free_shell \
+			srcs/signals \
 			srcs/parse_input/parser \
 			srcs/parse_input/build_cmd \
 			srcs/parse_input/build_pipe \
