@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 08:08:22 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/20 20:57:35 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:20:31 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	get_things(t_shell *shell, bool update)
 		shell->prompt = ft_sprintf("%s%s%s", YELLOW, "> ", RESET);
 	else
 		shell->prompt = ft_sprintf("%s%s%s %s> %s", PURPLE, shell->user, RESET,
-			YELLOW, RESET);
+				YELLOW, RESET);
 }
 
 void	ft_getenv(t_shell *shell, char **env)
