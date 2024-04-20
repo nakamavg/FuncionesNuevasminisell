@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 05:14:16 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/20 03:05:05 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:35:14 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void				build_cmdlst(const char *input, t_shell *shell);
 
 // /parse/input/build_split.c
 char				**cmd_split(const char *text, char *in, char *out);
+char				**trim_quotes(char **cmd_list);
 
 // /parse/input/build_split_utils.c
 ssize_t				break_content(const char *s, char c, char **out);

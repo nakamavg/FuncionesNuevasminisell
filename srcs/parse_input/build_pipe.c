@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:32:14 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/20 12:48:12 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:34:33 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char **trim_quotes(char **cmd_list)
-{
-	int idx;
-	char **tmp_list;
-
-	tmp_list = ft_calloc(ft_strlen_pp(cmd_list) + 1, sizeof(char *));
-	idx = -1;
-	while (cmd_list[++idx])
-	{
-		if (cmd_list[idx][0] == '"')
-			tmp_list[idx] = ft_strtrim(cmd_list[idx], "\"");
-		else if (cmd_list[idx][0] == '\'')
-			tmp_list[idx] = ft_strtrim(cmd_list[idx], "'");
-		else
-			tmp_list[idx] = ft_strdup(cmd_list[idx]);
-		free(cmd_list[idx]);
-	}
-	free(cmd_list);
-	return (tmp_list);
-}
 
 t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
 	t_shell *shell)
