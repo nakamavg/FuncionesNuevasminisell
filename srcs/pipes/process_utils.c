@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:46:59 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/16 21:43:43 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/20 19:00:59 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ char	*extract_path(char *raw_path, char *cmd)
 	{
 		exec_path = ft_sprintf("%s/%s", path_array[idx], cmd);
 		if (access(exec_path, X_OK) == 0)
+		{
+			while (path_array[idx])
+				free(path_array[idx++]);
+			free(path_array);
 			return (exec_path);
+		}
 		free(path_array[idx++]);
 		free(exec_path);
 	}

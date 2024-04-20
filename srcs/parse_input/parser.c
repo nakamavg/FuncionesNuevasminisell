@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/18 08:01:32 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/20 19:02:52 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	parse_input(t_shell *shell)
 	if (sanitize_input(shell->input, 0, 0))
 	{
 		printf("Error: Non-Valid Input\n");
-		free(shell->input);
 		return (1);
 	}
 	build_cmdlst(shell->input, shell);
