@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 04:25:49 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/20 21:24:30 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:46:11 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	free_array_of_strings(char **env)
 {
 	int	i;
 
-	if (!env)
-		return ;
 	i = -1;
 	while (env[++i])
 		free(env[i]);
