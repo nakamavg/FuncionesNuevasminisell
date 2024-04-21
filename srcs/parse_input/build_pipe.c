@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   build_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 00:10:06 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/22 01:18:10 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_pipe.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:32:14 by alberrod          #+#    #+#             */
@@ -24,6 +36,46 @@
 
 #include "minishell.h"
 
+void    find_special_char(char *cmd, int s_quote, int d_quote, int *cleanup)
+{
+	int idx;
+
+	idx = -1;
+	while (cmd[++idx])
+	{
+		set_quote(&s_quote, &d_quote, cmd[idx]);
+		if (cmd[idx] == '>' && !d_quote && !s_quote )
+		{
+			*cleanup = 1;
+			return ;
+		}
+	}
+	*cleanup = 0;
+
+}
+
+char **set_for_echo(char **cmd_list)
+{
+	int     idx;
+	int     cleanup;
+	char    **tmp_list;
+
+	if (!cmd_list || !check_names(cmd_list[0], "echo"))
+		return (cmd_list);
+	idx = -1;
+	tmp_list = ft_calloc(ft_strlen_pp(cmd_list) + 1, sizeof(char *));
+	while (cmd_list[++idx])
+	{
+		find_special_char(cmd_list[idx], 0, 0, &cleanup);
+		if (cleanup)
+			tmp_list[idx] = ft_strdup(" ");
+		else
+			tmp_list[idx] = ft_strdup(cmd_list[idx]);
+	}
+	free_array_of_strings(cmd_list);
+	return (tmp_list);
+}
+
 t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
 	t_shell *shell)
 {
@@ -43,6 +95,7 @@ t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
 		token->write_mode = ft_outfile_mode(token->text);
 	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
 	token->cmd_list = expand_variable(token->cmd_list, shell, 0, 0);
+	token->cmd_list = set_for_echo(token->cmd_list);
 	token->cmd_list = trim_quotes(token->cmd_list);
 	token->next_cmd = NULL;
 	token->prev_token = NULL;
