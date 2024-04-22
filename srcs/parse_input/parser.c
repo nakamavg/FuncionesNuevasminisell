@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 21:15:19 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:42:36 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,29 @@ bool	is_valid_redir_sanitize(const char *c, int within_dq_sent,
 	return (0);
 }
 
-int	sanitize_input(const char *input, int within_dq_sent, int within_sq_sent)
+int	sanitize_input(const char *in, int within_dq_sent, int within_sq_sent)
 {
 	int	i;
 
-	while (input != NULL && *input)
+	while (in != NULL && *in)
 	{
 		i = 0;
-		if (*input == '\"' && !within_sq_sent)
+		if (*in == '\"' && !within_sq_sent)
 			within_dq_sent = !within_dq_sent;
-		if (*input == '\'' && !within_dq_sent)
+		if (*in == '\'' && !within_dq_sent)
 			within_sq_sent = !within_sq_sent;
-		if (*input == '|' && !within_dq_sent && !within_sq_sent)
+		if (*in == '|' && !within_dq_sent && !within_sq_sent)
 		{
-			if (!input[1])
+			if (!in[1])
 				return (1);
-			while (input[++i] && (ft_isspace(input[i]) || ft_strchr("\"'<>$", input[i])))
+			while (in[++i] && (ft_isspace(in[i]) || ft_strchr("\"'<>$", in[i])))
 				;
-			if (input[i] == '|')
+			if (in[i] == '|')
 				return (1);
 		}
-		if (is_valid_redir_sanitize(input, within_dq_sent, within_sq_sent))
+		if (is_valid_redir_sanitize(in, within_dq_sent, within_sq_sent))
 			return (1);
-		input++;
+		in++;
 	}
 	if (within_sq_sent || within_dq_sent)
 		return (1);

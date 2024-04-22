@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 21:11:25 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 21:11:25 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:42:05 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ typedef struct s_shell
 extern int			g_status;
 
 // /parse_input/parser.c
-int					sanitize_input(const char *input, int within_dq_sent,
+int					sanitize_input(const char *in, int within_dq_sent,
 						int within_sq_sent);
 int					parse_input(t_shell *shell);
 
@@ -161,7 +161,7 @@ void				free_output(char **output, size_t counter);
 t_cmd				*init_pipe(const char *text, size_t text_length,
 						int initial_idx, t_shell *shell);
 void				add_pipe(t_input *cmd_list, t_cmd *new_token);
-char                *trim_word_quotes(char *str, int s_quote, int d_quote);
+char				*trim_word_quotes(char *str, int s_quote, int d_quote);
 
 // /parse/input/build_io.c
 t_Token_Type		ft_infile_mode(const char *input, char *last_redir);
@@ -237,7 +237,7 @@ void				delone_env(t_my_env *shell);
 // cmd_handler.c
 void				command_handler(t_shell *shell);
 int					run_builtin(t_shell *shell, char **cmd);
-//signals.c
+// signals.c
 void				init_signals(bool *signal_cmd);
 // cd.c
 int					cd(t_shell *shell, char **cmd);
