@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 21:11:25 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/22 21:11:25 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 02:18:13 by alberrod          #+#    #+#             */
@@ -149,6 +161,7 @@ void				free_output(char **output, size_t counter);
 t_cmd				*init_pipe(const char *text, size_t text_length,
 						int initial_idx, t_shell *shell);
 void				add_pipe(t_input *cmd_list, t_cmd *new_token);
+char                *trim_word_quotes(char *str, int s_quote, int d_quote);
 
 // /parse/input/build_io.c
 t_Token_Type		ft_infile_mode(const char *input, char *last_redir);
