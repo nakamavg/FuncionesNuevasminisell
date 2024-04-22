@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:10:06 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 11:35:41 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 22:31:10 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@
 
 #include "minishell.h"
 
-char *trim_word_quotes(char *str, int s_quote, int d_quote)
+char	*trim_word_quotes(char *str, int s_quote, int d_quote)
 {
-	size_t idx;
-	int jdx;
-	char *out;
+	size_t	idx;
+	int		jdx;
+	char	*out;
 
 	out = ft_calloc(ft_strlen(str) + 1, sizeof(char *));
 	idx = 0;
@@ -59,29 +59,28 @@ char *trim_word_quotes(char *str, int s_quote, int d_quote)
 	return (out);
 }
 
-void    find_special_char(char *cmd, int s_quote, int d_quote, int *cleanup)
+void	find_special_char(char *cmd, int s_quote, int d_quote, int *cleanup)
 {
-	int idx;
+	int	idx;
 
 	idx = -1;
 	while (cmd[++idx])
 	{
 		set_quote(&s_quote, &d_quote, cmd[idx]);
-		if (cmd[idx] == '>' && !d_quote && !s_quote )
+		if (cmd[idx] == '>' && !d_quote && !s_quote)
 		{
 			*cleanup = idx;
 			return ;
 		}
 	}
 	*cleanup = 0;
-
 }
 
-char **cleanup_redir_char(char **cmd_list)
+char	**cleanup_redir_char(char **cmd_list)
 {
-	int     idx;
-	int     cleanup;
-	char    **tmp_list;
+	int		idx;
+	int		cleanup;
+	char	**tmp_list;
 
 	if (!cmd_list)
 		return (NULL);
@@ -100,7 +99,7 @@ char **cleanup_redir_char(char **cmd_list)
 }
 
 t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
-	t_shell *shell)
+		t_shell *shell)
 {
 	t_cmd	*token;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 01:32:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 20:07:28 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 22:41:48 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,34 +55,32 @@ static char	**ft_split_cmd(char const *s)
 void	process_in_out(char **cmd_list, char *in, char *out, int *idx)
 {
 	char	*tmp_cmp;
-	int     redir;
+	int		redir;
 
 	redir = 0;
 	if (!cmd_list)
 		return ;
 	while (cmd_list[*idx])
 	{
-		if (ft_strchr(cmd_list[*idx], '>') || ft_strchr(cmd_list[*idx], '<'))
-			redir = !redir;
+		if (ft_strchr(cmd_list[*idx], '<'))
+			redir = 1;
+		if (ft_strchr(cmd_list[*idx], '>'))
+			redir = 2;
 		tmp_cmp = ft_strtrim(cmd_list[*idx], "<>\"\'");
-		if (redir && in && check_names(tmp_cmp, in))
-		{
-			free(tmp_cmp);
+		if (redir == 1 && in && check_names(tmp_cmp, in))
 			break ;
-		}
-		if (redir && out && check_names(tmp_cmp, out))
-		{
-			free(tmp_cmp);
+		if (redir == 2 && out && check_names(tmp_cmp, out))
 			break ;
-		}
 		free(tmp_cmp);
 		(*idx)++;
 	}
+	if (tmp_cmp)
+		free(tmp_cmp);
 	if (*idx < ft_strlen_pp(cmd_list))
 		(*idx)++;
 }
 
-char	**process_cmd_list(char **cmd_list, char *out, int *idx)
+char	**process_cmd_list(char **cmd_list, int *idx)
 {
 	char	**new_list;
 	char	*tmp;
@@ -101,8 +99,6 @@ char	**process_cmd_list(char **cmd_list, char *out, int *idx)
 			free(tmp);
 			break ;
 		}
-//		if (ft_strncmp(tmp, out, ft_strlen(tmp)) && *tmp != '<' && *tmp != '>')
-		(void)out;
 		new_list[jdx++] = ft_strdup(tmp);
 		free(tmp);
 	}
@@ -122,15 +118,15 @@ char	**cmd_split(const char *text, char *in, char *out)
 		process_in_out(cmd_list, in, out, &idx);
 	if (idx == ft_strlen_pp(cmd_list))
 		idx = 0;
-	new_list = process_cmd_list(cmd_list, out, &idx);
+	new_list = process_cmd_list(cmd_list, &idx);
 	free_array_of_strings(cmd_list);
 	return (new_list);
 }
 
-char **trim_quotes(char **cmd_list)
+char	**trim_quotes(char **cmd_list)
 {
-	int     idx;
-	char    **tmp_list;
+	int		idx;
+	char	**tmp_list;
 
 	tmp_list = ft_calloc(ft_strlen_pp(cmd_list) + 1, sizeof(char *));
 	idx = -1;
@@ -138,5 +134,4 @@ char **trim_quotes(char **cmd_list)
 		tmp_list[idx] = trim_word_quotes(cmd_list[idx], 0, 0);
 	free(cmd_list);
 	return (tmp_list);
-
 }
