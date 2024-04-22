@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 02:18:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 02:18:13 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 20:39:15 by dgomez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,9 +257,5 @@ void				unset(t_shell *shell, char **cmd);
 
 // pwd.c
 void				pwd(void);
-
-
-// TO ORGANISE
-char *trim_word_quotes(char *str, int s_quote, int d_quote);
 
 #endif
