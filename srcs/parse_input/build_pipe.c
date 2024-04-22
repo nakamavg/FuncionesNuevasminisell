@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:10:06 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 11:27:50 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:35:41 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void    find_special_char(char *cmd, int s_quote, int d_quote, int *cleanup)
 
 }
 
-char **set_for_echo(char **cmd_list)
+char **cleanup_redir_char(char **cmd_list)
 {
 	int     idx;
 	int     cleanup;
 	char    **tmp_list;
 
-	if (!cmd_list || !check_names(cmd_list[0], "echo"))
-		return (cmd_list);
+	if (!cmd_list)
+		return (NULL);
 	idx = -1;
 	tmp_list = ft_calloc(ft_strlen_pp(cmd_list) + 1, sizeof(char *));
 	while (cmd_list[++idx])
@@ -118,7 +118,7 @@ t_cmd	*init_pipe(const char *text, size_t text_length, int initial_idx,
 		token->write_mode = ft_outfile_mode(token->text);
 	token->cmd_list = cmd_split(token->text, token->infile, token->outfile);
 	token->cmd_list = expand_variable(token->cmd_list, shell, 0, 0);
-	token->cmd_list = set_for_echo(token->cmd_list);
+	token->cmd_list = cleanup_redir_char(token->cmd_list);
 	token->cmd_list = trim_quotes(token->cmd_list);
 	token->next_cmd = NULL;
 	token->prev_token = NULL;
