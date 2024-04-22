@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:10:06 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 02:24:48 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:27:50 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    find_special_char(char *cmd, int s_quote, int d_quote, int *cleanup)
 		set_quote(&s_quote, &d_quote, cmd[idx]);
 		if (cmd[idx] == '>' && !d_quote && !s_quote )
 		{
-			*cleanup = 1;
+			*cleanup = idx;
 			return ;
 		}
 	}
@@ -91,7 +91,7 @@ char **set_for_echo(char **cmd_list)
 	{
 		find_special_char(cmd_list[idx], 0, 0, &cleanup);
 		if (cleanup)
-			tmp_list[idx] = ft_strdup(" ");
+			tmp_list[idx] = ft_substr(cmd_list[idx], 0, cleanup);
 		else
 			tmp_list[idx] = ft_strdup(cmd_list[idx]);
 	}
