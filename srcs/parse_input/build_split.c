@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 01:32:12 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 22:41:48 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 23:04:00 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	process_in_out(char **cmd_list, char *in, char *out, int *idx)
 	char	*tmp_cmp;
 	int		redir;
 
+	redir = 0;
 	if (!cmd_list)
 		return ;
 	while (cmd_list[*idx])
@@ -71,9 +72,10 @@ void	process_in_out(char **cmd_list, char *in, char *out, int *idx)
 		if (redir == 2 && out && check_names(tmp_cmp, out))
 			break ;
 		free(tmp_cmp);
+		tmp_cmp = NULL;
 		(*idx)++;
 	}
-	if (tmp_cmp)
+	if (tmp_cmp != NULL)
 		free(tmp_cmp);
 	if (*idx < ft_strlen_pp(cmd_list))
 		(*idx)++;
