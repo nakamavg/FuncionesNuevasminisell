@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   build_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 01:32:12 by alberrod          #+#    #+#             */
+/*   Updated: 2024/04/22 02:21:51 by alberrod         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_split.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:40:01 by alberrod          #+#    #+#             */
@@ -110,23 +122,37 @@ char	**cmd_split(const char *text, char *in, char *out)
 	return (new_list);
 }
 
-char	**trim_quotes(char **cmd_list)
+//char	**trim_quotes(char **cmd_list)
+//{
+//	int		idx;
+//	char	**tmp_list;
+//
+//	tmp_list = ft_calloc(ft_strlen_pp(cmd_list) + 1, sizeof(char *));
+//	idx = -1;
+//	while (cmd_list[++idx])
+//	{
+//		if (cmd_list[idx][0] == '"')
+//			tmp_list[idx] = ft_strtrim(cmd_list[idx], "\"");
+//		else if (cmd_list[idx][0] == '\'')
+//			tmp_list[idx] = ft_strtrim(cmd_list[idx], "'");
+//		else
+//			tmp_list[idx] = ft_strdup(cmd_list[idx]);
+//		free(cmd_list[idx]);
+//	}
+//	free(cmd_list);
+//	return (tmp_list);
+//}
+
+char **trim_quotes(char **cmd_list)
 {
-	int		idx;
-	char	**tmp_list;
+	int     idx;
+	char    **tmp_list;
 
 	tmp_list = ft_calloc(ft_strlen_pp(cmd_list) + 1, sizeof(char *));
 	idx = -1;
 	while (cmd_list[++idx])
-	{
-		if (cmd_list[idx][0] == '"')
-			tmp_list[idx] = ft_strtrim(cmd_list[idx], "\"");
-		else if (cmd_list[idx][0] == '\'')
-			tmp_list[idx] = ft_strtrim(cmd_list[idx], "'");
-		else
-			tmp_list[idx] = ft_strdup(cmd_list[idx]);
-		free(cmd_list[idx]);
-	}
+		tmp_list[idx] = trim_word_quotes(cmd_list[idx], 0, 0);
 	free(cmd_list);
 	return (tmp_list);
+
 }

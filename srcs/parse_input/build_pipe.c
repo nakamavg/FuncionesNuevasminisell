@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:10:06 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 01:18:10 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 02:24:48 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,29 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char *trim_word_quotes(char *str, int s_quote, int d_quote)
+{
+	size_t idx;
+	int jdx;
+	char *out;
+
+	out = ft_calloc(ft_strlen(str) + 1, sizeof(char *));
+	idx = 0;
+	jdx = 0;
+	while (str[idx])
+	{
+		if (str[idx] == '\'' && !d_quote)
+			s_quote = !s_quote;
+		else if (str[idx] == '\"' && !s_quote)
+			d_quote = !d_quote;
+		if ((str[idx] != '\'' || d_quote) && (str[idx] != '\"' || s_quote))
+			out[jdx++] = str[idx];
+		idx++;
+	}
+	free(str);
+	return (out);
+}
 
 void    find_special_char(char *cmd, int s_quote, int d_quote, int *cleanup)
 {

@@ -6,7 +6,7 @@
 /*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 23:44:13 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/18 08:22:24 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/22 02:18:20 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*get_redirection(const char *input, char *last_redir, bool is_heredoc,
 	while (input[len] && !ft_isspace(input[len]))
 		len++;
 	tmp = ft_substr(input, 0, len);
+	tmp = trim_word_quotes(tmp, 0, 0);
 	if (access(tmp, F_OK) != 0 && !is_heredoc)
 	{
 		*save_more = false;
