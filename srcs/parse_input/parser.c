@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:35:38 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/22 21:42:36 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/22 22:46:12 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	sanitize_input(const char *in, int within_dq_sent, int within_sq_sent)
 				return (1);
 			while (in[++i] && (ft_isspace(in[i]) || ft_strchr("\"'<>$", in[i])))
 				;
-			if (in[i] == '|')
+			if (in[i] && in[i] == '|')
 				return (1);
 		}
 		if (is_valid_redir_sanitize(in, within_dq_sent, within_sq_sent))
