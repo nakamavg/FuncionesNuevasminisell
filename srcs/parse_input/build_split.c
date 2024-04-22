@@ -57,7 +57,6 @@ void	process_in_out(char **cmd_list, char *in, char *out, int *idx)
 	char	*tmp_cmp;
 	int		redir;
 
-	redir = 0;
 	if (!cmd_list)
 		return ;
 	while (cmd_list[*idx])
