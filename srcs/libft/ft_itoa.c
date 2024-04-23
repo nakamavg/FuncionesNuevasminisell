@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:52:47 by alberrod          #+#    #+#             */
-/*   Updated: 2024/01/26 06:34:43 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:54:16 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_itoa(int n)
 	long	positive_n;
 	char	*out;
 
-	if (n == 0)
+	if (!n || n == 0)
 	{
 		out = ft_strdup("0");
 		return (out);
