@@ -3,32 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 20:45:18 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/23 02:10:45 by alberrod         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <dgomez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:33:50 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/10 19:25:54 by dgomez-m         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:05:34 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-void    unset_value(t_shell *shell, char *name)
+void	unset_value(t_shell *shell, char *name)
 {
 	t_my_env	*tmp;
-	t_my_env    *next;
+	t_my_env	*next;
 
 	tmp = shell->env_list;
 	while (tmp)
