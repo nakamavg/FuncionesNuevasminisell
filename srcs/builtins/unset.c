@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 20:45:18 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/20 20:47:48 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/23 02:10:45 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,20 @@
 
 #include "../includes/minishell.h"
 
-void	unset_value(t_shell *shell, char *name)
+
+void    unset_value(t_shell *shell, char *name)
 {
 	t_my_env	*tmp;
+	t_my_env    *next;
 
 	tmp = shell->env_list;
 	while (tmp)
 	{
 		if (check_names(tmp->name, name))
 		{
+			next = tmp->next;
+			if (tmp == shell->env_list)
+				shell->env_list = next;
 			delone_env(tmp);
 			return ;
 		}
