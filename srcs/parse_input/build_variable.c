@@ -6,7 +6,7 @@
 /*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/23 18:05:01 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:39:00 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,24 @@ char	*get_the_variable(char *cmd, t_shell *shell)
 static int	replace_with_global(char **cmd, int idx, int jdx)
 {
 	char	*tmp;
+	char	*new_cmd;
 
+	tmp = NULL;
 	if (cmd[idx][jdx + 1] == '?')
 	{
-		tmp = ft_substr(cmd[idx], jdx + 2, ft_strlen(cmd[idx]) - jdx - 2);
+		jdx += 2;
+		if (cmd[idx][jdx] != '\0')
+			tmp = ft_substr(cmd[idx], jdx, ft_strlen(cmd[idx] + jdx));
+		if (tmp != NULL)
+		{
+			printf("tmp: %s\n", tmp);
+			new_cmd = ft_sprintf("%d%s", g_status, tmp);
+			free(tmp);
+		}
+		else
+			new_cmd = ft_sprintf("%d", g_status);
 		free(cmd[idx]);
-		cmd[idx] = ft_sprintf("%d%s", g_status, tmp);
-		free(tmp);
+		cmd[idx] = new_cmd;
 		return (1);
 	}
 	return (0);

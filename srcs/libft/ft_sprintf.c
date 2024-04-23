@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:27:50 by alberrod          #+#    #+#             */
-/*   Updated: 2024/01/09 21:57:24 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:40:10 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static char	*allocate_and_copy(char *old_result, char *tmp, int old_len)
 {
 	char	*result;
 
-	result = malloc(old_len + strlen(tmp) + 1);
+	result = malloc(old_len + ft_strlen(tmp) + 1);
 	ft_memcpy(result, old_result, old_len);
-	ft_memcpy(result + old_len, tmp, strlen(tmp));
-	result[old_len + strlen(tmp)] = '\0';
+	ft_memcpy(result + old_len, tmp, ft_strlen(tmp));
+	result[old_len + ft_strlen(tmp)] = '\0';
 	free(old_result);
 	free(tmp);
 	return (result);
@@ -59,7 +59,7 @@ static char	*handle_percent_case(char const **container, va_list *args,
 	int		old_len;
 
 	tmp = printer(++(*container), args);
-	old_len = strlen(result);
+	old_len = ft_strlen(result);
 	result = allocate_and_copy(result, tmp, old_len);
 	return (result);
 }
@@ -72,7 +72,7 @@ static char	*handle_normal_case(char const **container, char *result)
 	tmp = malloc(2);
 	tmp[0] = **container;
 	tmp[1] = '\0';
-	old_len = strlen(result);
+	old_len = ft_strlen(result);
 	result = allocate_and_copy(result, tmp, old_len);
 	return (result);
 }
