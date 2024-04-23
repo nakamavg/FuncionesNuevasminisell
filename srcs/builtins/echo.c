@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgomez-m <aecm.davidgomez@gmail.com>       +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 07:39:17 by dgomez-m          #+#    #+#             */
-/*   Updated: 2024/04/20 12:57:33 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:34:23 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,9 @@ static void	print_escaped_characters(char *str)
 
 	len = ft_strlen(str);
 	idx = 0;
-	while (idx < len)
+	while (str[idx] && idx < len)
 	{
-		if (str[idx] == '\\' && str[idx + 1] != '\0')
-		{
-			if ((str[idx + 1] == 'n') && (str[0] == '"' || str[0] == '\''))
-				printf("\\");
-			idx++;
-			printf("%c", str[idx]);
-		}
-		else
-			printf("%c", str[idx]);
+		printf("%c", str[idx]);
 		idx++;
 	}
 }
@@ -64,18 +56,21 @@ void	echo(char **cmd)
 	int	idx;
 	int	lnbr;
 
-	idx = 0;
+	idx = 1;
 	lnbr = 1;
-	if (cmd[1] && !ft_strncmp(cmd[1], "-n", ft_strlen(cmd[1])))
+	if (cmd[idx] && check_names(cmd[idx], "-n"))
 	{
 		lnbr = 0;
 		idx++;
 	}
-	while (cmd[++idx])
+	while (cmd[idx] && check_names(cmd[idx], "-n"))
+		idx++;
+	while (cmd[idx] && cmd[idx])
 	{
 		print_escaped_characters(cmd[idx]);
 		if (cmd[idx + 1])
 			printf(" ");
+		idx++;
 	}
 	if (!lnbr)
 		printf("%%");
