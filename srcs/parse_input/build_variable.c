@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberrod <alberrod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberrod <alberrod@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:22:03 by alberrod          #+#    #+#             */
-/*   Updated: 2024/04/23 19:19:23 by alberrod         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:53:18 by alberrod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	replace_with_global(char **cmd, int idx, int jdx)
 	char	*end;
 	char	*start;
 	char	*global;
+	char	*tmp;
 
 	end = NULL;
 	start = NULL;
@@ -71,15 +72,13 @@ static int	replace_with_global(char **cmd, int idx, int jdx)
 	{
 		jdx += 2;
 		if (cmd[idx][jdx] != '\0')
-			end = ft_substr(cmd[idx], jdx + 2, ft_strlen(cmd[idx] + jdx + 2));
+			end = ft_substr(cmd[idx], jdx, ft_strlen(cmd[idx] + jdx));
 		start = ft_substr(cmd[idx], 0, jdx - 2);
 		global = ft_sprintf("%d", g_status);
 		free(cmd[idx]);
-		cmd[idx] = ft_sprintf("%s%s%s", start, global, end);
-		free(start);
-		free(global);
-		free(end);
-		return (1);
+		tmp = ft_sprintf("%s%s%s", start, global, end);
+		cmd[idx] = ft_strtrim(tmp, " ");
+		return (free(tmp), free(start), free(global), free(end), 1);
 	}
 	return (0);
 }
